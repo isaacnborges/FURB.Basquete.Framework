@@ -6,18 +6,10 @@ using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Entities
 {
-    public class Time
+    public class Time : Entity
     {
-        [BsonRequired()]
-        [BsonId()]
-        public ObjectId Id { get; set; }
-
-        [BsonRequired()]
-        [BsonElement("nome")]
         public string Nome { get; set; }
 
-        [BsonRequired()]
-        [BsonElement("sigla")]
         public double Sigla { get; set; }
     }
 }

@@ -8,44 +8,44 @@ using System.Threading.Tasks;
 
 namespace FURB.Basquete.Framework.Domain.Interfaces.Repositories
 {
-    public interface IRepositoryBase<T> : IDisposable where T : class, new()
+    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : class, IEntity
     {
-        T Add(T model);
-        IEnumerable<T> Add(IEnumerable<T> models);
-        Task<T> AddAsync(T model);
-        Task<IEnumerable<T>> AddAsync(IEnumerable<T> models);
+        TEntity Add(TEntity model);
+        IEnumerable<TEntity> Add(IEnumerable<TEntity> models);
+        Task<TEntity> AddAsync(TEntity model);
+        Task<IEnumerable<TEntity>> AddAsync(IEnumerable<TEntity> models);
 
-        bool Edit(Expression<Func<T, bool>> filter, T model);
-        Task<bool> EditAsync(Expression<Func<T, bool>> filter, T model);
+        bool Edit(Expression<Func<TEntity, bool>> filter, TEntity model);
+        Task<bool> EditAsync(Expression<Func<TEntity, bool>> filter, TEntity model);
 
-        bool Update(Expression<Func<T, bool>> filter, UpdateDefinition<T> update);
-        bool UpdateAll(Expression<Func<T, bool>> filter, UpdateDefinition<T> update);
-        Task<bool> UpdateAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update);
-        Task<bool> UpdateAllAsync(Expression<Func<T, bool>> filter, UpdateDefinition<T> update);
+        bool Update(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update);
+        bool UpdateAll(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update);
+        Task<bool> UpdateAsync(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update);
+        Task<bool> UpdateAllAsync(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update);
 
-        T Find(Expression<Func<T, bool>> filter);
-        Task<T> FindAsync(Expression<Func<T, bool>> filter);
+        TEntity Find(Expression<Func<TEntity, bool>> filter);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> filter);
 
-        IEnumerable<T> GetAll();
-        IEnumerable<T> GetAll(Expression<Func<T, bool>> filter);
-        IEnumerable<T> GetAll<Tkey>(Expression<Func<T, bool>> filter, Expression<Func<T, Tkey>> orderBy);
-        Task<IList<T>> GetAllAsync();
-        Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> filter);
-        Task<IList<T>> GetAllAsync<Tkey>(Expression<Func<T, bool>> filter, Expression<Func<T, Tkey>> orderBy);
+        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter);
+        IEnumerable<TEntity> GetAll<Tkey>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, Tkey>> orderBy);
+        Task<IList<TEntity>> GetAllAsync();
+        Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter);
+        Task<IList<TEntity>> GetAllAsync<Tkey>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, Tkey>> orderBy);
 
-        IList<T> List<Tkey>(Expression<Func<T, Tkey>> orderBy, Expression<Func<T, bool>> filter = null);
-        Task<IList<T>> ListAsync<Tkey>(Expression<Func<T, Tkey>> orderBy, Expression<Func<T, bool>> filter = null);
+        IList<TEntity> List<Tkey>(Expression<Func<TEntity, Tkey>> orderBy, Expression<Func<TEntity, bool>> filter = null);
+        Task<IList<TEntity>> ListAsync<Tkey>(Expression<Func<TEntity, Tkey>> orderBy, Expression<Func<TEntity, bool>> filter = null);
 
-        bool Delete(Expression<Func<T, bool>> filter);
-        Task<bool> DeleteAsync(Expression<Func<T, bool>> filter);
+        bool Delete(Expression<Func<TEntity, bool>> filter);
+        Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> filter);
 
-        IMongoQueryable<T> Query();
+        IMongoQueryable<TEntity> Query();
 
         ObjectId CreateObjectId(string value);
 
         long Count();
-        long Count(Expression<Func<T, bool>> filter, CountOptions options = null);
+        long Count(Expression<Func<TEntity, bool>> filter, CountOptions options = null);
         Task<long> CountAsync();
-        Task<long> CountAsync(Expression<Func<T, bool>> filter, CountOptions options = null);
+        Task<long> CountAsync(Expression<Func<TEntity, bool>> filter, CountOptions options = null);
     }
 }

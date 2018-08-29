@@ -6,18 +6,10 @@ using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Entities
 {
-    public class Jogador
+    public class Jogador : Entity
     {
-        [BsonRequired()]
-        [BsonId()]
-        public ObjectId Id { get; set; }
-
-        [BsonRequired()]
-        [BsonElement("nome")]
         public string Nome { get; set; }
 
-        [BsonRequired()]
-        [BsonElement("posicao")]
         public double Posicao { get; set; }
     }
 }
