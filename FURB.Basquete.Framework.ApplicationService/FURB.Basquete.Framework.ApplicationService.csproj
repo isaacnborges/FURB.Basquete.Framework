@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\FURB.Basquete.Framework.Domain\FURB.Basquete.Framework.Domain.csproj" />
   </ItemGroup>
 
 </Project>

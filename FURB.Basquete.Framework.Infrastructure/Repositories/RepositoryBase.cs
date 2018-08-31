@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace FURB.Basquete.Framework.Infrastructure.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class, IEntity
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class, IEntity
     {        
         protected IConnect _connect { get; private set; }
         protected IMongoCollection<TEntity> _collection { get; private set; }
