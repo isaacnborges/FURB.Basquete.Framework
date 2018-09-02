@@ -1,4 +1,5 @@
-﻿using FURB.Basquete.Framework.Domain.Commands;
+﻿using FURB.Basquete.Framework.ApplicationService.Interfaces;
+using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,9 +18,16 @@ namespace FURB.Basquete.Framework.Web.Controllers
     public class ImportController : Controller
     {
         private IHostingEnvironment _hostingEnvironment;
-        public ImportController(IHostingEnvironment hostingEnvironment)
+        private readonly ITemporadaJogadorAppService _temporadaJogadorAppService;
+        private readonly ITemporadaTimeAppService _temporadaTimeAppService;
+
+        public ImportController(IHostingEnvironment hostingEnvironment, 
+                                ITemporadaJogadorAppService temporadaJogadorAppService,
+                                ITemporadaTimeAppService temporadaTimeAppService)
         {
             _hostingEnvironment = hostingEnvironment;
+            _temporadaJogadorAppService = temporadaJogadorAppService;
+            _temporadaTimeAppService = temporadaTimeAppService;
         }
 
         public IActionResult Index()
@@ -68,12 +76,13 @@ namespace FURB.Basquete.Framework.Web.Controllers
                     if (tipoImportacao.Equals("Times", StringComparison.InvariantCultureIgnoreCase))
                     {
                         var times = ObterTimes(primeiraAba, segundaAba);
+                        _temporadaTimeAppService.AdicionarTemporadaTimes(times);
                     }
                     else
                     {
                         var jogadores = ObterJogadores(primeiraAba, segundaAba);
-                    }
-                    
+                        _temporadaJogadorAppService.AdicionarTemporadaJogador(jogadores);
+                    }                    
                 }
             }
 

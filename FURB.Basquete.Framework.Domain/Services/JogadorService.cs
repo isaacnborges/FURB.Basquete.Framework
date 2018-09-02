@@ -11,5 +11,10 @@ namespace FURB.Basquete.Framework.Domain.Services
         {
             _jogadorRepository = jogadorRepository;
         }
+
+        public Jogador BuscarPorNome(string nome)
+        {
+            return _jogadorRepository.Find(x => x.Nome == nome);
+        }
     }
 }

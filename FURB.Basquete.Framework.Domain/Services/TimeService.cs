@@ -11,5 +11,10 @@ namespace FURB.Basquete.Framework.Domain.Services
         {
             _timeRepository = timeRepository;
         }
+
+        public Time BuscarPorNome(string nome)
+        {
+            return _timeRepository.Find(x => x.Nome == nome);
+        }
     }
 }

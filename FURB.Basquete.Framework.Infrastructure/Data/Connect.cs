@@ -9,10 +9,12 @@ namespace FURB.Basquete.Framework.Infrastructure.Data
         protected MongoClient Client { get; private set; }
 
         protected IMongoDatabase DataBase { get; private set; }
+
         public IMongoCollection<T> Collection<T>(string CollectionName)
         {
             return DataBase.GetCollection<T>(CollectionName);
         }
+
         public Connect(IConfig config)
         {
             Client = new MongoClient(config.MongoConnectionString);

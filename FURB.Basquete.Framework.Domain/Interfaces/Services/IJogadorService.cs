@@ -4,5 +4,6 @@ namespace FURB.Basquete.Framework.Domain.Interfaces.Services
 {
     public interface IJogadorService : IServiceBase<Jogador>
     {
+        Jogador BuscarPorNome(string nome);
     }
 }
