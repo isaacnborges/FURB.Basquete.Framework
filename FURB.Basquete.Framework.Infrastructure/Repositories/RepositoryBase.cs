@@ -53,18 +53,13 @@ namespace FURB.Basquete.Framework.Infrastructure.Repositories
 
         public bool Edit(Expression<Func<TEntity, bool>> filter, TEntity model)
         {
-            return _collection
-                .ReplaceOne(filter, model)
-                .ModifiedCount > 0;
+            return _collection.ReplaceOne(filter, model).ModifiedCount > 0;
         }
 
         public async Task<bool> EditAsync(Expression<Func<TEntity, bool>> filter, TEntity model)
         {
-            ReplaceOneResult result =
-                await _collection
-                .ReplaceOneAsync(filter, model);
-            return result
-                .ModifiedCount > 0;
+            ReplaceOneResult result = await _collection.ReplaceOneAsync(filter, model);
+            return result.ModifiedCount > 0;
         }
 
         public bool Update(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update)
@@ -83,15 +78,13 @@ namespace FURB.Basquete.Framework.Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update)
         {
-            UpdateResult result = await _collection
-                .UpdateOneAsync(filter, update);
+            UpdateResult result = await _collection.UpdateOneAsync(filter, update);
             return result.ModifiedCount > 0;
         }
 
         public async Task<bool> UpdateAllAsync(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update)
         {
-            UpdateResult result = await _collection
-                .UpdateManyAsync(filter, update);
+            UpdateResult result = await _collection.UpdateManyAsync(filter, update);
             return result.ModifiedCount > 0;
         }
 
@@ -104,17 +97,13 @@ namespace FURB.Basquete.Framework.Infrastructure.Repositories
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> filter)
         {
-            IAsyncCursor<TEntity> result = await _collection
-               .FindAsync(filter);
-            return result
-                .FirstOrDefault();
+            IAsyncCursor<TEntity> result = await _collection.FindAsync(filter);
+            return result.FirstOrDefault();
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _collection
-                .AsQueryable()
-                .AsEnumerable();
+            return _collection.AsQueryable().AsEnumerable();
         }
 
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> filter)
@@ -139,7 +128,6 @@ namespace FURB.Basquete.Framework.Infrastructure.Repositories
             return await _collection
               .AsQueryable()
               .ToListAsync();
-
         }
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter)
@@ -204,20 +192,13 @@ namespace FURB.Basquete.Framework.Infrastructure.Repositories
 
         public async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> filter)
         {
-            DeleteResult result = await _collection.
-                DeleteOneAsync(filter);
+            DeleteResult result = await _collection.DeleteOneAsync(filter);
             return result.DeletedCount > 0;
         }
 
         public IMongoQueryable<TEntity> Query()
         {
-            return _collection
-                .AsQueryable();
-        }
-
-        public ObjectId CreateObjectId(string value)
-        {
-            return ObjectId.Parse(value);
+            return _collection.AsQueryable();
         }
 
         internal void SetCollectionName()

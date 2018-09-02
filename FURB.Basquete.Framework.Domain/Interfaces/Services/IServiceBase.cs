@@ -38,14 +38,5 @@ namespace FURB.Basquete.Framework.Domain.Interfaces.Services
 
         bool Delete(Expression<Func<TEntity, bool>> filter);
         Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> filter);
-
-        IMongoQueryable<TEntity> Query();
-
-        ObjectId CreateObjectId(string value);
-
-        long Count();
-        long Count(Expression<Func<TEntity, bool>> filter, CountOptions options = null);
-        Task<long> CountAsync();
-        Task<long> CountAsync(Expression<Func<TEntity, bool>> filter, CountOptions options = null);
     }
 }

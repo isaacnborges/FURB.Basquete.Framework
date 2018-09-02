@@ -41,31 +41,6 @@ namespace FURB.Basquete.Framework.Domain.Services
             return _repository.AddAsync(models);
         }
 
-        public long Count()
-        {
-            return _repository.Count();
-        }
-
-        public long Count(Expression<Func<TEntity, bool>> filter, CountOptions options = null)
-        {
-            return _repository.Count(filter, options);
-        }
-
-        public Task<long> CountAsync()
-        {
-            return _repository.CountAsync();
-        }
-
-        public Task<long> CountAsync(Expression<Func<TEntity, bool>> filter, CountOptions options = null)
-        {
-            return _repository.CountAsync(filter, options);
-        }
-
-        public ObjectId CreateObjectId(string value)
-        {
-            return _repository.CreateObjectId(value);
-        }
-
         public bool Delete(Expression<Func<TEntity, bool>> filter)
         {
             return _repository.Delete(filter);
@@ -139,11 +114,6 @@ namespace FURB.Basquete.Framework.Domain.Services
         public Task<IList<TEntity>> ListAsync<Tkey>(Expression<Func<TEntity, Tkey>> orderBy, Expression<Func<TEntity, bool>> filter = null)
         {
             return _repository.ListAsync(orderBy, filter);
-        }
-
-        public IMongoQueryable<TEntity> Query()
-        {
-            return _repository.Query();
         }
 
         public bool Update(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update)

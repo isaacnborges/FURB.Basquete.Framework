@@ -10,6 +10,13 @@
         <div class="col-md-4">
             <input type="file" id="fUpload" name="files" class="form-control" />
         </div>
+    </div>
+    <br>
+    <label class="radio-inline"><input type="radio" name="tipoImportacao" value="times" checked>Times</label>
+    <label class="radio-inline"><input type="radio" name="tipoImportacao" value="jogadores">Jogadores</label>
+    <br>
+    <br>
+    <div class="row">
         <div class="col-md-8">
             <input type="button" id="btnUpload" value="Upload" />
         </div>
@@ -19,7 +26,8 @@
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $('#btnUpload').on('click', function () {
             var fileExtension = ['xls', 'xlsx'];
             var filename = $('#fUpload').val();
@@ -38,6 +46,8 @@
             var fileUpload = $("#fUpload").get(0);
             var files = fileUpload.files;
             fdata.append(files[0].name, files[0]);
+            var tipo = $("input[name='tipoImportacao']:checked").val();
+            fdata.append(tipo, files[0]);
             $.ajax({
                 type: "POST",
                 url: "/Import/OnPostImport",

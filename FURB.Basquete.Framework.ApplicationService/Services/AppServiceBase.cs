@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FURB.Basquete.Framework.ApplicationService.Services
 {
-    public class AppServiceBase<TEntity> : Interfaces.IAppServiceBase<TEntity> where TEntity : class, IEntity
+    public class AppServiceBase<TEntity> : IAppServiceBase<TEntity> where TEntity : class, IEntity
     {
         private readonly Domain.Interfaces.Services.IServiceBase<TEntity> _serviceBase;
 
@@ -39,31 +39,6 @@ namespace FURB.Basquete.Framework.ApplicationService.Services
         public Task<IEnumerable<TEntity>> AddAsync(IEnumerable<TEntity> models)
         {
             return _serviceBase.AddAsync(models);
-        }
-
-        public long Count()
-        {
-            return _serviceBase.Count();
-        }
-
-        public long Count(Expression<Func<TEntity, bool>> filter, CountOptions options = null)
-        {
-            return _serviceBase.Count(filter, options);
-        }
-
-        public Task<long> CountAsync()
-        {
-            return _serviceBase.CountAsync();
-        }
-
-        public Task<long> CountAsync(Expression<Func<TEntity, bool>> filter, CountOptions options = null)
-        {
-            return _serviceBase.CountAsync(filter, options);
-        }
-
-        public ObjectId CreateObjectId(string value)
-        {
-            return _serviceBase.CreateObjectId(value);
         }
 
         public bool Delete(Expression<Func<TEntity, bool>> filter)
@@ -139,11 +114,6 @@ namespace FURB.Basquete.Framework.ApplicationService.Services
         public Task<IList<TEntity>> ListAsync<Tkey>(Expression<Func<TEntity, Tkey>> orderBy, Expression<Func<TEntity, bool>> filter = null)
         {
             return _serviceBase.ListAsync(orderBy, filter);
-        }
-
-        public IMongoQueryable<TEntity> Query()
-        {
-            return _serviceBase.Query();
         }
 
         public bool Update(Expression<Func<TEntity, bool>> filter, UpdateDefinition<TEntity> update)
