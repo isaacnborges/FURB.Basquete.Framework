@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Entities;
 using FURB.Basquete.Framework.Domain.Interfaces.Repositories;
@@ -34,6 +35,14 @@ namespace FURB.Basquete.Framework.Domain.Services
                 jogador.Nome = j.Nome;
                 jogador.Posicao = j.Posicao;
                 _jogadorService.Add(jogador);
+            }
+
+            //obter registro com o ano
+            var anoBase = jogadores.FirstOrDefault().Ano;
+            var existeTemporada = _temporadaJogadorRepository.GetAll().Any(x => x.Ano == anoBase);
+            if (existeTemporada)
+            {
+                _temporadaJogadorRepository.Delete(x => x.Ano == anoBase);
             }
 
             var temporadaJogador = new TemporadaJogador();

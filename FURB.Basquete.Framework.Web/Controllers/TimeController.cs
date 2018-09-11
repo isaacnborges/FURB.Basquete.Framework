@@ -24,5 +24,15 @@ namespace FURB.Basquete.Framework.Web.Controllers
 
             return View(result);
         }
+
+        public IActionResult Detalhes(Guid id)
+        {
+            return View();
+        }
+
+        public IActionResult Detalhes(Guid id, TimeViewModel time)
+        {
+            return View();
+        }
     }
 }

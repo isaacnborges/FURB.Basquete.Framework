@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Entities;
 using FURB.Basquete.Framework.Domain.Interfaces.Repositories;
@@ -21,7 +22,7 @@ namespace FURB.Basquete.Framework.Domain.Services
         }
 
         public void AdicionarTemporadaTimes(IList<TemporadaTimeCommand> times)
-        {
+        {            
             //Adicionar Time
             foreach (var t in times)
             {
@@ -35,6 +36,14 @@ namespace FURB.Basquete.Framework.Domain.Services
                 time.Sigla = t.Sigla;
                 time.Conferencia = t.Conferencia;
                 _timeService.Add(time);
+            }
+
+            //obter registro com o ano
+            var anoBase = times.FirstOrDefault().Ano;
+            var existeTemporada = _temporadaTimeRepository.GetAll().Any(x => x.Ano == anoBase);
+            if (existeTemporada)
+            {
+                _temporadaTimeRepository.Delete(x => x.Ano == anoBase);
             }
 
             var temporadaTime = new TemporadaTime();

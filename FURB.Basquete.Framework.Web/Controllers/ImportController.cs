@@ -21,7 +21,7 @@ namespace FURB.Basquete.Framework.Web.Controllers
         private readonly ITemporadaJogadorAppService _temporadaJogadorAppService;
         private readonly ITemporadaTimeAppService _temporadaTimeAppService;
 
-        public ImportController(IHostingEnvironment hostingEnvironment, 
+        public ImportController(IHostingEnvironment hostingEnvironment,
                                 ITemporadaJogadorAppService temporadaJogadorAppService,
                                 ITemporadaTimeAppService temporadaTimeAppService)
         {
@@ -35,7 +35,7 @@ namespace FURB.Basquete.Framework.Web.Controllers
             return View();
         }
 
-        public ActionResult OnPostImport(string teste)
+        public ActionResult OnPostImport()
         {
             string tipoImportacao = Request.Form.Files[1].Name;
             IFormFile file = Request.Form.Files[0];
@@ -82,11 +82,12 @@ namespace FURB.Basquete.Framework.Web.Controllers
                     {
                         var jogadores = ObterJogadores(primeiraAba, segundaAba);
                         _temporadaJogadorAppService.AdicionarTemporadaJogador(jogadores);
-                    }                    
+                    }
                 }
             }
 
             return Content(sb.ToString());
+
         }
 
         private IList<TemporadaJogadorCommand> ObterJogadores(ISheet abaPer36, ISheet abaAvancada)
@@ -121,6 +122,10 @@ namespace FURB.Basquete.Framework.Web.Controllers
             row = sheet.GetRow(indice);
             var estatisticaPer36 = new EstatisticaPer36Jogador();
 
+            //if (row.GetCell(2).ToString() == null)
+            //{
+
+            //}
             estatisticaPer36.Idade = Int32.Parse(row.GetCell(4).ToString());
             estatisticaPer36.SiglaTime = row.GetCell(5).ToString();
             estatisticaPer36.Jogos = Int32.Parse(row.GetCell(6).ToString());
@@ -198,7 +203,7 @@ namespace FURB.Basquete.Framework.Web.Controllers
             int cellCount = headerRow.LastCellNum;
             IRow row = abaTime.GetRow(0);
             for (int i = (abaTime.FirstRowNum + 1); i <= abaTime.LastRowNum; i++)
-            {                
+            {
                 temporadaTimes.Add(EstatisticaTime(abaTime, row, i));
             }
 
@@ -216,8 +221,8 @@ namespace FURB.Basquete.Framework.Web.Controllers
 
         private TemporadaTimeCommand EstatisticaTime(ISheet sheet, IRow row, int indice)
         {
-            row = sheet.GetRow(indice);            
-            var estatisticaTime = new EstatisticaPer36();            
+            row = sheet.GetRow(indice);
+            var estatisticaTime = new EstatisticaPer36();
 
             estatisticaTime.ArremessosConvertidos = double.Parse(EstatisticaFormatada(row.GetCell(5).ToString()));
             estatisticaTime.ArremessosTentados = double.Parse(EstatisticaFormatada(row.GetCell(6).ToString()));
