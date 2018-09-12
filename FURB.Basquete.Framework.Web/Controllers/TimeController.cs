@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FURB.Basquete.Framework.ApplicationService.Interfaces;
+﻿using FURB.Basquete.Framework.ApplicationService.Interfaces;
+using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using FURB.Basquete.Framework.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace FURB.Basquete.Framework.Web.Controllers
 {
     public class TimeController : Controller
     {
         private readonly ITimeAppService _timeAppService;
+        private readonly ITemporadaTimeAppService _temporataTimeAppService;
 
-        public TimeController(ITimeAppService timeAppService)
+        public TimeController(ITimeAppService timeAppService, ITemporadaTimeAppService temporataTimeAppService)
         {
             _timeAppService = timeAppService;
+            _temporataTimeAppService = temporataTimeAppService;
         }
 
         public IActionResult Index()
@@ -25,13 +26,14 @@ namespace FURB.Basquete.Framework.Web.Controllers
             return View(result);
         }
 
-        public IActionResult Detalhes(Guid id)
+        public IActionResult Details(Guid id)
         {
-            return View();
-        }
+            var temporadaTime = _temporataTimeAppService.ObterEstatisticaTime(id);
 
-        public IActionResult Detalhes(Guid id, TimeViewModel time)
-        {
+            ViewBag.Time = temporadaTime.Time;
+            ViewBag.EstatisticaTime = temporadaTime.Estatisticas.Select(x => x.EstatisticaTime);
+            ViewBag.EstatisticaOponenteTime = temporadaTime.Estatisticas.Select(x => x.EstatisticaOponenteTime);
+
             return View();
         }
     }

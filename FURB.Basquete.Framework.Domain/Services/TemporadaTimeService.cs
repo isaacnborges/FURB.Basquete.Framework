@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Entities;
 using FURB.Basquete.Framework.Domain.Interfaces.Repositories;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using FURB.Basquete.Framework.Domain.Models;
+using FURB.Basquete.Framework.Domain.Response;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
@@ -19,6 +21,35 @@ namespace FURB.Basquete.Framework.Domain.Services
         {
             _temporadaTimeRepository = temporadaTimeRepository;
             _timeService = timeService;
+        }
+
+        public TemporadaTimeResponse ObterEstatisticaTime(Guid idTime)
+        {
+            var temporadaTime = new TemporadaTimeResponse();
+            var time = _timeService.Find(x => x.Id == idTime);
+            var tempTime = _temporadaTimeRepository.GetAll().Where(x => x.Times.Any(y => y.Time_ID == idTime)).OrderByDescending(x => x.Ano).ToList();
+
+            temporadaTime.Time = time;
+            var tempTimeEstatistica = new List<EstatisticaTimeResponse>();
+            foreach (var temporada in tempTime)
+            {
+                var timeEstatistica = new EstatisticaTimeResponse
+                {
+                    EstatisticaTime = temporada.Times.Where(x => x.Time_ID == idTime)
+                                                     .Select(x => x.EstatisticaTime)
+                                                     .Select(x => x.ToResponse(temporada.Ano, x))
+                                                     .FirstOrDefault(),
+                    EstatisticaOponenteTime = temporada.Times.Where(x => x.Time_ID == idTime)
+                                                             .Select(x => x.EstatisticaOponenteTime)
+                                                             .Select(x => x.ToResponse(temporada.Ano, x))
+                                                             .FirstOrDefault()
+                };
+
+                tempTimeEstatistica.Add(timeEstatistica);
+            }
+            temporadaTime.Estatisticas = tempTimeEstatistica;
+
+            return temporadaTime;
         }
 
         public void AdicionarTemporadaTimes(IList<TemporadaTimeCommand> times)

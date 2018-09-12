@@ -2,6 +2,8 @@
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Entities;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
+using FURB.Basquete.Framework.Domain.Response;
+using System;
 using System.Collections.Generic;
 
 namespace FURB.Basquete.Framework.ApplicationService.Services
@@ -19,6 +21,11 @@ namespace FURB.Basquete.Framework.ApplicationService.Services
         public void AdicionarTemporadaTimes(IList<TemporadaTimeCommand> times)
         {
             _temporadaTimeService.AdicionarTemporadaTimes(times);
+        }
+
+        public TemporadaTimeResponse ObterEstatisticaTime(Guid idTime)
+        {
+            return _temporadaTimeService.ObterEstatisticaTime(idTime);
         }
     }
 }
