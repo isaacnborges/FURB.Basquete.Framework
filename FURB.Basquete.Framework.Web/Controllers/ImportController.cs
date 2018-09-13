@@ -122,10 +122,6 @@ namespace FURB.Basquete.Framework.Web.Controllers
             row = sheet.GetRow(indice);
             var estatisticaPer36 = new EstatisticaPer36Jogador();
 
-            //if (row.GetCell(2).ToString() == null)
-            //{
-
-            //}
             estatisticaPer36.Idade = Int32.Parse(row.GetCell(4).ToString());
             estatisticaPer36.SiglaTime = row.GetCell(5).ToString();
             estatisticaPer36.Jogos = Int32.Parse(row.GetCell(6).ToString());
@@ -165,8 +161,10 @@ namespace FURB.Basquete.Framework.Web.Controllers
         {
             row = sheet.GetRow(indice);
             var estatisticaAvancada = new EstatisticaAvancada();
-            double number;
 
+            estatisticaAvancada.Idade = Int32.Parse(row.GetCell(4).ToString());
+            estatisticaAvancada.SiglaTime = row.GetCell(5).ToString();
+            estatisticaAvancada.Jogos = Int32.Parse(row.GetCell(6).ToString());
             estatisticaAvancada.EficienciaJogador = double.Parse(EstatisticaFormatada(row.GetCell(8).ToString()));
             estatisticaAvancada.PorcentagemArremessosEficientes = PorcentagemFormatada(row.GetCell(9).ToString());
             estatisticaAvancada.TaxaTentativas3Pontos = PorcentagemFormatada(row.GetCell(10).ToString());
@@ -177,7 +175,7 @@ namespace FURB.Basquete.Framework.Web.Controllers
             estatisticaAvancada.PorcentagemAssistencias = double.Parse(EstatisticaFormatada(row.GetCell(15).ToString()));
             estatisticaAvancada.PorcentagemRoubosBola = double.Parse(row.GetCell(16).ToString());
             estatisticaAvancada.PorcentagemTocos = double.Parse(EstatisticaFormatada(row.GetCell(17).ToString()));
-            estatisticaAvancada.PorcentagemDesperdiciosBola = double.TryParse(EstatisticaFormatada(row.GetCell(18).ToString()), out number) ? number : 0.0;
+            estatisticaAvancada.PorcentagemDesperdiciosBola = double.TryParse(EstatisticaFormatada(row.GetCell(18).ToString()), out double number) ? number : 0.0;
             estatisticaAvancada.PorcentagemUsoJogador = double.Parse(row.GetCell(19).ToString());
             estatisticaAvancada.ContribuicaoVitoriaOfensiva = double.Parse(EstatisticaFormatada(row.GetCell(20).ToString()));
             estatisticaAvancada.ContribuicaoVitoriaDefensiva = double.Parse(EstatisticaFormatada(row.GetCell(21).ToString()));

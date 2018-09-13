@@ -3,6 +3,9 @@
     public class EstatisticaAvancadaResponse
     {
         public int Ano { get; set; }
+        public int Idade { get; set; }
+        public string SiglaTime { get; set; }
+        public int Jogos { get; set; }
         public double EficienciaJogador { get; set; } //PER
         public double? PorcentagemArremessosEficientes { get; set; } //TS%
         public double? TaxaTentativas3Pontos { get; set; } //3PAr

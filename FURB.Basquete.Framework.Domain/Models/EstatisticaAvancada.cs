@@ -4,6 +4,9 @@ namespace FURB.Basquete.Framework.Domain.Models
 {
     public class EstatisticaAvancada
     {
+        public int Idade { get; set; }
+        public string SiglaTime { get; set; }
+        public int Jogos { get; set; }
         public double EficienciaJogador { get; set; } //PER
         public double? PorcentagemArremessosEficientes { get; set; } //TS%
         public double? TaxaTentativas3Pontos { get; set; } //3PAr
@@ -28,6 +31,9 @@ namespace FURB.Basquete.Framework.Domain.Models
             return new EstatisticaAvancadaResponse
             {
                 Ano = ano,
+                Idade = estatistica.Idade,
+                SiglaTime = estatistica.SiglaTime,
+                Jogos = estatistica.Jogos,
                 EficienciaJogador = estatistica.EficienciaJogador,
                 PorcentagemArremessosEficientes = estatistica.PorcentagemArremessosEficientes,
                 TaxaTentativas3Pontos = estatistica.TaxaTentativas3Pontos,
