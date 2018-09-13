@@ -27,7 +27,7 @@ namespace FURB.Basquete.Framework.Domain.Services
         {
             var temporadaTime = new TemporadaTimeResponse();
             var time = _timeService.Find(x => x.Id == idTime);
-            var tempTime = _temporadaTimeRepository.GetAll().Where(x => x.Times.Any(y => y.Time_ID == idTime)).OrderByDescending(x => x.Ano).ToList();
+            var tempTime = _temporadaTimeRepository.GetAll().Where(x => x.Times.Any(y => y.Time_ID == idTime)).OrderBy(x => x.Ano).ToList();
 
             temporadaTime.Time = time;
             var tempTimeEstatistica = new List<EstatisticaTimeResponse>();

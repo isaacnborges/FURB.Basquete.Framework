@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Entities;
 using FURB.Basquete.Framework.Domain.Interfaces.Repositories;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using FURB.Basquete.Framework.Domain.Models;
+using FURB.Basquete.Framework.Domain.Response;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
@@ -14,7 +16,7 @@ namespace FURB.Basquete.Framework.Domain.Services
         private readonly IJogadorService _jogadorService;
 
         public TemporadaJogadorService(ITemporadaJogadorRepository temporadaJogadorRepository,
-                                       IJogadorService jogadorService) 
+                                       IJogadorService jogadorService)
             : base(temporadaJogadorRepository)
         {
             _temporadaJogadorRepository = temporadaJogadorRepository;
@@ -63,6 +65,35 @@ namespace FURB.Basquete.Framework.Domain.Services
 
             temporadaJogador.Jogadores = jogadoresTemporada;
             Add(temporadaJogador);
+        }
+
+        public TemporadaJogadorResponse ObterEstatisticaJogador(Guid idJogador)
+        {
+            var temporadaJogador = new TemporadaJogadorResponse();
+            var jogador = _jogadorService.Find(x => x.Id == idJogador);
+            var tempJogador = _temporadaJogadorRepository.GetAll().Where(x => x.Jogadores.Any(y => y.Jogador_ID == idJogador)).OrderBy(x => x.Ano).ToList();
+
+            temporadaJogador.Jogador = jogador;
+            var tempJogadorEstatistica = new List<EstatisticaJogadorResponse>();
+            foreach (var temporada in tempJogador)
+            {
+                var jogadorEstatistica = new EstatisticaJogadorResponse
+                {
+                    EstatisticaPer36 = temporada.Jogadores.Where(x => x.Jogador_ID == idJogador)
+                                                     .Select(x => x.EstatsticaPer36)
+                                                     .Select(x => x.ToJogadorResponse(temporada.Ano, x))
+                                                     .FirstOrDefault(),
+                    EstatisticaAvancada = temporada.Jogadores.Where(x => x.Jogador_ID == idJogador)
+                                                             .Select(x => x.EstatsticaAvancada)
+                                                             .Select(x => x.ToResponse(temporada.Ano, x))
+                                                             .FirstOrDefault()
+                };
+
+                tempJogadorEstatistica.Add(jogadorEstatistica);
+            }
+            temporadaJogador.Estatisticas = tempJogadorEstatistica;
+
+            return temporadaJogador;
         }
     }
 }

@@ -11,10 +11,12 @@ namespace FURB.Basquete.Framework.Web.Controllers
     public class JogadorController : Controller
     {
         private readonly IJogadorAppService _jogadorAppService;
+        private readonly ITemporadaJogadorAppService _temporadaJogadorAppService;
 
-        public JogadorController(IJogadorAppService jogadorAppService)
+        public JogadorController(IJogadorAppService jogadorAppService, ITemporadaJogadorAppService temporadaJogadorAppService)
         {
-            this._jogadorAppService = jogadorAppService;
+            _jogadorAppService = jogadorAppService;
+            _temporadaJogadorAppService = temporadaJogadorAppService;
         }
 
         public IActionResult Index()
@@ -23,6 +25,17 @@ namespace FURB.Basquete.Framework.Web.Controllers
             var result = jogadores.Select(x => JogadorViewModel.ToViewModel(x)).OrderBy(x => x.Nome).ToList();
 
             return View(result);
+        }
+
+        public IActionResult Details(Guid id)
+        {
+            var temporadaTime = _temporadaJogadorAppService.ObterEstatisticaJogador(id);
+
+            ViewBag.Jogador = temporadaTime.Jogador;
+            ViewBag.EstatisticaPer36 = temporadaTime.Estatisticas.Select(x => x.EstatisticaPer36);
+            ViewBag.EstatisticaAvancada = temporadaTime.Estatisticas.Select(x => x.EstatisticaAvancada);
+
+            return View();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace FURB.Basquete.Framework.Domain.Models
+﻿using FURB.Basquete.Framework.Domain.Response;
+
+namespace FURB.Basquete.Framework.Domain.Models
 {
     public class EstatisticaAvancada
     {
@@ -20,5 +22,31 @@
         public double EstimativaContribuicaoOfensiva { get; set; } //OBPM
         public double EstimativaContribuicaoDefensiva { get; set; } //DBPM
         public double EstimativaContribuicaoTotal { get; set; } //BPM - Box Plus/Minus
+
+        public EstatisticaAvancadaResponse ToResponse(int ano, EstatisticaAvancada estatistica)
+        {
+            return new EstatisticaAvancadaResponse
+            {
+                Ano = ano,
+                EficienciaJogador = estatistica.EficienciaJogador,
+                PorcentagemArremessosEficientes = estatistica.PorcentagemArremessosEficientes,
+                TaxaTentativas3Pontos = estatistica.TaxaTentativas3Pontos,
+                TaxaTentativasLancesLivres = estatistica.TaxaTentativasLancesLivres,
+                PorcentagemRebotesOfensivos = estatistica.PorcentagemRebotesOfensivos,
+                PorcentagemRebotesDefensivos = estatistica.PorcentagemRebotesDefensivos,
+                PorcentagemRebotesTotal = estatistica.PorcentagemRebotesTotal,
+                PorcentagemAssistencias = estatistica.PorcentagemAssistencias,
+                PorcentagemRoubosBola = estatistica.PorcentagemRoubosBola,
+                PorcentagemTocos = estatistica.PorcentagemTocos,
+                PorcentagemDesperdiciosBola = estatistica.PorcentagemDesperdiciosBola,
+                PorcentagemUsoJogador = estatistica.PorcentagemUsoJogador,
+                ContribuicaoVitoriaOfensiva = estatistica.ContribuicaoVitoriaOfensiva,
+                ContribuicaoVitoriaDefensiva = estatistica.ContribuicaoVitoriaDefensiva,
+                ContribuicaoVitoria = estatistica.ContribuicaoVitoria,
+                EstimativaContribuicaoOfensiva = estatistica.EstimativaContribuicaoOfensiva,
+                EstimativaContribuicaoDefensiva = estatistica.EstimativaContribuicaoDefensiva,
+                EstimativaContribuicaoTotal = estatistica.EstimativaContribuicaoTotal
+            };
+        }
     }
 }
