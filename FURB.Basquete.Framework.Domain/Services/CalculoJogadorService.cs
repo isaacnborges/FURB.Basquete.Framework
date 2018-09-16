@@ -9,8 +9,8 @@ namespace FURB.Basquete.Framework.Domain.Services
     {
         //VALIDAR Categoria do CALCULO
 
-        public CalculoJogadorService(DateTime anoInicio, DateTime anoFim, TipoCalculo tipoCalculo, CriterioCalculo criterioCalculo, int categoriaCalculo, 
-                          IList<PosicaoCalculo> posicoesCalculo, bool mediaIsolada)
+        public CalculoJogadorService(DateTime anoInicio, DateTime anoFim, TipoCalculo tipoCalculo, TipoCriterio criterioCalculo, int categoriaCalculo, 
+                          IList<TipoPosicao> posicoesCalculo, bool mediaIsolada)
         {
 
         }

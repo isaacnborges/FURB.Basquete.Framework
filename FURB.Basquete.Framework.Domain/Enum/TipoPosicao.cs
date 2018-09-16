@@ -4,9 +4,12 @@ using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Enum
 {
-    public enum CriterioCalculo
+    public enum TipoPosicao
     {
-        EstatisticaPer36Minutes = 1,
-        EstatisticaAvancada
+        Pg = 1,
+        Sg,
+        Sf,
+        Pf,
+        C
     }
 }

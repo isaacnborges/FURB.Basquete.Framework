@@ -4,9 +4,10 @@ using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Enum
 {
-    public enum ConferenciaCalculo
+    public enum TipoConferencia
     {
         Leste = 1,
-        Oeste
+        Oeste,
+        Ambas
     }
 }
