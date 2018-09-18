@@ -1,13 +1,15 @@
-﻿using FURB.Basquete.Framework.Domain.Commands;
+﻿using FURB.Basquete.Framework.Domain.CalculosModels;
+using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Entities;
 using FURB.Basquete.Framework.Domain.Enum;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
-    public class CalculoTimeService
+    public class CalculoTimeService : ICalculoTimeService
     {
         private readonly ITemporadaTimeService _temporadaTimeService;
 
@@ -27,204 +29,422 @@ namespace FURB.Basquete.Framework.Domain.Services
                 times = times.Where(x => x.Ano >= calculoTime.AnoInicio && x.Ano <= calculoTime.AnoFim).ToList();
 
                 //Criterio e Categoria
-                IEnumerable<IEnumerable<double>> estatistica;
+                var temporadaCalculo = new List<TemporadaTimeCalculo>();
                 if (calculoTime.Criterio == TipoCriterio.EstatisticaPer36Minutes)
                 {
-                    estatistica = ObterEstatisticaTime(calculoTime.Categoria, times);
+                    temporadaCalculo = ObterEstatisticaTime(calculoTime.Categoria, times).ToList();
                 }
                 else if (calculoTime.Criterio == TipoCriterio.EstatisticaPer36Oponente)
                 {
-                    estatistica = ObterEstatisticaOponenteTime(calculoTime.Categoria, times);
+                    temporadaCalculo = ObterEstatisticaOponenteTime(calculoTime.Categoria, times).ToList();
                 }
 
                 //Conferencia
             }
         }
 
-        private IEnumerable<IEnumerable<double>> ObterEstatisticaTime(TipoCategoria tipoCategoria, IList<TemporadaTime> temporadaTime)
+        private IList<TemporadaTimeCalculo> ObterEstatisticaTime(TipoCategoria tipoCategoria, IList<TemporadaTime> temporadaTime)
         {
+            var temporadaTimeCalculo = new List<TemporadaTimeCalculo>();
+
             switch (tipoCategoria)
             {
                 case TipoCategoria.Arremessos2Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Arremessos2Pontos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos2Pontos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Arremessos2PontosTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Arremessos2PontosTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos2PontosTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Arremessos3Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Arremessos3Pontos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos3Pontos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Arremessos3PontosTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Arremessos3PontosTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos3PontosTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.ArremessosConvertidos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.ArremessosConvertidos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.ArremessosConvertidos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.ArremessosTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.ArremessosTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.ArremessosTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Assistencias:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Assistencias));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Assistencias).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.DesperdiciosBola:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.DesperdiciosBola));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.DesperdiciosBola).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Faltas:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Faltas));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Faltas).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.LancesLivres:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.LancesLivres));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.LancesLivres).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.LancesLivresTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.LancesLivresTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.LancesLivresTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Pontos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Pontos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Porcentagem2Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Porcentagem2Pontos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem2Pontos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Porcentagem3Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Porcentagem3Pontos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem3Pontos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.PorcentagemArremessos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.PorcentagemArremessos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemArremessos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.PorcentagemLancesLivres:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.PorcentagemLancesLivres.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemLancesLivres.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.RebotesDefensivos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.RebotesDefensivos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.RebotesDefensivos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.RebotesOfensivos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.RebotesOfensivos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.RebotesOfensivos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.RoubosBola:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.RoubosBola));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.RoubosBola).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Tocos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.Tocos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Tocos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.TotalRebotes:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaTime.TotalRebotes));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.TotalRebotes).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 default:
                     return null;
             }
+
+            return temporadaTimeCalculo;
         }
 
-        private IEnumerable<IEnumerable<double>> ObterEstatisticaOponenteTime(TipoCategoria tipoCategoria, IList<TemporadaTime> temporadaTime)
+        private IList<TemporadaTimeCalculo> ObterEstatisticaOponenteTime(TipoCategoria tipoCategoria, IList<TemporadaTime> temporadaTime)
         {
+            var temporadaTimeCalculo = new List<TemporadaTimeCalculo>();
+
             switch (tipoCategoria)
             {
                 case TipoCategoria.Arremessos2Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos2Pontos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos2Pontos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Arremessos2PontosTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos2PontosTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos2PontosTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Arremessos3Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3Pontos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3Pontos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Arremessos3PontosTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3PontosTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3PontosTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.ArremessosConvertidos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.ArremessosConvertidos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.ArremessosConvertidos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.ArremessosTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.ArremessosTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.ArremessosTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Assistencias:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Assistencias));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Assistencias).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.DesperdiciosBola:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.DesperdiciosBola));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.DesperdiciosBola).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Faltas:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Faltas));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Faltas).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.LancesLivres:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.LancesLivres));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.LancesLivres).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.LancesLivresTentados:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.LancesLivresTentados));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.LancesLivresTentados).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Pontos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Pontos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Porcentagem2Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem2Pontos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem2Pontos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Porcentagem3Pontos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem3Pontos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem3Pontos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.PorcentagemArremessos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemArremessos.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemArremessos.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.PorcentagemLancesLivres:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemLancesLivres.Value));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemLancesLivres.Value).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.RebotesDefensivos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.RebotesDefensivos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.RebotesDefensivos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.RebotesOfensivos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.RebotesOfensivos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.RebotesOfensivos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.RoubosBola:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.RoubosBola));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.RoubosBola).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.Tocos:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.Tocos));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Tocos).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 case TipoCategoria.TotalRebotes:
                     {
-                        return temporadaTime.Select(x => x.Times.Select(y => y.EstatisticaOponenteTime.TotalRebotes));
+                        temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaTimeCalculo
+                        {
+                            Ano = x.Ano,
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.TotalRebotes).Average(), 2)
+                        }).ToList();
+                        break;
                     }
                 default:
                     return null;
             }
+
+            return temporadaTimeCalculo;
         }
     }
 }

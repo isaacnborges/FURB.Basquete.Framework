@@ -1,4 +1,6 @@
 ﻿using FURB.Basquete.Framework.ApplicationService.Interfaces;
+using FURB.Basquete.Framework.Domain.Commands;
+using FURB.Basquete.Framework.Domain.Enum;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using FURB.Basquete.Framework.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +13,13 @@ namespace FURB.Basquete.Framework.Web.Controllers
     {
         private readonly ITimeAppService _timeAppService;
         private readonly ITemporadaTimeAppService _temporataTimeAppService;
+        private readonly ICalculoTimeService _calculoTimeService;
 
-        public TimeController(ITimeAppService timeAppService, ITemporadaTimeAppService temporataTimeAppService)
+        public TimeController(ITimeAppService timeAppService, ITemporadaTimeAppService temporataTimeAppService, ICalculoTimeService calculoTimeService)
         {
             _timeAppService = timeAppService;
             _temporataTimeAppService = temporataTimeAppService;
+            _calculoTimeService = calculoTimeService;
         }
 
         public IActionResult Index()
@@ -33,6 +37,18 @@ namespace FURB.Basquete.Framework.Web.Controllers
             ViewBag.Time = temporadaTime.Time;
             ViewBag.EstatisticaTime = temporadaTime.Estatisticas.Select(x => x.EstatisticaTime);
             ViewBag.EstatisticaOponenteTime = temporadaTime.Estatisticas.Select(x => x.EstatisticaOponenteTime);
+
+
+            //TESTE para chamar o serviço
+            CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
+            timeCalculo.AnoInicio = 2017;
+            timeCalculo.AnoFim = 2018;
+            timeCalculo.Categoria = TipoCategoria.Pontos;
+            timeCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
+            timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
+            timeCalculo.Conferencia = TipoConferencia.Ambas;
+            timeCalculo.MediaIsolada = true;
+            _calculoTimeService.CalcularTime(timeCalculo);
 
             return View();
         }
