@@ -46,7 +46,7 @@ namespace FURB.Basquete.Framework.Web.Controllers
             timeCalculo.Categoria = TipoCategoria.Pontos;
             timeCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
             timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-            timeCalculo.Conferencia = TipoConferencia.Ambas;
+            timeCalculo.Conferencia = TipoConferencia.Leste;
             timeCalculo.MediaIsolada = true;
             _calculoTimeService.CalcularTime(timeCalculo);
 

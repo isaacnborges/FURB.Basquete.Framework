@@ -1,10 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FURB.Basquete.Framework.Domain.Entities
+﻿namespace FURB.Basquete.Framework.Domain.Entities
 {
     public class Time : Entity
     {

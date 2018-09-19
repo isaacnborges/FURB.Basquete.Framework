@@ -86,6 +86,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 var timeEstatistica = new TimeEstatistica();
 
                 timeEstatistica.Time_ID = timeAdicionado.Id;
+                timeEstatistica.Time_Conferencia = timeAdicionado.Conferencia;
                 timeEstatistica.EstatisticaTime = t.EstatisticaTime;
                 timeEstatistica.EstatisticaOponenteTime = t.EstatisticaOponenteTime;
 

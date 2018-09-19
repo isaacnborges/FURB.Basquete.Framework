@@ -6,7 +6,7 @@ namespace FURB.Basquete.Framework.Domain.Enum
 {
     public enum TipoConferencia
     {
-        Leste = 1,
+        Leste,
         Oeste,
         Ambas
     }

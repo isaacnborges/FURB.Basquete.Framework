@@ -12,10 +12,12 @@ namespace FURB.Basquete.Framework.Domain.Services
     public class CalculoTimeService : ICalculoTimeService
     {
         private readonly ITemporadaTimeService _temporadaTimeService;
+        private readonly ITimeService _timeService;
 
-        public CalculoTimeService(ITemporadaTimeService temporadaTimeService)
+        public CalculoTimeService(ITemporadaTimeService temporadaTimeService, ITimeService timeService)
         {
             _temporadaTimeService = temporadaTimeService;
+            _timeService = timeService;
         }
 
         public void CalcularTime(CalculoTimeCommand calculoTime)
@@ -40,7 +42,23 @@ namespace FURB.Basquete.Framework.Domain.Services
                 }
 
                 //Conferencia
+                if (calculoTime.Conferencia != TipoConferencia.Ambas)
+                {
+                    times = times.Select(x => new TemporadaTime
+                    {
+                        Ano = x.Ano,
+                        Id = x.Id,
+                        Times = x.Times.Where(y => y.Time_Conferencia == calculoTime.Conferencia.ToString()).ToList()
+                    }).ToList();
+                }
             }
+        }
+
+        private IList<Guid> ObterTimesConferencia(TipoConferencia tipoConferencia)
+        {
+            var times = new List<Guid>();
+            times = _timeService.GetAll().Where(x => x.Conferencia.Equals(tipoConferencia.ToString())).Select(x => x.Id).ToList();        
+            return times.ToList();
         }
 
         private IList<TemporadaTimeCalculo> ObterEstatisticaTime(TipoCategoria tipoCategoria, IList<TemporadaTime> temporadaTime)

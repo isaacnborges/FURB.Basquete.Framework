@@ -6,10 +6,10 @@ namespace FURB.Basquete.Framework.Domain.Enum
 {
     public enum TipoPosicao
     {
-        Pg = 1,
-        Sg,
-        Sf,
-        Pf,
+        PG = 1,
+        SG,
+        SF,
+        PF,
         C
     }
 }
