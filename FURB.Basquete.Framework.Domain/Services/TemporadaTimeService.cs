@@ -57,7 +57,17 @@ namespace FURB.Basquete.Framework.Domain.Services
             //Adicionar Time
             foreach (var t in times)
             {
-                if (_timeService.BuscarPorNome(t.Nome) != null)
+                var tt = _timeService.BuscarPorNome(t.Nome);
+
+                if (tt != null && string.IsNullOrEmpty(tt.Sigla))
+                {
+                    tt.Sigla = t.Sigla;
+                    tt.Conferencia = t.Conferencia;
+                    _timeService.Edit(x => x.Id == tt.Id, tt);
+                    continue;
+                }
+
+                if (tt != null)
                 {
                     continue;
                 }

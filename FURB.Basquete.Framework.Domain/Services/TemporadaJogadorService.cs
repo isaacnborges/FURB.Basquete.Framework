@@ -56,6 +56,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 var jogadorEstatistica = new JogadorEstatistica();
 
                 jogadorEstatistica.Jogador_ID = jogadorAdicionado.Id;
+                jogadorEstatistica.Jogador_Posicao = jogadorAdicionado.Posicao;
                 jogadorEstatistica.EstatsticaPer36 = j.EstatisticaPer36;
                 jogadorEstatistica.EstatsticaAvancada = j.EstatsticaAvancada;
 

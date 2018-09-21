@@ -41,12 +41,12 @@ namespace FURB.Basquete.Framework.Web.Controllers
 
             //TESTE para chamar o serviço
             CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
-            timeCalculo.AnoInicio = 2017;
-            timeCalculo.AnoFim = 2018;
+            timeCalculo.AnoInicio = 2015;
+            timeCalculo.AnoFim = 2017;
             timeCalculo.Categoria = TipoCategoria.Pontos;
             timeCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
-            timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-            timeCalculo.Conferencia = TipoConferencia.Leste;
+            timeCalculo.TipoCalculo = TipoCalculo.Media3Anos;
+            timeCalculo.Conferencia = TipoConferencia.Oeste;
             timeCalculo.MediaIsolada = true;
             _calculoTimeService.CalcularTime(timeCalculo);
 
