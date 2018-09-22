@@ -26,7 +26,9 @@ namespace FURB.Basquete.Framework.Infrastructure.IoC
             services.AddScoped<ITemporadaTimeService, TemporadaTimeService>();
             services.AddScoped<IJogadorService, JogadorService>();
             services.AddScoped<ITemporadaJogadorService, TemporadaJogadorService>();
+
             services.AddScoped<ICalculoTimeService, CalculoTimeService>();
+            services.AddScoped<ICalculoJogadorService, CalculoJogadorService>();
 
             services.AddScoped<ITimeRepository, TimeRepository>();
             services.AddScoped<ITemporadaTimeRepository, TemporadaTimeRepository>();

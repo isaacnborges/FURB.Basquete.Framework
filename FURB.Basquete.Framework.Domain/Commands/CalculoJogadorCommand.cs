@@ -5,8 +5,9 @@ using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Commands
 {
-    public class CalculoTimeCommand : CalculoBaseCommand
+    public class CalculoJogadorCommand : CalculoBaseCommand
     {
-        public TipoConferencia Conferencia { get; set; }        
+        public TipoCategoriaAvancada? CategoriaAvancada { get; set; }
+        public TipoPosicao Posicao { get; set; }
     }
 }
