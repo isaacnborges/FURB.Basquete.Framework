@@ -170,13 +170,13 @@ namespace FURB.Basquete.Framework.Web.Controllers
             estatisticaAvancada.TaxaTentativas3Pontos = PorcentagemFormatada(row.GetCell(10).ToString());
             estatisticaAvancada.TaxaTentativasLancesLivres = PorcentagemFormatada(row.GetCell(11).ToString());
             estatisticaAvancada.PorcentagemRebotesOfensivos = double.Parse(EstatisticaFormatada(row.GetCell(12).ToString()));
-            estatisticaAvancada.PorcentagemRebotesDefensivos = double.Parse(row.GetCell(13).ToString());
+            estatisticaAvancada.PorcentagemRebotesDefensivos = double.Parse(EstatisticaFormatada(row.GetCell(13).ToString()));
             estatisticaAvancada.PorcentagemRebotesTotal = double.Parse(EstatisticaFormatada(row.GetCell(14).ToString()));
             estatisticaAvancada.PorcentagemAssistencias = double.Parse(EstatisticaFormatada(row.GetCell(15).ToString()));
-            estatisticaAvancada.PorcentagemRoubosBola = double.Parse(row.GetCell(16).ToString());
+            estatisticaAvancada.PorcentagemRoubosBola = double.Parse(EstatisticaFormatada(row.GetCell(16).ToString()));
             estatisticaAvancada.PorcentagemTocos = double.Parse(EstatisticaFormatada(row.GetCell(17).ToString()));
             estatisticaAvancada.PorcentagemDesperdiciosBola = double.TryParse(EstatisticaFormatada(row.GetCell(18).ToString()), out double number) ? number : 0.0;
-            estatisticaAvancada.PorcentagemUsoJogador = double.Parse(row.GetCell(19).ToString());
+            estatisticaAvancada.PorcentagemUsoJogador = double.Parse(EstatisticaFormatada(row.GetCell(19).ToString()));
             estatisticaAvancada.ContribuicaoVitoriaOfensiva = double.Parse(EstatisticaFormatada(row.GetCell(20).ToString()));
             estatisticaAvancada.ContribuicaoVitoriaDefensiva = double.Parse(EstatisticaFormatada(row.GetCell(21).ToString()));
             estatisticaAvancada.ContribuicaoVitoria = double.Parse(EstatisticaFormatada(row.GetCell(22).ToString()));
@@ -292,10 +292,10 @@ namespace FURB.Basquete.Framework.Web.Controllers
             return valor.Replace(".", ",");
         }
 
-        private double? PorcentagemFormatada(string valor)
+        private double PorcentagemFormatada(string valor)
         {
             if (valor == string.Empty)
-                return null;
+                return 0;
 
             valor = valor.Replace(".", "");
             var porcentagem = valor.Substring(0, 2) + "," + valor.Substring(2, 1);

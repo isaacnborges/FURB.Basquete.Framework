@@ -151,7 +151,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -232,7 +232,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem2Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -240,7 +240,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -248,7 +248,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemArremessos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemArremessos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -256,7 +256,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemLancesLivres.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemLancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -336,7 +336,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -417,7 +417,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem2Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -425,7 +425,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -433,7 +433,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemArremessos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemArremessos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -441,7 +441,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemLancesLivres.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemLancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -508,7 +508,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     }
                 case TipoCategoria.Arremessos3Pontos:
                     {
-                        return estatistica.Arremessos3Pontos.Value;
+                        return estatistica.Arremessos3Pontos;
                     }
                 case TipoCategoria.Arremessos3PontosTentados:
                     {
@@ -548,19 +548,19 @@ namespace FURB.Basquete.Framework.Domain.Services
                     }
                 case TipoCategoria.Porcentagem2Pontos:
                     {
-                        return estatistica.Porcentagem2Pontos.Value;
+                        return estatistica.Porcentagem2Pontos;
                     }
                 case TipoCategoria.Porcentagem3Pontos:
                     {
-                        return estatistica.Porcentagem3Pontos.Value;
+                        return estatistica.Porcentagem3Pontos;
                     }
                 case TipoCategoria.PorcentagemArremessos:
                     {
-                        return estatistica.PorcentagemArremessos.Value;
+                        return estatistica.PorcentagemArremessos;
                     }
                 case TipoCategoria.PorcentagemLancesLivres:
                     {
-                        return estatistica.PorcentagemLancesLivres.Value;
+                        return estatistica.PorcentagemLancesLivres;
                     }
                 case TipoCategoria.RebotesDefensivos:
                     {
@@ -616,7 +616,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Arremessos3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -706,7 +706,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem2Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -715,7 +715,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.Porcentagem3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -724,7 +724,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemArremessos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemArremessos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -733,7 +733,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemLancesLivres.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaTime.PorcentagemLancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -818,7 +818,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Arremessos3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -908,7 +908,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem2Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -917,7 +917,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem3Pontos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.Porcentagem3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -926,7 +926,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemArremessos.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemArremessos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -935,7 +935,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaTimeCalculo = temporadaTime.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemLancesLivres.Value).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Times.Select(y => y.EstatisticaOponenteTime.PorcentagemLancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
