@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{3FF292
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BC53DD23-BA95-4EEF-8CE3-D16A072441FC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API-Presentation", "API-Presentation", "{6AD7C6BA-7383-4848-B793-0EFE6FF69F64}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-API-Presentation", "0-API-Presentation", "{6AD7C6BA-7383-4848-B793-0EFE6FF69F64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationService", "ApplicationService", "{9CF604FC-9001-4D37-BDE1-296226CC499E}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Web", "FURB.Basquete.Framework.Web\FURB.Basquete.Framework.Web.csproj", "{3D400EA2-EB6A-4407-82BC-3A2E977D349D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FURB.Basquete.Framework.Infrastructure.IoC", "FURB.Basquete.Framework.Infrastructure.IoC\FURB.Basquete.Framework.Infrastructure.IoC.csproj", "{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Infrastructure.IoC", "FURB.Basquete.Framework.Infrastructure.IoC\FURB.Basquete.Framework.Infrastructure.IoC.csproj", "{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

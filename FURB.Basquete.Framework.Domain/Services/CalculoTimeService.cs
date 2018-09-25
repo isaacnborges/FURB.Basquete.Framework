@@ -12,11 +12,10 @@ using System.Reflection;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
-    public class CalculoTimeService : ICalculoTimeService
+    public class CalculoTimeService : CalculoJogadorBase, ICalculoTimeService
     {
         private readonly ITemporadaTimeService _temporadaTimeService;
         private readonly ITimeService _timeService;
-        private const int MEDIA3ANOS = 3;
 
         public CalculoTimeService(ITemporadaTimeService temporadaTimeService, ITimeService timeService)
         {
@@ -28,11 +27,8 @@ namespace FURB.Basquete.Framework.Domain.Services
         {
             var timesResult = new List<CalculoTimeResponse>();
 
-            //TUDO
-            var temporadaTimes = _temporadaTimeService.GetAll().ToList();
-
             //Ano
-            temporadaTimes = temporadaTimes.Where(x => x.Ano >= calculoTime.AnoInicio && x.Ano <= calculoTime.AnoFim).ToList();
+            var temporadaTimes = _temporadaTimeService.GetAll().Where(x => x.Ano >= calculoTime.AnoInicio && x.Ano <= calculoTime.AnoFim).ToList();
 
             //Conferencia
             if (calculoTime.Conferencia != TipoConferencia.Ambas)
@@ -60,24 +56,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 }
 
                 //Retorno                
-                foreach (var temporadas in temporadaTimes)
-                {
-                    foreach (var item in temporadas.Times)
-                    {
-                        var timeTemp = _timeService.GetAll().FirstOrDefault(x => x.Id == item.Time_ID);
-                        var tt = new CalculoTimeResponse();
-                        tt.AnoTemporada = temporadas.Ano;
-                        tt.Nome = timeTemp.Nome;
-                        tt.Conferencia = (TipoConferencia)System.Enum.Parse(typeof(TipoConferencia), timeTemp.Conferencia);
-                        tt.ParametroCalculo = temporadaCalculo.FirstOrDefault(x => x.Ano == temporadas.Ano).ValorEstatistica;                        
-                        if (calculoTime.Criterio == TipoCriterio.EstatisticaPer36Minutes)
-                            tt.ValorEstatistica = ObterValorEstatistica(calculoTime.Categoria.Value, item.EstatisticaTime);
-                        else
-                            tt.ValorEstatistica = ObterValorEstatistica(calculoTime.Categoria.Value, item.EstatisticaOponenteTime);
-
-                        timesResult.Add(tt);
-                    }
-                }                
+                MontarRetorno(calculoTime, timesResult, temporadaTimes, temporadaCalculo, null);
             }
             //Media 3 ANOS
             else if (calculoTime.TipoCalculo == TipoCalculo.Media3Anos)
@@ -99,30 +78,34 @@ namespace FURB.Basquete.Framework.Domain.Services
                 }
 
                 //Retorno               
-                foreach (var temporadas in temporadaTimes)
-                {
-                    foreach (var item in temporadas.Times)
-                    {
-                        var timeTemp = _timeService.GetAll().FirstOrDefault(x => x.Id == item.Time_ID);
-                        var tt = new CalculoTimeResponse();
-
-                        tt.AnoTemporada = temporadas.Ano;
-                        tt.Nome = timeTemp.Nome;
-                        tt.Conferencia = (TipoConferencia)System.Enum.Parse(typeof(TipoConferencia), timeTemp.Conferencia);
-                        tt.ParametroCalculo = valorEstatistica;
-                        if (calculoTime.Criterio == TipoCriterio.EstatisticaPer36Minutes)
-                            tt.ValorEstatistica = ObterValorEstatistica(calculoTime.Categoria.Value, item.EstatisticaTime);
-                        else
-                            tt.ValorEstatistica = ObterValorEstatistica(calculoTime.Categoria.Value, item.EstatisticaOponenteTime);
-
-                        timesResult.Add(tt);
-                    }
-                }
+                MontarRetorno(calculoTime, timesResult, temporadaTimes, null, valorEstatistica);
             }
 
             var res = timesResult.OrderByDescending(x => x.IndiceCalulo).ToList();
             return res;
         }
+
+        private void MontarRetorno(CalculoTimeCommand calculoTime, List<CalculoTimeResponse> timesResult, List<TemporadaTime> temporadaTimes, List<TemporadaBaseCalculo> temporadaCalculo, double? valorEstatistica)
+        {
+            foreach (var temporadas in temporadaTimes)
+            {
+                foreach (var item in temporadas.Times)
+                {
+                    var timeTemp = _timeService.GetAll().FirstOrDefault(x => x.Id == item.Time_ID);
+                    var tt = new CalculoTimeResponse();
+                    tt.AnoTemporada = temporadas.Ano;
+                    tt.Nome = timeTemp.Nome;
+                    tt.Conferencia = (TipoConferencia)System.Enum.Parse(typeof(TipoConferencia), timeTemp.Conferencia);
+                    tt.ParametroCalculo = valorEstatistica == null ? temporadaCalculo.FirstOrDefault(x => x.Ano == temporadas.Ano).ValorEstatistica : valorEstatistica.Value;
+                    if (calculoTime.Criterio == TipoCriterio.EstatisticaPer36Minutes)
+                        tt.ValorEstatistica = ObterValorEstatistica(calculoTime.Categoria.Value, item.EstatisticaTime);
+                    else
+                        tt.ValorEstatistica = ObterValorEstatistica(calculoTime.Categoria.Value, item.EstatisticaOponenteTime);
+
+                    timesResult.Add(tt);
+                }
+            }
+        }     
 
         private double ObterEstatisticaTime3Anos(CalculoTimeCommand calculoTime, IList<TemporadaTime> temporadaTime)
         {

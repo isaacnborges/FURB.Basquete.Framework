@@ -1,24 +1,36 @@
 ﻿using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Interfaces;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FURB.Basquete.Framework.ApplicationService.Services
 {
     public class AppServiceBase<TEntity> : IAppServiceBase<TEntity> where TEntity : class, IEntity
     {
-        private readonly Domain.Interfaces.Services.IServiceBase<TEntity> _serviceBase;
+        private readonly IServiceBase<TEntity> _serviceBase;
 
-        public AppServiceBase(Domain.Interfaces.Services.IServiceBase<TEntity> service)
+        public AppServiceBase(IServiceBase<TEntity> service)
         {
             _serviceBase = service;
+        }
+
+        protected string EstatisticaFormatada(string valor)
+        {
+            return valor.Replace(".", ",");
+        }
+
+        protected double PorcentagemFormatada(string valor)
+        {
+            if (valor == string.Empty)
+                return 0;
+
+            valor = valor.Replace(".", "");
+            var porcentagem = valor.Substring(0, 2) + "," + valor.Substring(2, 1);
+            return double.Parse(porcentagem);
         }
 
         public TEntity Add(TEntity model)

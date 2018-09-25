@@ -17,8 +17,4 @@
     <ProjectReference Include="..\FURB.Basquete.Framework.Infrastructure\FURB.Basquete.Framework.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

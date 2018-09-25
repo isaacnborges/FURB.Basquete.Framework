@@ -53,46 +53,16 @@ namespace FURB.Basquete.Framework.Domain.Services
         }
 
         public void AdicionarTemporadaTimes(IList<TemporadaTimeCommand> times)
-        {            
-            //Adicionar Time
-            foreach (var t in times)
-            {
-                var tt = _timeService.BuscarPorNome(t.Nome);
-
-                if (tt != null && string.IsNullOrEmpty(tt.Sigla))
-                {
-                    tt.Sigla = t.Sigla;
-                    tt.Conferencia = t.Conferencia;
-                    _timeService.Edit(x => x.Id == tt.Id, tt);
-                    continue;
-                }
-
-                if (tt != null)
-                {
-                    continue;
-                }
-
-                var time = new Time();
-                time.Nome = t.Nome;
-                time.Sigla = t.Sigla;
-                time.Conferencia = t.Conferencia;
-                _timeService.Add(time);
-            }
-
-            //obter registro com o ano
-            var anoBase = times.FirstOrDefault().Ano;
-            var existeTemporada = _temporadaTimeRepository.GetAll().Any(x => x.Ano == anoBase);
-            if (existeTemporada)
-            {
-                _temporadaTimeRepository.Delete(x => x.Ano == anoBase);
-            }
+        {
+            _timeService.AdicionarTimes(times);
+            
+            ValidarRegistroDoAno(times);
 
             var temporadaTime = new TemporadaTime();
             var timesTemporada = new List<TimeEstatistica>();
-            //Adicionar Temporada Time
             foreach (var t in times)
             {
-                var timeAdicionado = _timeService.BuscarPorNome(t.Nome);                
+                var timeAdicionado = _timeService.BuscarPorNome(t.Nome);
                 var timeEstatistica = new TimeEstatistica();
 
                 timeEstatistica.Time_ID = timeAdicionado.Id;
@@ -106,6 +76,17 @@ namespace FURB.Basquete.Framework.Domain.Services
 
             temporadaTime.Times = timesTemporada;
             Add(temporadaTime);
+        }
+
+        private void ValidarRegistroDoAno(IList<TemporadaTimeCommand> times)
+        {
+            //obter registro com o ano
+            var anoBase = times.FirstOrDefault().Ano;
+            var existeTemporada = _temporadaTimeRepository.GetAll().Any(x => x.Ano == anoBase);
+            if (existeTemporada)
+            {
+                _temporadaTimeRepository.Delete(x => x.Ano == anoBase);
+            }
         }
     }
 }

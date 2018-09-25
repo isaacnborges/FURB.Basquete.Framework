@@ -12,11 +12,10 @@ using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
-    public class CalculoJogadorService : ICalculoJogadorService
+    public class CalculoJogadorService : CalculoJogadorBase, ICalculoJogadorService
     {
         private readonly ITemporadaJogadorService _temporadaJogadorService;
         private readonly IJogadorService _jogadorService;
-        private const int MEDIA3ANOS = 3;
 
         public CalculoJogadorService(ITemporadaJogadorService temporadaTimeService, IJogadorService jogadorService)
         {
@@ -152,12 +151,9 @@ namespace FURB.Basquete.Framework.Domain.Services
         public IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador)
         {
             var jogadorResult = new List<CalculoJogadorResponse>();
-
-            //TUDO
-            var temporadaJogador = _temporadaJogadorService.GetAll().ToList();
-
+            
             //Ano
-            temporadaJogador = temporadaJogador.Where(x => x.Ano >= calculoJogador.AnoInicio && x.Ano <= calculoJogador.AnoFim).ToList();
+            var temporadaJogador = _temporadaJogadorService.GetAll().Where(x => x.Ano >= calculoJogador.AnoInicio && x.Ano <= calculoJogador.AnoFim).ToList();
 
             //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
             temporadaJogador = temporadaJogador.Select(x => new TemporadaJogador
@@ -189,25 +185,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 }
 
                 //Retorno                
-                foreach (var temporadas in temporadaJogador)
-                {
-                    foreach (var item in temporadas.Jogadores)
-                    {
-                        var jogadorTemp = _jogadorService.GetAll().FirstOrDefault(x => x.Id == item.Jogador_ID);
-                        var tt = new CalculoJogadorResponse();
-
-                        tt.AnoTemporada = temporadas.Ano;
-                        tt.Nome = jogadorTemp.Nome;
-                        tt.Posicao = (TipoPosicao)System.Enum.Parse(typeof(TipoPosicao), jogadorTemp.Posicao);
-                        tt.ParametroCalculo = temporadaCalculo.FirstOrDefault(x => x.Ano == temporadas.Ano).ValorEstatistica;
-                        if (calculoJogador.Criterio == TipoCriterio.EstatisticaPer36Minutes)
-                            tt.ValorEstatistica = ObterValorEstatistica(calculoJogador.Categoria.Value, item.EstatsticaPer36);
-                        else
-                            tt.ValorEstatistica = ObterValorEstatisticaAvancada(calculoJogador.CategoriaAvancada.Value, item.EstatsticaAvancada);
-
-                        jogadorResult.Add(tt);
-                    }
-                }
+                MontarRetorno(calculoJogador, jogadorResult, temporadaJogador, temporadaCalculo, null);
             }
             //Media 3 ANOS
             else if (calculoJogador.TipoCalculo == TipoCalculo.Media3Anos)
@@ -229,29 +207,34 @@ namespace FURB.Basquete.Framework.Domain.Services
                 }
 
                 //Retorno               
-                foreach (var temporadas in temporadaJogador)
-                {
-                    foreach (var item in temporadas.Jogadores)
-                    {
-                        var jogadorTemp = _jogadorService.GetAll().FirstOrDefault(x => x.Id == item.Jogador_ID);
-                        var tt = new CalculoJogadorResponse();
-
-                        tt.AnoTemporada = temporadas.Ano;
-                        tt.Nome = jogadorTemp.Nome;
-                        tt.Posicao = (TipoPosicao)System.Enum.Parse(typeof(TipoPosicao), jogadorTemp.Posicao);
-                        tt.ParametroCalculo = valorEstatistica;
-                        if (calculoJogador.Criterio == TipoCriterio.EstatisticaPer36Minutes)
-                            tt.ValorEstatistica = ObterValorEstatistica(calculoJogador.Categoria.Value, item.EstatsticaPer36);
-                        else
-                            tt.ValorEstatistica = ObterValorEstatisticaAvancada(calculoJogador.CategoriaAvancada.Value, item.EstatsticaAvancada);
-
-                        jogadorResult.Add(tt);
-                    }
-                }
+                MontarRetorno(calculoJogador, jogadorResult, temporadaJogador, null, valorEstatistica);
             }
 
             var res = jogadorResult.OrderByDescending(x => x.IndiceCalulo).ToList();
             return res;
+        }
+
+        private void MontarRetorno(CalculoJogadorCommand calculoJogador, List<CalculoJogadorResponse> jogadorResult, List<TemporadaJogador> temporadaJogador, List<TemporadaBaseCalculo> temporadaCalculo, double? valorEstatistica)
+        {
+            foreach (var temporadas in temporadaJogador)
+            {
+                foreach (var item in temporadas.Jogadores)
+                {
+                    var jogadorTemp = _jogadorService.GetAll().FirstOrDefault(x => x.Id == item.Jogador_ID);
+                    var tt = new CalculoJogadorResponse();
+
+                    tt.AnoTemporada = temporadas.Ano;
+                    tt.Nome = jogadorTemp.Nome;
+                    tt.Posicao = (TipoPosicao)System.Enum.Parse(typeof(TipoPosicao), jogadorTemp.Posicao);
+                    tt.ParametroCalculo = valorEstatistica == null ? temporadaCalculo.FirstOrDefault(x => x.Ano == temporadas.Ano).ValorEstatistica : valorEstatistica.Value;
+                    if (calculoJogador.Criterio == TipoCriterio.EstatisticaPer36Minutes)
+                        tt.ValorEstatistica = ObterValorEstatistica(calculoJogador.Categoria.Value, item.EstatsticaPer36);
+                    else
+                        tt.ValorEstatistica = ObterValorEstatisticaAvancada(calculoJogador.CategoriaAvancada.Value, item.EstatsticaAvancada);
+
+                    jogadorResult.Add(tt);
+                }
+            }
         }
 
         private double ObterEstatisticaAvancadaJogador3Anos(CalculoJogadorCommand calculoJogador, List<TemporadaJogador> temporadaJogador)

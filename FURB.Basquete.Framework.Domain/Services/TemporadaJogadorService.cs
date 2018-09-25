@@ -26,18 +26,7 @@ namespace FURB.Basquete.Framework.Domain.Services
         public void AdicionarTemporadaJogadores(IList<TemporadaJogadorCommand> jogadores)
         {
             //Adicionar Jogador
-            foreach (var j in jogadores)
-            {
-                if (_jogadorService.BuscarPorNome(j.Nome) != null)
-                {
-                    continue;
-                }
-
-                var jogador = new Jogador();
-                jogador.Nome = j.Nome;
-                jogador.Posicao = j.Posicao;
-                _jogadorService.Add(jogador);
-            }
+            _jogadorService.AdicionarTemporadaJogadores(jogadores);
 
             //obter registro com o ano
             var anoBase = jogadores.FirstOrDefault().Ano;
