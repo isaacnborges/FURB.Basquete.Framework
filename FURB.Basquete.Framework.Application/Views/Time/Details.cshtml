@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Time</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@ViewBag.time.Nome</th>
+            <th>@ViewBag.time.Sigla</th>
+            <th>@ViewBag.time.Conferencia</th>
+        </tr>
+    </thead>
+</table>
+
+<h4>Estatisticas Time</h4>
+<table class="table">
+    @*<thead>
+            <tr>
+                <th>Ano</th>
+                <th>ArremessosConvertidos</th>
+                <th>ArremessosTentados</th>
+                <th>PorcentagemArremessos</th>
+                <th>Arremessos3Pontos</th>
+                <th>Arremessos3PontosTentados</th>
+                <th>Porcentagem3Pontos</th>
+                <th>Arremessos2Pontos</th>
+                <th>Arremessos2PontosTentados</th>
+                <th>Porcentagem2Pontos</th>
+                <th>LancesLivres</th>
+                <th>LancesLivresTentados</th>
+                <th>PorcentagemLancesLivres</th>
+                <th>RebotesOfensivos</th>
+                <th>RebotesDefensivos</th>
+                <th>TotalRebotes</th>
+                <th>Assistencias</th>
+                <th>RoubosBola</th>
+                <th>Tocos</th>
+                <th>DesperdiciosBola</th>
+                <th>Faltas</th>
+                <th>Pontos</th>
+            </tr>
+        </thead>*@
+    <tbody>
+        @foreach (var item in ViewBag.EstatisticaTime)
+        {
+            <tr>
+                <td>@item.Ano</td>
+                <td>@item.ArremessosConvertidos</td>
+                <td>@item.ArremessosTentados</td>
+                <td>@item.PorcentagemArremessos</td>
+                <td>@item.Arremessos3Pontos</td>
+                <td>@item.Arremessos3PontosTentados</td>
+                <td>@item.Porcentagem3Pontos</td>
+                <td>@item.Arremessos2Pontos</td>
+                <td>@item.Arremessos2PontosTentados</td>
+                <td>@item.Porcentagem2Pontos</td>
+                <td>@item.LancesLivres</td>
+                <td>@item.LancesLivresTentados</td>
+                <td>@item.PorcentagemLancesLivres</td>
+                <td>@item.RebotesOfensivos</td>
+                <td>@item.RebotesDefensivos</td>
+                <td>@item.TotalRebotes</td>
+                <td>@item.Assistencias</td>
+                <td>@item.RoubosBola</td>
+                <td>@item.Tocos</td>
+                <td>@item.DesperdiciosBola</td>
+                <td>@item.Faltas</td>
+                <td>@item.Pontos</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Estatisticas Oponente Time</h4>
+<table class="table">
+    <tbody>
+        @foreach (var item in ViewBag.EstatisticaOponenteTime)
+        {
+            <tr>
+                <td>@item.Ano</td>
+                <td>@item.ArremessosConvertidos</td>
+                <td>@item.ArremessosTentados</td>
+                <td>@item.PorcentagemArremessos</td>
+                <td>@item.Arremessos3Pontos</td>
+                <td>@item.Arremessos3PontosTentados</td>
+                <td>@item.Porcentagem3Pontos</td>
+                <td>@item.Arremessos2Pontos</td>
+                <td>@item.Arremessos2PontosTentados</td>
+                <td>@item.Porcentagem2Pontos</td>
+                <td>@item.LancesLivres</td>
+                <td>@item.LancesLivresTentados</td>
+                <td>@item.PorcentagemLancesLivres</td>
+                <td>@item.RebotesOfensivos</td>
+                <td>@item.RebotesDefensivos</td>
+                <td>@item.TotalRebotes</td>
+                <td>@item.Assistencias</td>
+                <td>@item.RoubosBola</td>
+                <td>@item.Tocos</td>
+                <td>@item.DesperdiciosBola</td>
+                <td>@item.Faltas</td>
+                <td>@item.Pontos</td>
+            </tr>
+        }
+    </tbody>
+</table>

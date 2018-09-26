@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FURB.Basquete.Framework.ApplicationService.Interfaces;
+﻿using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Enum;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using FURB.Basquete.Framework.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace FURB.Basquete.Framework.Web.Controllers
 {

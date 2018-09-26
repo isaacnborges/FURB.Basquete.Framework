@@ -1,0 +1,56 @@
+﻿using FURB.Basquete.Framework.Application.ViewModels;
+using FURB.Basquete.Framework.ApplicationService.Interfaces;
+using FURB.Basquete.Framework.Domain.Commands;
+using FURB.Basquete.Framework.Domain.Enum;
+using FURB.Basquete.Framework.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+
+namespace FURB.Basquete.Framework.Application.Controllers
+{
+    public class TimeController : Controller
+    {
+        private readonly ITimeAppService _timeAppService;
+        private readonly ITemporadaTimeAppService _temporataTimeAppService;
+        private readonly ICalculoTimeService _calculoTimeService;
+
+        public TimeController(ITimeAppService timeAppService, ITemporadaTimeAppService temporataTimeAppService, ICalculoTimeService calculoTimeService)
+        {
+            _timeAppService = timeAppService;
+            _temporataTimeAppService = temporataTimeAppService;
+            _calculoTimeService = calculoTimeService;
+        }
+
+        public IActionResult Index()
+        {
+            var times = _timeAppService.GetAll();
+            var result = times.Select(x => TimeViewModel.ToViewModel(x)).OrderBy(x => x.Nome).ToList();
+
+            return View(result);
+        }
+
+        public IActionResult Details(Guid id)
+        {
+            var temporadaTime = _temporataTimeAppService.ObterEstatisticaTime(id);
+
+            ViewBag.Time = temporadaTime.Time;
+            ViewBag.EstatisticaTime = temporadaTime.Estatisticas.Select(x => x.EstatisticaTime);
+            ViewBag.EstatisticaOponenteTime = temporadaTime.Estatisticas.Select(x => x.EstatisticaOponenteTime);
+
+
+            //TESTE para chamar o serviço
+            CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
+            timeCalculo.AnoInicio = 2002;
+            timeCalculo.AnoFim = 2006;
+            timeCalculo.Categoria = TipoCategoria.Tocos;
+            timeCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
+            timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
+            timeCalculo.Conferencia = TipoConferencia.Ambas;
+            timeCalculo.MediaIsolada = true;
+            var tt = _calculoTimeService.CalcularTime(timeCalculo);
+
+            return View();
+        }
+    }
+}

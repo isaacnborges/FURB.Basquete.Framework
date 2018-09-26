@@ -19,7 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Web", "FURB.Basquete.Framework.Web\FURB.Basquete.Framework.Web.csproj", "{3D400EA2-EB6A-4407-82BC-3A2E977D349D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Infrastructure.IoC", "FURB.Basquete.Framework.Infrastructure.IoC\FURB.Basquete.Framework.Infrastructure.IoC.csproj", "{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{137511EF-A9A2-49B3-819C-B3C00D612E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FURB.Basquete.Framework.Infrastructure.IoC", "FURB.Basquete.Framework.Infrastructure.IoC\FURB.Basquete.Framework.Infrastructure.IoC.csproj", "{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Application", "FURB.Basquete.Framework.Application\FURB.Basquete.Framework.Application.csproj", "{2E51DB95-C1E8-4AE8-8B77-B3280686BB10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +47,14 @@ Global
 		{3D400EA2-EB6A-4407-82BC-3A2E977D349D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D400EA2-EB6A-4407-82BC-3A2E977D349D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D400EA2-EB6A-4407-82BC-3A2E977D349D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E51DB95-C1E8-4AE8-8B77-B3280686BB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E51DB95-C1E8-4AE8-8B77-B3280686BB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E51DB95-C1E8-4AE8-8B77-B3280686BB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E51DB95-C1E8-4AE8-8B77-B3280686BB10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,7 +64,8 @@ Global
 		{6AA9DB33-2F1D-4A5E-B46E-24D37042B4C7} = {BC53DD23-BA95-4EEF-8CE3-D16A072441FC}
 		{A112B5BB-D57F-4798-B509-CDC641B7A4AA} = {9CF604FC-9001-4D37-BDE1-296226CC499E}
 		{3D400EA2-EB6A-4407-82BC-3A2E977D349D} = {6AD7C6BA-7383-4848-B793-0EFE6FF69F64}
-		{F45EA81B-6226-4AB1-A0B7-22ECE12D3F49} = {BC53DD23-BA95-4EEF-8CE3-D16A072441FC}
+		{73B3BC79-96D2-4D37-ABD3-EF389001EDF1} = {BC53DD23-BA95-4EEF-8CE3-D16A072441FC}
+		{2E51DB95-C1E8-4AE8-8B77-B3280686BB10} = {137511EF-A9A2-49B3-819C-B3C00D612E94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0AE294DD-B1B2-4EAE-84A6-54DD1509416C}
