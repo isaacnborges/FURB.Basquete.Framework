@@ -6,6 +6,7 @@ using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace FURB.Basquete.Framework.Application.Controllers
 {
@@ -23,14 +24,6 @@ namespace FURB.Basquete.Framework.Application.Controllers
         }
 
         public IActionResult Index()
-        {
-            var times = _timeAppService.GetAll();
-            var result = times.Select(x => TimeViewModel.ToViewModel(x)).OrderBy(x => x.Nome).ToList();
-
-            return View(result);
-        }
-
-        public IActionResult ShowGrid()
         {
             return View();
         }
@@ -61,14 +54,15 @@ namespace FURB.Basquete.Framework.Application.Controllers
                 var result = times.Select(x => TimeViewModel.ToViewModel(x));
                 var customerData = result;
 
-                //var customerData = (from tempcustomer in _context.CustomerTB
-                //                    select tempcustomer);
-
-                //Sorting  
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                sortColumn = sortColumn.Equals("Id") || string.IsNullOrEmpty(sortColumn) ? "Nome" : sortColumn;
+                var prop = GetProperty(sortColumn);
+                if (sortColumnDirection == "asc")
                 {
-                    customerData = customerData.OrderBy(x => sortColumn + " " + sortColumnDirection);
+                    customerData = customerData.OrderBy(prop.GetValue);
                 }
+                else
+                    customerData = customerData.OrderByDescending(prop.GetValue);
+
                 //Search  
                 if (!string.IsNullOrEmpty(searchValue))
                 {
@@ -80,13 +74,28 @@ namespace FURB.Basquete.Framework.Application.Controllers
                 //Paging   
                 var data = customerData.Skip(skip).Take(pageSize).ToList();
                 //Returning Json Data  
-                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+                return Json(new { draw, recordsFiltered = recordsTotal, recordsTotal, data });
 
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+        private PropertyInfo GetProperty(string name)
+        {
+            var properties = typeof(TimeViewModel).GetProperties();
+            PropertyInfo prop = null;
+            foreach (var item in properties)
+            {
+                if (item.Name.ToLower().Equals(name.ToLower()))
+                {
+                    prop = item;
+                    break;
+                }
+            }
+            return prop;
         }
 
         public IActionResult Details(Guid id)
@@ -107,7 +116,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
             timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
             timeCalculo.Conferencia = TipoConferencia.Ambas;
             timeCalculo.MediaIsolada = true;
-            var tt = _calculoTimeService.CalcularTime(timeCalculo);
+            //var tt = _calculoTimeService.CalcularTime(timeCalculo);
 
             return View();
         }
