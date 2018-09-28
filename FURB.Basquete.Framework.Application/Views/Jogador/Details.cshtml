@@ -3,48 +3,40 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Jogador</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>@ViewBag.jogador.Nome</th>
-            <th>@ViewBag.jogador.Posicao</th>
-        </tr>
-    </thead>
-</table>
+<h2>@ViewBag.jogador.Nome - @ViewBag.jogador.Posicao</h2>
 
 <h4>Estatisticas Por 36 minutos</h4>
 <table class="table">
-    @*<thead>
-            <tr>
-                <th>Ano</th>
-                <th>Idade</th>
-                <th>SiglaTime</th>
-                <th>Jogos</th>
-                <th>JogosIniciados</th>
-                <th>ArremessosConvertidos</th>
-                <th>ArremessosTentados</th>
-                <th>PorcentagemArremessos</th>
-                <th>Arremessos3Pontos</th>
-                <th>Arremessos3PontosTentados</th>
-                <th>Porcentagem3Pontos</th>
-                <th>Arremessos2Pontos</th>
-                <th>Arremessos2PontosTentados</th>
-                <th>Porcentagem2Pontos</th>
-                <th>LancesLivres</th>
-                <th>LancesLivresTentados</th>
-                <th>PorcentagemLancesLivres</th>
-                <th>RebotesOfensivos</th>
-                <th>RebotesDefensivos</th>
-                <th>TotalRebotes</th>
-                <th>Assistencias</th>
-                <th>RoubosBola</th>
-                <th>Tocos</th>
-                <th>DesperdiciosBola</th>
-                <th>Faltas</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>*@
+    <thead>
+        <tr>
+            <th>Ano</th>
+            <th>Idade</th>
+            <th>Time</th>
+            <th>Jogos</th>
+            <th>Jogos I</th>
+            <th>AC</th>
+            <th>AT</th>
+            <th>AC%</th>
+            <th>3A</th>
+            <th>3AT</th>
+            <th>3A%</th>
+            <th>2A</th>
+            <th>2AT</th>
+            <th>2A%</th>
+            <th>LL</th>
+            <th>LLT</th>
+            <th>LL%</th>
+            <th>RO</th>
+            <th>RD</th>
+            <th>TR</th>
+            <th>A</th>
+            <th>RB</th>
+            <th>TCS</th>
+            <th>DB</th>
+            <th>FTS</th>
+            <th>PTS</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var jogador in ViewBag.EstatisticaPer36)
         {
@@ -82,6 +74,32 @@
 
 <h4>Estatisticas avançadas</h4>
 <table class="table">
+    <thead>
+        <tr>
+            <th>Ano</th>
+            <th>Idade</th>
+            <th>Time</th>
+            <th>Jogos</th>
+            <th>EJ</th>
+            <th>EJ%</th>
+            <th>TT3</th>
+            <th>TTLL</th>
+            <th>RO%</th>
+            <th>RD%</th>
+            <th>TR%</th>
+            <th>A%</th>
+            <th>RB%</th>
+            <th>TCS%</th>
+            <th>DB%</th>
+            <th>US%</th>
+            <th>CVO</th>
+            <th>CVD</th>
+            <th>CV</th>
+            <th>ECO</th>
+            <th>ECD</th>
+            <th>ECT</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var jogador in ViewBag.EstatisticaAvancada)
         {

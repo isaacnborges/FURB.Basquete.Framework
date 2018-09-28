@@ -24,17 +24,21 @@ namespace FURB.Basquete.Framework.Domain.Services
         }
 
         public CalculoJogadorEspecificoCommand CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria, 
-                                                                                TipoCategoriaAvancada? categoriaAvancada)
+            TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int qtdJogos)
         {
             var jogadorResult = new CalculoJogadorEspecificoCommand();
 
             var temporada = _temporadaJogadorService.GetAll().Where(x => x.Ano == anoBase).ToList();
-            //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
-            temporada = temporada.Select(x => new TemporadaJogador
+
+            if (filtrarJogadores)
             {
-                Ano = x.Ano,
-                Jogadores = x.Jogadores.Where(y => y.EstatsticaPer36.Jogos >= 20).ToList()
-            }).ToList();
+                //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
+                temporada = temporada.Select(x => new TemporadaJogador
+                {
+                    Ano = x.Ano,
+                    Jogadores = x.Jogadores.Where(y => y.EstatsticaPer36.Jogos >= qtdJogos).ToList()
+                }).ToList();
+            }
 
             var temporadaJogador = temporada.Select(x => new TemporadaJogador
             {
@@ -148,19 +152,22 @@ namespace FURB.Basquete.Framework.Domain.Services
             return jogadorResult;
         }
 
-        public IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador)
+        public IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador, bool filtrarJogadores, int qtdJogos)
         {
             var jogadorResult = new List<CalculoJogadorResponse>();
             
             //Ano
             var temporadaJogador = _temporadaJogadorService.GetAll().Where(x => x.Ano >= calculoJogador.AnoInicio && x.Ano <= calculoJogador.AnoFim).ToList();
 
-            //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
-            temporadaJogador = temporadaJogador.Select(x => new TemporadaJogador
+            if (filtrarJogadores)
             {
-                Ano = x.Ano,
-                Jogadores = x.Jogadores.Where(y => y.EstatsticaPer36.Jogos >= 20).ToList()
-            }).ToList();
+                //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
+                temporadaJogador = temporadaJogador.Select(x => new TemporadaJogador
+                {
+                    Ano = x.Ano,
+                    Jogadores = x.Jogadores.Where(y => y.EstatsticaPer36.Jogos >= qtdJogos).ToList()
+                }).ToList();
+            }
 
             //Posicao
             temporadaJogador = temporadaJogador.Select(x => new TemporadaJogador

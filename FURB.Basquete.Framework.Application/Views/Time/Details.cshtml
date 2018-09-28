@@ -3,7 +3,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Time</h2>
+@*<h2>Time</h2>
 <table class="table">
     <thead>
         <tr>
@@ -12,36 +12,38 @@
             <th>@ViewBag.time.Conferencia</th>
         </tr>
     </thead>
-</table>
+</table>*@
+
+<h2>@ViewBag.time.Nome - @ViewBag.time.Sigla - @ViewBag.time.Conferencia</h2>
 
 <h4>Estatisticas Time</h4>
 <table class="table">
-    @*<thead>
-            <tr>
-                <th>Ano</th>
-                <th>ArremessosConvertidos</th>
-                <th>ArremessosTentados</th>
-                <th>PorcentagemArremessos</th>
-                <th>Arremessos3Pontos</th>
-                <th>Arremessos3PontosTentados</th>
-                <th>Porcentagem3Pontos</th>
-                <th>Arremessos2Pontos</th>
-                <th>Arremessos2PontosTentados</th>
-                <th>Porcentagem2Pontos</th>
-                <th>LancesLivres</th>
-                <th>LancesLivresTentados</th>
-                <th>PorcentagemLancesLivres</th>
-                <th>RebotesOfensivos</th>
-                <th>RebotesDefensivos</th>
-                <th>TotalRebotes</th>
-                <th>Assistencias</th>
-                <th>RoubosBola</th>
-                <th>Tocos</th>
-                <th>DesperdiciosBola</th>
-                <th>Faltas</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>*@
+    <thead>
+        <tr>
+            <th>Ano</th>
+            <th>AC</th>
+            <th>AT</th>
+            <th>AC%</th>
+            <th>3A</th>
+            <th>3AT</th>
+            <th>3A%</th>
+            <th>2A</th>
+            <th>2AT</th>
+            <th>2A%</th>
+            <th>LL</th>
+            <th>LLT</th>
+            <th>LL%</th>
+            <th>RO</th>
+            <th>RD</th>
+            <th>TR</th>
+            <th>A</th>
+            <th>RB</th>
+            <th>TCS</th>
+            <th>DB</th>
+            <th>FTS</th>
+            <th>PTS</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in ViewBag.EstatisticaTime)
         {
@@ -75,6 +77,32 @@
 
 <h4>Estatisticas Oponente Time</h4>
 <table class="table">
+    <thead>
+        <tr>
+            <th>Ano</th>
+            <th>AC</th>
+            <th>AT</th>
+            <th>AC%</th>
+            <th>3A</th>
+            <th>3AT</th>
+            <th>3A%</th>
+            <th>2A</th>
+            <th>2AT</th>
+            <th>2A%</th>
+            <th>LL</th>
+            <th>LLT</th>
+            <th>LL%</th>
+            <th>RO</th>
+            <th>RD</th>
+            <th>TR</th>
+            <th>A</th>
+            <th>RB</th>
+            <th>TCS</th>
+            <th>DB</th>
+            <th>FTS</th>
+            <th>PTS</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in ViewBag.EstatisticaOponenteTime)
         {

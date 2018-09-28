@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{137511EF-A9A2-49B3-819C-B3C00D612E94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FURB.Basquete.Framework.Infrastructure.IoC", "FURB.Basquete.Framework.Infrastructure.IoC\FURB.Basquete.Framework.Infrastructure.IoC.csproj", "{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Infrastructure.IoC", "FURB.Basquete.Framework.Infrastructure.IoC\FURB.Basquete.Framework.Infrastructure.IoC.csproj", "{73B3BC79-96D2-4D37-ABD3-EF389001EDF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FURB.Basquete.Framework.Application", "FURB.Basquete.Framework.Application\FURB.Basquete.Framework.Application.csproj", "{2E51DB95-C1E8-4AE8-8B77-B3280686BB10}"
 EndProject

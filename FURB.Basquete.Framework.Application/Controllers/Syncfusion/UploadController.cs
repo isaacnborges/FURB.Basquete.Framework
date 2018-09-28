@@ -12,12 +12,12 @@ namespace FURB.Basquete.Framework.Application.Controllers
 {
     public partial class UploadController : Controller
     {
-        //
-        // GET: /UploadDefault/
-              private IHostingEnvironment hostingEnv;
-        public UploadController(IHostingEnvironment env)
+        private IHostingEnvironment _hostingEnvironment;
+        private const string folderName = "Upload";
+
+        public UploadController(IHostingEnvironment hostingEnvironment)
         {
-            this.hostingEnv = env;
+            _hostingEnvironment = hostingEnvironment;
         }
         [AcceptVerbs("Post")]
         public IActionResult Save(IList<IFormFile> UploadFiles)
@@ -29,13 +29,13 @@ namespace FURB.Basquete.Framework.Application.Controllers
                     if (UploadFiles != null)
                     {
                         var filename = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                        filename = hostingEnv.WebRootPath + $@"\{filename}";
+                        filename = _hostingEnvironment.WebRootPath + $@"\{filename}";
                         if (!System.IO.File.Exists(filename))
                         {
                             //using (FileStream fs = System.IO.File.Create(filename))
                             //{
                             //    file.CopyTo(fs);
-                            //    fs.Flush(); 
+                            //    fs.Flush();
                             //}
                         }
                         else
@@ -65,7 +65,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
                 foreach (var file in UploadFiles)
                 {
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var filePath = Path.Combine(hostingEnv.WebRootPath);
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath);
                     var fileSavePath = filePath + "\\" + fileName;
                     if (!System.IO.File.Exists(fileSavePath))
                     {

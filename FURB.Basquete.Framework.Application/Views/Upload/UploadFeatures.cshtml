@@ -14,17 +14,17 @@
 <div id = "ControlRegion">
               <div class="col-lg-8 control-section">
         <div class="control_wrapper">
-            <ejs-uploader id="UploadFiles" removing="onFileRemove" dropArea=".control-fluid" asyncSettings="@asyncSettings">
+            <ejs-uploader id="UploadFiles" autoUpload="false" removing="onFileRemove" dropArea=".control-fluid" asyncSettings="@asyncSettings" allowedExtensions=".xlsx">
             </ejs-uploader>
         </div>
     </div>
-    <div class="col-lg-4 property-section">
+    @*<div class="col-lg-4 property-section">
         <div id="property" title="Properties">
             <div style="margin-left: 50px; padding-top:25px;">
                 <ejs-checkbox id="checkAutoUpload" label="Auto Upload" checked="true" change="onChange"></ejs-checkbox>
             </div>
         </div>
-    </div>
+    </div>*@
 <style>
     .control_wrapper {
         max-width: 400px;

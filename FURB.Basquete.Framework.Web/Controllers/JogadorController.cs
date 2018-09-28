@@ -48,7 +48,7 @@ namespace FURB.Basquete.Framework.Web.Controllers
             jogadorCalculo.TipoCalculo = TipoCalculo.MediaAnual;
             jogadorCalculo.Posicao = TipoPosicao.SF;
             jogadorCalculo.MediaIsolada = true;
-            var tt = _calculoJogadorService.CalcularJogador(jogadorCalculo);
+            var tt = _calculoJogadorService.CalcularJogador(jogadorCalculo, true, 20);
 
             //TESTE para chamar o serviço
             var jogadorCalculo2 = new CalculoJogadorCommand();
@@ -59,11 +59,11 @@ namespace FURB.Basquete.Framework.Web.Controllers
             jogadorCalculo2.TipoCalculo = TipoCalculo.MediaAnual;
             jogadorCalculo2.Posicao = TipoPosicao.SF;
             jogadorCalculo2.MediaIsolada = true;
-            var tt2 = _calculoJogadorService.CalcularJogador(jogadorCalculo2);
+            var tt2 = _calculoJogadorService.CalcularJogador(jogadorCalculo2, true, 30);
 
             var jogador3 = _jogadorAppService.GetAll().FirstOrDefault(x => x.Id == id);
-            var tt3 = _calculoJogadorService.CalcularJogadorEspecifico(jogador3, 2017, TipoCategoria.Pontos, null);
-            var tt4 = _calculoJogadorService.CalcularJogadorEspecifico(jogador3, 2017, null, TipoCategoriaAvancada.EficienciaJogador);
+            var tt3 = _calculoJogadorService.CalcularJogadorEspecifico(jogador3, 2017, TipoCategoria.Pontos, null, true, 20);
+            var tt4 = _calculoJogadorService.CalcularJogadorEspecifico(jogador3, 2017, null, TipoCategoriaAvancada.EficienciaJogador, true, 30);
 
             return View();
         }
