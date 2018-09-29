@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FURB.Basquete.Framework.Application</title>
+    <title>@ViewData["Title"] - FBF Aplicação</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -31,12 +31,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">FURB.Basquete.Framework.Application</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">FBF Aplicação</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>*@
                     <li><a asp-area="" asp-controller="Time" asp-action="Index">Times</a></li>
+                    <li><a asp-area="" asp-controller="CalculoTime" asp-action="Index">Calculo Times</a></li>
                     <li><a asp-area="" asp-controller="Jogador" asp-action="Index">Jogadores</a></li>
                     <li><a asp-area="" asp-controller="Import" asp-action="Index">Importar dados</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>

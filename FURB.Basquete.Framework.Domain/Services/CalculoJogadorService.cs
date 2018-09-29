@@ -24,13 +24,13 @@ namespace FURB.Basquete.Framework.Domain.Services
         }
 
         public CalculoJogadorEspecificoCommand CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria, 
-            TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int qtdJogos)
+            TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int? qtdJogos)
         {
             var jogadorResult = new CalculoJogadorEspecificoCommand();
 
             var temporada = _temporadaJogadorService.GetAll().Where(x => x.Ano == anoBase).ToList();
 
-            if (filtrarJogadores)
+            if (filtrarJogadores && qtdJogos != null && qtdJogos > 0)
             {
                 //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
                 temporada = temporada.Select(x => new TemporadaJogador
@@ -152,14 +152,14 @@ namespace FURB.Basquete.Framework.Domain.Services
             return jogadorResult;
         }
 
-        public IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador, bool filtrarJogadores, int qtdJogos)
+        public IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador, bool filtrarJogadores, int? qtdJogos)
         {
             var jogadorResult = new List<CalculoJogadorResponse>();
             
             //Ano
             var temporadaJogador = _temporadaJogadorService.GetAll().Where(x => x.Ano >= calculoJogador.AnoInicio && x.Ano <= calculoJogador.AnoFim).ToList();
 
-            if (filtrarJogadores)
+            if (filtrarJogadores && qtdJogos != null && qtdJogos > 0)
             {
                 //Filtrar jogadores com poucos minutos - Apneas Jogadores relevantes para os calculos
                 temporadaJogador = temporadaJogador.Select(x => new TemporadaJogador

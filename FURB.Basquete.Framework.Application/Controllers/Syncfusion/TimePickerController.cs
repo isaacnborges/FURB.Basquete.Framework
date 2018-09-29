@@ -20,7 +20,6 @@ namespace FURB.Basquete.Framework.Application.Controllers
             TimeValue val = new TimeValue();
             val.value = DateTime.Now;
             return View(val);
-            return View();
         }
         [HttpPost]
         public IActionResult TimePickerFeatures(TimeValue model)

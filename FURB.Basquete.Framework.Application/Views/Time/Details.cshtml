@@ -3,19 +3,10 @@
     ViewData["Title"] = "Details";
 }
 
-@*<h2>Time</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>@ViewBag.time.Nome</th>
-            <th>@ViewBag.time.Sigla</th>
-            <th>@ViewBag.time.Conferencia</th>
-        </tr>
-    </thead>
-</table>*@
-
-<h2>@ViewBag.time.Nome - @ViewBag.time.Sigla - @ViewBag.time.Conferencia</h2>
-
+<h2>@ViewBag.time.Nome</h2>
+<h4>Sigla: @ViewBag.time.Sigla</h4>
+<h4>Conferência: @ViewBag.time.Conferencia</h4>
+<br>
 <h4>Estatisticas Time</h4>
 <table class="table">
     <thead>

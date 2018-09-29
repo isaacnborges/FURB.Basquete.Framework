@@ -25,12 +25,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
         }
 
         public IActionResult Index()
-        {
-            //var jogadores = _jogadorAppService.GetAll();
-            //var result = jogadores.Select(x => JogadorViewModel.ToViewModel(x)).OrderBy(x => x.Nome).ToList();
-
-            //return View(result);
-
+        {           
             return View();
         }
 
