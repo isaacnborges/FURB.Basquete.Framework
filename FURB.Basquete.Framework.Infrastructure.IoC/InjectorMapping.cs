@@ -21,12 +21,13 @@ namespace FURB.Basquete.Framework.Infrastructure.IoC
             services.AddScoped<ITemporadaTimeAppService, TemporadaTimeAppService>();
             services.AddScoped<IJogadorAppService, JogadorAppService>();
             services.AddScoped<ITemporadaJogadorAppService, TemporadaJogadorAppService>();
+            services.AddScoped<ICalculoTimeAppService, CalculoTimeAppService>();
+            services.AddScoped<ICalculoJogadorAppService, CalculoJogadorAppService>();
 
             services.AddScoped<ITimeService, TimeService>();
             services.AddScoped<ITemporadaTimeService, TemporadaTimeService>();
             services.AddScoped<IJogadorService, JogadorService>();
             services.AddScoped<ITemporadaJogadorService, TemporadaJogadorService>();
-
             services.AddScoped<ICalculoTimeService, CalculoTimeService>();
             services.AddScoped<ICalculoJogadorService, CalculoJogadorService>();
 

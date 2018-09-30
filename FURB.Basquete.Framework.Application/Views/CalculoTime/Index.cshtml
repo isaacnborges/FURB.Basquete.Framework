@@ -5,3 +5,83 @@
 
 <h2>Index</h2>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<br />
+
+<form id="formTime" method="post">
+    <div class="row">
+        <label>Tipo Cálculo</label>
+        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media" checked>Média</label>
+        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+    </div>
+
+    <div class="row">
+        <label>Ano inicial</label>
+        <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial">
+        <label>Ano final</label>
+        <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final">
+
+        <br>
+        <label>Ano base</label>
+        <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base">
+    </div>
+
+    <div class="row">
+        <br>
+        <label>Critério</label>
+        <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
+            <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
+        </ejs-dropdownlist>
+        <label>Conferência</label>
+        <ejs-dropdownlist id="conferencia" dataSource="@ViewBag.Conferencia" placeholder="Escolha a conferência" index="0" popupHeight="120px">
+            <e-dropdownlist-fields text="conferencia" value="Id"></e-dropdownlist-fields>
+        </ejs-dropdownlist>
+
+        <label>Categoria</label>
+        <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="20" popupHeight="120px">
+            <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
+        </ejs-dropdownlist>
+    </div>
+
+    <div class="form-group">
+        <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
+    </div>    
+</form>
+
+<script>
+    $('.date-own').datepicker({
+        minViewMode: 2,
+        format: 'yyyy'
+    });
+
+    $(document).ready(function () {
+
+        $("#btnCalcular").click(function () {
+            var fData = $("#formTime").serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "CalculoTime/Calcular",
+                data: fData,
+                success: function () {
+
+                }
+            })
+        })
+    })
+</script>
+
+<style>
+    .content .blc {
+        position: relative;
+        float: left;
+    }
+</style>
+
+

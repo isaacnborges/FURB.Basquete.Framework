@@ -11,8 +11,8 @@ namespace FURB.Basquete.Framework.Application.Controllers
         // GET: /DropdownlistDefault/
         public ActionResult DropdownlistFeatures()
         {
- ViewBag.data = new DropdownlistGameList().DropdownlistGameLists();
-		return View();
+            ViewBag.data = new DropdownlistGameList().DropdownlistGameLists();
+		    return View();
         }
     }
             public class DropdownlistGameList

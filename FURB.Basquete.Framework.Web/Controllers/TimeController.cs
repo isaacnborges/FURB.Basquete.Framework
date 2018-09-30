@@ -40,15 +40,15 @@ namespace FURB.Basquete.Framework.Web.Controllers
 
 
             //TESTE para chamar o serviço
-            CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
-            timeCalculo.AnoInicio = 2002;
-            timeCalculo.AnoFim = 2006;
-            timeCalculo.Categoria = TipoCategoria.Tocos;
-            timeCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
-            timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-            timeCalculo.Conferencia = TipoConferencia.Ambas;
-            timeCalculo.MediaIsolada = true;
-            var tt = _calculoTimeService.CalcularTime(timeCalculo);
+            //CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
+            //timeCalculo.AnoInicio = 2002;
+            //timeCalculo.AnoFim = 2006;
+            //timeCalculo.Categoria = TipoCategoria.Tocos;
+            //timeCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
+            //timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
+            //timeCalculo.Conferencia = TipoConferencia.Ambas;
+            //timeCalculo.MediaIsolada = true;
+            //var tt = _calculoTimeService.CalcularTime(timeCalculo);
 
             return View();
         }
