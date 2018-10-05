@@ -28,26 +28,26 @@ namespace FURB.Basquete.Framework.Application.Controllers
             return View();
         }
 
-        public ActionResult Calcular([FromBody]ModelRequest<CalculoTimeModel> value)
+        public ActionResult Calcular([FromBody]ModelRequest<CalculoTimeModel> timeCommand)
         {
             CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
 
-            if (value.Value.TipoCalculo.Equals("media", StringComparison.InvariantCultureIgnoreCase))
+            if (timeCommand.Value.TipoCalculo.Equals("media", StringComparison.InvariantCultureIgnoreCase))
             {
                 timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-                timeCalculo.AnoInicio = value.Value.AnoInicio;
-                timeCalculo.AnoFim = value.Value.AnoFim;
+                timeCalculo.AnoInicio = timeCommand.Value.AnoInicio;
+                timeCalculo.AnoFim = timeCommand.Value.AnoFim;
             }
             else
             {
                 timeCalculo.TipoCalculo = TipoCalculo.Media3Anos;
-                timeCalculo.AnoInicio = value.Value.AnoBase - 1;
-                timeCalculo.AnoFim = value.Value.AnoBase + 1;
+                timeCalculo.AnoInicio = timeCommand.Value.AnoBase - 1;
+                timeCalculo.AnoFim = timeCommand.Value.AnoBase + 1;
             }
 
-            timeCalculo.Categoria = EnumUtil.ParseEnum<TipoCategoria>(value.Value.Categoria.Replace(" ", ""));
-            timeCalculo.Criterio = value.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaPer36Oponente;
-            timeCalculo.Conferencia = EnumUtil.ParseEnum<TipoConferencia>(value.Value.Conferencia);
+            timeCalculo.Categoria = EnumUtil.ParseEnum<TipoCategoria>(timeCommand.Value.Categoria.Replace(" ", ""));
+            timeCalculo.Criterio = timeCommand.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaPer36Oponente;
+            timeCalculo.Conferencia = EnumUtil.ParseEnum<TipoConferencia>(timeCommand.Value.Conferencia);
             var times = _calculoTimeAppService.CalcularTime(timeCalculo).ToList();
 
             ViewBag.dataSource = times;
@@ -68,40 +68,40 @@ namespace FURB.Basquete.Framework.Application.Controllers
 
         private IList<string> CarregarConferencia()
         {
-            var listaCriterios = new List<string>();
-            listaCriterios.Add("Ambas");
-            listaCriterios.Add("Leste");
-            listaCriterios.Add("Oeste");
+            var listaConferencia = new List<string>();
+            listaConferencia.Add("Ambas");
+            listaConferencia.Add("Leste");
+            listaConferencia.Add("Oeste");
 
-            return listaCriterios;
+            return listaConferencia;
         }
 
         private IList<string> CarregarCategoria()
         {
-            var listaCriterios = new List<string>();
-            listaCriterios.Add("Arremessos Convertidos");
-            listaCriterios.Add("Arremessos Tentados");
-            listaCriterios.Add("Porcentagem Arremessos");
-            listaCriterios.Add("Arremessos 3Pontos");
-            listaCriterios.Add("Arremessos 3Pontos Tentados");
-            listaCriterios.Add("Porcentagem 3Pontos");
-            listaCriterios.Add("Arremessos 2Pontos");
-            listaCriterios.Add("Arremessos 2Pontos Tentados");
-            listaCriterios.Add("Porcentagem 2Pontos");
-            listaCriterios.Add("Lances Livres");
-            listaCriterios.Add("Lances Livres Tentados");
-            listaCriterios.Add("Lances Livres");
-            listaCriterios.Add("Rebotes Ofensivos");
-            listaCriterios.Add("Rebotes Defensivos");
-            listaCriterios.Add("Total Rebotes");
-            listaCriterios.Add("Assistencias");
-            listaCriterios.Add("Roubos Bola");
-            listaCriterios.Add("Tocos");
-            listaCriterios.Add("Desperdicios Bola");
-            listaCriterios.Add("Faltas");
-            listaCriterios.Add("Pontos");
+            var listaCategoria = new List<string>();
+            listaCategoria.Add("Arremessos Convertidos");
+            listaCategoria.Add("Arremessos Tentados");
+            listaCategoria.Add("Porcentagem Arremessos");
+            listaCategoria.Add("Arremessos 3Pontos");
+            listaCategoria.Add("Arremessos 3Pontos Tentados");
+            listaCategoria.Add("Porcentagem 3Pontos");
+            listaCategoria.Add("Arremessos 2Pontos");
+            listaCategoria.Add("Arremessos 2Pontos Tentados");
+            listaCategoria.Add("Porcentagem 2Pontos");
+            listaCategoria.Add("Lances Livres");
+            listaCategoria.Add("Lances Livres Tentados");
+            listaCategoria.Add("Lances Livres");
+            listaCategoria.Add("Rebotes Ofensivos");
+            listaCategoria.Add("Rebotes Defensivos");
+            listaCategoria.Add("Total Rebotes");
+            listaCategoria.Add("Assistencias");
+            listaCategoria.Add("Roubos Bola");
+            listaCategoria.Add("Tocos");
+            listaCategoria.Add("Desperdicios Bola");
+            listaCategoria.Add("Faltas");
+            listaCategoria.Add("Pontos");
 
-            return listaCriterios;
+            return listaCategoria.OrderBy(x => x).ToList();
         }
     }
 }

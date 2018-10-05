@@ -17,8 +17,9 @@
 <form id="formTime" method="post">
     <div class="row">
         <label>Tipo Cálculo</label>
-        <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media" checked>Média</label>
-        <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media" checked>Média</label>
+        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="jogador">Jogador específico</label>
     </div>
 
     <div class="row">
@@ -30,6 +31,11 @@
         <br>
         <label>Ano base</label>
         <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
+
+        <label>Jogadores</label>
+        <ejs-autocomplete id="jogadores" dataSource="@ViewBag.Jogadores" placeholder="Escolha um jogador" index="-1" popupHeight="220px">
+            <e-autocomplete-fields value="jogadores"></e-autocomplete-fields>
+        </ejs-autocomplete>
     </div>
 
     <div class="row">
@@ -38,17 +44,31 @@
         <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
             <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
         </ejs-dropdownlist>
-        <label>Conferência</label>
-        <ejs-dropdownlist id="conferencia" dataSource="@ViewBag.Conferencia" placeholder="Escolha a conferência" index="0" popupHeight="120px">
-            <e-dropdownlist-fields text="conferencia" value="Id"></e-dropdownlist-fields>
+        <label>Posição</label>
+        <ejs-dropdownlist id="posicao" dataSource="@ViewBag.Posicao" placeholder="Escolha a posição" index="0" popupHeight="120px">
+            <e-dropdownlist-fields text="posicao" value="Id"></e-dropdownlist-fields>
         </ejs-dropdownlist>
 
         <label>Categoria</label>
         <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="12" popupHeight="120px">
             <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
         </ejs-dropdownlist>
+
+        <label>Categoria Avançada</label>
+        <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="4" popupHeight="120px">
+            <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
+        </ejs-dropdownlist>
     </div>
 
+    <br>
+    <div class="row">
+        <ejs-checkbox id="jogos" label="Mínimo de jogos" checked="false"></ejs-checkbox>
+
+        <label>Jogos</label>
+        <input id="qtdJogos" name="qtdJogos" class="e-input" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+    </div>
+
+    <br>
     <div class="form-group">
         <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
     </div>
@@ -85,7 +105,7 @@
 
                 var data = {
                     Value: {
-                        AnoInicio: document.getElementById('anoInicio').value == "" ? 0 : document.getElementById('anoInicio').value, 
+                        AnoInicio: document.getElementById('anoInicio').value == "" ? 0 : document.getElementById('anoInicio').value,
                         AnoFim: document.getElementById('anoFim').value == "" ? 0 : document.getElementById('anoFim').value,
                         AnoBase: document.getElementById('anoBase').value == "" ? 0 : document.getElementById('anoBase').value,
                         TipoCalculo: $("input[name='tipoCalculo']:checked").val(),
@@ -97,7 +117,7 @@
 
                 var ajax = new ej.base.Ajax();
                 ajax.data = JSON.stringify(data);
-                ajax.url = "/CalculoTime/Calcular";
+                ajax.url = "/CalculoJogador/Calcular";
                 ajax.type = "POST";
                 ajax.contentType = "application/json; charset=utf-8";
                 ajax.successHandler = function (args) {
@@ -109,12 +129,3 @@
         })
     </script>
 }
-
-@*<style>
-    .content .blc {
-        position: relative;
-        float: left;
-    }
-</style>*@
-
-

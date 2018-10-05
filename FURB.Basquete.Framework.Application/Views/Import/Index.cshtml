@@ -28,7 +28,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#btnUpload').on('click', function () {
+        $('#btnUpload').on('click', function (e) {
+            e.preventDefault();
+
             var fileExtension = ['xls', 'xlsx'];
             var filename = $('#fUpload').val();
             if (filename.length == 0) {

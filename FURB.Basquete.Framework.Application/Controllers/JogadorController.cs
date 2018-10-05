@@ -108,28 +108,28 @@ namespace FURB.Basquete.Framework.Application.Controllers
             ViewBag.EstatisticaAvancada = temporadaTime.Estatisticas.Select(x => x.EstatisticaAvancada);
 
             //TESTE para chamar o serviço
-            var jogadorCalculo = new CalculoJogadorCommand();
-            jogadorCalculo.AnoInicio = 2011;
-            jogadorCalculo.AnoFim = 2015;
-            jogadorCalculo.Categoria = TipoCategoria.Pontos;
-            jogadorCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
-            jogadorCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-            jogadorCalculo.Posicao = TipoPosicao.SF;
-            jogadorCalculo.MediaIsolada = true;
+            //var jogadorCalculo = new CalculoJogadorCommand();
+            //jogadorCalculo.AnoInicio = 2011;
+            //jogadorCalculo.AnoFim = 2015;
+            //jogadorCalculo.Categoria = TipoCategoria.Pontos;
+            //jogadorCalculo.Criterio = TipoCriterio.EstatisticaPer36Minutes;
+            //jogadorCalculo.TipoCalculo = TipoCalculo.MediaAnual;
+            //jogadorCalculo.Posicao = TipoPosicao.SF;
+            //jogadorCalculo.MediaIsolada = true;
             //var tt = _calculoJogadorService.CalcularJogador(jogadorCalculo);
 
             //TESTE para chamar o serviço
-            var jogadorCalculo2 = new CalculoJogadorCommand();
-            jogadorCalculo2.AnoInicio = 2016;
-            jogadorCalculo2.AnoFim = 2018;
-            jogadorCalculo2.CategoriaAvancada = TipoCategoriaAvancada.EficienciaJogador;
-            jogadorCalculo2.Criterio = TipoCriterio.EstatisticaAvancada;
-            jogadorCalculo2.TipoCalculo = TipoCalculo.MediaAnual;
-            jogadorCalculo2.Posicao = TipoPosicao.SF;
-            jogadorCalculo2.MediaIsolada = true;
+            //var jogadorCalculo2 = new CalculoJogadorCommand();
+            //jogadorCalculo2.AnoInicio = 2016;
+            //jogadorCalculo2.AnoFim = 2018;
+            //jogadorCalculo2.CategoriaAvancada = TipoCategoriaAvancada.EficienciaJogador;
+            //jogadorCalculo2.Criterio = TipoCriterio.EstatisticaAvancada;
+            //jogadorCalculo2.TipoCalculo = TipoCalculo.MediaAnual;
+            //jogadorCalculo2.Posicao = TipoPosicao.SF;
+            //jogadorCalculo2.MediaIsolada = true;
             //var tt2 = _calculoJogadorService.CalcularJogador(jogadorCalculo2);
 
-            var jogador3 = _jogadorAppService.GetAll().FirstOrDefault(x => x.Id == id);
+            //var jogador3 = _jogadorAppService.GetAll().FirstOrDefault(x => x.Id == id);
             //var tt3 = _calculoJogadorService.CalcularJogadorEspecifico(jogador3, 2017, TipoCategoria.Pontos, null);
             //var tt4 = _calculoJogadorService.CalcularJogadorEspecifico(jogador3, 2017, null, TipoCategoriaAvancada.EficienciaJogador);
 
