@@ -5,11 +5,11 @@
 
 <h2>Index</h2>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+@section styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+}
 
 
 <br />
@@ -17,19 +17,19 @@
 <form id="formTime" method="post">
     <div class="row">
         <label>Tipo Cálculo</label>
-        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media" checked>Média</label>
-        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+        <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media" checked>Média</label>
+        <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media3anos">Média 3 anos</label>
     </div>
 
     <div class="row">
         <label>Ano inicial</label>
-        <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial">
+        <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial" autocomplete="off">
         <label>Ano final</label>
-        <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final">
+        <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final" autocomplete="off">
 
         <br>
         <label>Ano base</label>
-        <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base">
+        <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
     </div>
 
     <div class="row">
@@ -51,31 +51,64 @@
 
     <div class="form-group">
         <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
-    </div>    
+    </div>
 </form>
 
-<script>
-    $('.date-own').datepicker({
-        minViewMode: 2,
-        format: 'yyyy'
-    });
 
-    $(document).ready(function () {
+<div id="content">
+    <ejs-grid id="Grid" dataSource=@ViewBag.datasource allowPaging="true">
+        <e-grid-columns>
+            <e-grid-column field="AnoTemporada" headerText="Ano" textAlign="Center" width="120"></e-grid-column>
+            <e-grid-column field="Nome" headerText="Nome" width="150"></e-grid-column>
+            <e-grid-column field="ParametroCalculo" headerText="Parametro" minWidth="8" width="100"></e-grid-column>
+            <e-grid-column field="ValorEstatistica" headerText="Valor estatistica" minWidth="8" width="120"></e-grid-column>
+            <e-grid-column field="IndiceCalulo" headerText="Indice" minWidth="8" width="100"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
 
-        $("#btnCalcular").click(function () {
-            var fData = $("#formTime").serialize();
+@section scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-            $.ajax({
-                type: "POST",
-                url: "CalculoTime/Calcular",
-                data: fData,
-                success: function () {
+    <script>
+        $('.date-own').datepicker({
+            minViewMode: 2,
+            format: 'yyyy'
+        });
 
+        $(document).ready(function (e) {
+
+            $("#btnCalcular").click(function (e) {
+                e.preventDefault();
+
+                var data = {
+                    Value: {
+                        AnoInicio: document.getElementById('anoInicio').value == "" ? 0 : document.getElementById('anoInicio').value, 
+                        AnoFim: document.getElementById('anoFim').value == "" ? 0 : document.getElementById('anoFim').value,
+                        AnoBase: document.getElementById('anoBase').value == "" ? 0 : document.getElementById('anoBase').value,
+                        TipoCalculo: $("input[name='tipoCalculo']:checked").val(),
+                        Criterio: document.getElementById('criterio').value,
+                        Categoria: document.getElementById('categoria').value,
+                        Conferencia: document.getElementById('conferencia').value
+                    }
+                };
+
+                var ajax = new ej.base.Ajax();
+                ajax.data = JSON.stringify(data);
+                ajax.url = "/CalculoTime/Calcular";
+                ajax.type = "POST";
+                ajax.contentType = "application/json; charset=utf-8";
+                ajax.successHandler = function (args) {
+                    var grid = document.getElementsByClassName('e-grid')[0].ej2_instances[0];
+                    grid.setProperties({ dataSource: JSON.parse(args) }, false);
                 }
+                ajax.send();
             })
         })
-    })
-</script>
+    </script>
+}
 
 <style>
     .content .blc {

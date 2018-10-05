@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FURB.Basquete.Framework.Application.Models;
+﻿using FURB.Basquete.Framework.Application.Models;
 using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Enum;
+using FURB.Basquete.Framework.Domain.Response;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FURB.Basquete.Framework.Application.Controllers
 {
@@ -28,30 +28,33 @@ namespace FURB.Basquete.Framework.Application.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Calcular(CalculoTimeModel calculoTime)
+        public ActionResult Calcular([FromBody]ModelRequest<CalculoTimeModel> value)
         {
             CalculoTimeCommand timeCalculo = new CalculoTimeCommand();
 
-            if (calculoTime.TipoCalculo.Equals("media", StringComparison.InvariantCultureIgnoreCase))
+            if (value.Value.TipoCalculo.Equals("media", StringComparison.InvariantCultureIgnoreCase))
             {
                 timeCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-                timeCalculo.AnoInicio = calculoTime.AnoInicio;
-                timeCalculo.AnoFim = calculoTime.AnoFim;
+                timeCalculo.AnoInicio = value.Value.AnoInicio;
+                timeCalculo.AnoFim = value.Value.AnoFim;
             }
             else
             {
                 timeCalculo.TipoCalculo = TipoCalculo.Media3Anos;
-                timeCalculo.AnoInicio = calculoTime.AnoBase - 1;
-                timeCalculo.AnoFim = calculoTime.AnoBase + 1;
+                timeCalculo.AnoInicio = value.Value.AnoBase - 1;
+                timeCalculo.AnoFim = value.Value.AnoBase + 1;
             }
 
-            timeCalculo.Categoria = EnumUtil.ParseEnum<TipoCategoria>(calculoTime.Categoria.Replace(" ", ""));
-            timeCalculo.Criterio = calculoTime.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaPer36Oponente;
-            timeCalculo.Conferencia = EnumUtil.ParseEnum<TipoConferencia>(calculoTime.Conferencia);
-            var tt = _calculoTimeAppService.CalcularTime(timeCalculo);
+            timeCalculo.Categoria = EnumUtil.ParseEnum<TipoCategoria>(value.Value.Categoria.Replace(" ", ""));
+            timeCalculo.Criterio = value.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaPer36Oponente;
+            timeCalculo.Conferencia = EnumUtil.ParseEnum<TipoConferencia>(value.Value.Conferencia);
+            var times = _calculoTimeAppService.CalcularTime(timeCalculo).ToList();
 
-            return View();
+            ViewBag.dataSource = times;
+
+            var datasource = times;
+
+            return Json(datasource);
         }
 
         private IList<string> CarregarCriterios()

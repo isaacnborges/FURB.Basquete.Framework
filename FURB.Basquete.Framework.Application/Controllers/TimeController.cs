@@ -1,4 +1,5 @@
-﻿using FURB.Basquete.Framework.Application.ViewModels;
+﻿using FURB.Basquete.Framework.Application.Models;
+using FURB.Basquete.Framework.Application.ViewModels;
 using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Enum;
@@ -55,7 +56,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
                 var customerData = result;
 
                 sortColumn = sortColumn.Equals("Id") || string.IsNullOrEmpty(sortColumn) ? "Nome" : sortColumn;
-                var prop = GetProperty(sortColumn);
+                var prop = ClassUtil.GetProperty<TimeViewModel>(sortColumn);
                 if (sortColumnDirection == "asc")
                 {
                     customerData = customerData.OrderBy(prop.GetValue);
@@ -81,21 +82,6 @@ namespace FURB.Basquete.Framework.Application.Controllers
             {
                 throw;
             }
-        }
-
-        private PropertyInfo GetProperty(string name)
-        {
-            var properties = typeof(TimeViewModel).GetProperties();
-            PropertyInfo prop = null;
-            foreach (var item in properties)
-            {
-                if (item.Name.ToLower().Equals(name.ToLower()))
-                {
-                    prop = item;
-                    break;
-                }
-            }
-            return prop;
         }
 
         public IActionResult Details(Guid id)
