@@ -9,7 +9,7 @@ namespace FURB.Basquete.Framework.ApplicationService.Interfaces
     public interface ICalculoJogadorAppService
     {
         IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador, bool filtrarJogadores, int? qtdJogos);
-        CalculoJogadorEspecificoCommand CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria,
+        CalculoJogadorEspecificoResponse CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria,
             TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int? qtdJogos);
     }
 }

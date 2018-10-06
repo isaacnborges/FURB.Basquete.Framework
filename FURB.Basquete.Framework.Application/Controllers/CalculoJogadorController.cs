@@ -2,7 +2,9 @@
 using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Enum;
+using FURB.Basquete.Framework.Domain.Response.Calculo;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Navigations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,34 +30,70 @@ namespace FURB.Basquete.Framework.Application.Controllers
             ViewBag.CategoriaAvancada = CarregarCategoriaAvancada();
             ViewBag.Jogadores = CarregarJogadores();
 
+            ViewBag.CalculoMedia = new TabHeader { Text = "Calculo Média" };
+            ViewBag.JogadorEspecifico = new TabHeader { Text = "Jogador Específico" };
+
             return View();
         }
 
-        public ActionResult Calcular([FromBody]ModelRequest<CalculoJogadorModel> value)
+        public ActionResult Calcular([FromBody]ModelRequest<CalculoJogadorModel> jogadorCommand)
         {
             CalculoJogadorCommand jogadorCalculo = new CalculoJogadorCommand();
 
-            if (value.Value.TipoCalculo.Equals("media", StringComparison.InvariantCultureIgnoreCase))
+            if (jogadorCommand.Value.TipoCalculo.Equals("media", StringComparison.InvariantCultureIgnoreCase))
             {
                 jogadorCalculo.TipoCalculo = TipoCalculo.MediaAnual;
-                jogadorCalculo.AnoInicio = value.Value.AnoInicio;
-                jogadorCalculo.AnoFim = value.Value.AnoFim;
+                jogadorCalculo.AnoInicio = jogadorCommand.Value.AnoInicio;
+                jogadorCalculo.AnoFim = jogadorCommand.Value.AnoFim;
             }
             else
             {
                 jogadorCalculo.TipoCalculo = TipoCalculo.Media3Anos;
-                jogadorCalculo.AnoInicio = value.Value.AnoBase - 1;
-                jogadorCalculo.AnoFim = value.Value.AnoBase + 1;
+                jogadorCalculo.AnoInicio = jogadorCommand.Value.AnoBase - 1;
+                jogadorCalculo.AnoFim = jogadorCommand.Value.AnoBase + 1;
             }
+            
+            jogadorCalculo.Criterio = jogadorCommand.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaAvancada;
 
-            jogadorCalculo.Categoria = EnumUtil.ParseEnum<TipoCategoria>(value.Value.Categoria.Replace(" ", ""));
-            jogadorCalculo.Criterio = value.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaPer36Oponente;
-            //jogadorCalculo.Conferencia = EnumUtil.ParseEnum<TipoConferencia>(value.Value.Conferencia);
-            var times = _calculoJogadorAppService.CalcularJogador(jogadorCalculo, false, 0).ToList();
+            if (jogadorCalculo.Criterio == TipoCriterio.EstatisticaPer36Minutes)
+                jogadorCalculo.Categoria = EnumUtil.ParseEnum<TipoCategoria>(jogadorCommand.Value.Categoria.Replace(" ", ""));
+            else
+                jogadorCalculo.CategoriaAvancada = EnumUtil.ParseEnum<TipoCategoriaAvancada>(jogadorCommand.Value.CategoriaAvancada.Replace(" ", ""));
 
-            ViewBag.dataSource = times;
+            jogadorCalculo.Posicao = EnumUtil.ParseEnum<TipoPosicao>(jogadorCommand.Value.Posicao);
+            bool filtrarJogadores = jogadorCommand.Value.FiltrarJogadores;
+            var jogos = jogadorCommand.Value.QuantidadeJogos;
+            
+            var jogadores = _calculoJogadorAppService.CalcularJogador(jogadorCalculo, filtrarJogadores, jogos).ToList();
+            var datasource = jogadores;
+            ViewBag.dataSource = jogadores;
 
-            var datasource = times;
+            return Json(datasource);
+        }
+
+        public ActionResult CalcularJogador([FromBody]ModelRequest<CalculoJogadorEspecificoModel> jogadorCommand)
+        {
+            var anoBase = jogadorCommand.Value.AnoBase;
+            var jogador = _jogadorAppService.GetAll().FirstOrDefault(x => x.Nome == jogadorCommand.Value.NomeJogador);
+            var tipoCriterio = jogadorCommand.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaAvancada;
+            TipoCategoria categoria = EnumUtil.ParseEnum<TipoCategoria>(jogadorCommand.Value.Categoria.Replace(" ", "")); ;
+            TipoCategoriaAvancada categoriaAvancada = EnumUtil.ParseEnum<TipoCategoriaAvancada>(jogadorCommand.Value.CategoriaAvancada.Replace(" ", "")); ;
+
+            bool filtrarJogadores = jogadorCommand.Value.FiltrarJogadores;
+            var jogos = jogadorCommand.Value.QuantidadeJogos;
+
+            var jogadores = new CalculoJogadorEspecificoResponse();
+            if (tipoCriterio == TipoCriterio.EstatisticaPer36Minutes)
+            {
+                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, categoria, null, filtrarJogadores, jogos);
+            }
+            else
+            {
+                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, null, categoriaAvancada, filtrarJogadores, jogos);
+            }
+                
+            var datasource = jogadores;
+            ViewBag.dataSource = jogadores;
 
             return Json(datasource);
         }

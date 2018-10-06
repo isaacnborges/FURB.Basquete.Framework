@@ -14,77 +14,122 @@
 
 <br />
 
-<form id="formTime" method="post">
-    <div class="row">
-        <label>Tipo Cálculo</label>
-        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media" checked>Média</label>
-        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media3anos">Média 3 anos</label>
-        <label class="radio-inline"><input type="radio" name="tipoCalculo" value="jogador">Jogador específico</label>
-    </div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#tabCalculoMedia" data-toggle="tab">Calculo Média</a></li>
+    <li><a href="#tabJogadorEspecifico" data-toggle="tab">Jogador Específico</a></li>
+</ul>
 
-    <div class="row">
-        <label>Ano inicial</label>
-        <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial" autocomplete="off">
-        <label>Ano final</label>
-        <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final" autocomplete="off">
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tabCalculoMedia">
+        <form id="formTime" method="post">
+            <div class="row">
+                <label>Tipo Cálculo</label>
+                <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media" checked>Média</label>
+                <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+            </div>
+
+            <div class="row">
+                <label>Ano inicial</label>
+                <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial" autocomplete="off">
+                <label>Ano final</label>
+                <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final" autocomplete="off">
+
+                <br>
+                <label>Ano base</label>
+                <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
+            </div>
+
+            <div class="row">
+                <br>
+                <label>Critério</label>
+                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
+                    <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+
+                <label>Posição</label>
+                <ejs-dropdownlist id="posicao" dataSource="@ViewBag.Posicao" placeholder="Escolha a posição" index="0" popupHeight="120px">
+                    <e-dropdownlist-fields text="posicao" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+
+                <label>Categoria</label>
+                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="12" popupHeight="120px">
+                    <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+
+                <label>Categoria Avançada</label>
+                <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3" popupHeight="120px">
+                    <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+
+            <br>
+            <div class="row">
+                <ejs-checkbox id="jogos" label="Mínimo de jogos" checked="false"></ejs-checkbox>
+
+                <label>Jogos</label>
+                <input id="qtdJogos" name="qtdJogos" class="e-input" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+            </div>
+
+            <br>
+            <div class="form-group">
+                <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
+            </div>
+        </form>
+
+        <div id="content">
+            <ejs-grid id="Grid" dataSource=@ViewBag.datasource allowPaging="true">
+                <e-grid-columns>
+                    <e-grid-column field="AnoTemporada" headerText="Ano" textAlign="Center" width="120"></e-grid-column>
+                    <e-grid-column field="Nome" headerText="Nome" width="150"></e-grid-column>
+                    <e-grid-column field="ParametroCalculo" headerText="Categoria" textAlign="Center" minWidth="8" width="100"></e-grid-column>
+                    <e-grid-column field="ValorEstatistica" headerText="Valor estatistica" textAlign="Center" minWidth="8" width="120"></e-grid-column>
+                    <e-grid-column field="IndiceCalulo" headerText="Indice" textAlign="Center" minWidth="8" width="100"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="tabJogadorEspecifico">
+        <div class="row">
+            <label>Ano base</label>
+            <input id="anoBaseJogador" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
+
+            <label>Jogadores</label>
+            <ejs-autocomplete id="jogadores" dataSource="@ViewBag.Jogadores" placeholder="Escolha um jogador" index="-1" popupHeight="220px">
+                <e-autocomplete-fields value="jogadores"></e-autocomplete-fields>
+            </ejs-autocomplete>
+        </div>
+
+        <div class="row">
+            <br>
+            <label>Critério</label>
+            <ejs-dropdownlist id="criterioJogador" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
+                <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+
+            <label>Categoria</label>
+            <ejs-dropdownlist id="categoriaJogador" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="12" popupHeight="120px">
+                <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+
+            <label>Categoria Avançada</label>
+            <ejs-dropdownlist id="categoriaAvancadaJogador" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3" popupHeight="120px">
+                <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+        </div>
 
         <br>
-        <label>Ano base</label>
-        <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
+        <div class="row">
+            <ejs-checkbox id="jogosJogador" label="Mínimo de jogos" checked="false"></ejs-checkbox>
 
-        <label>Jogadores</label>
-        <ejs-autocomplete id="jogadores" dataSource="@ViewBag.Jogadores" placeholder="Escolha um jogador" index="-1" popupHeight="220px">
-            <e-autocomplete-fields value="jogadores"></e-autocomplete-fields>
-        </ejs-autocomplete>
-    </div>
+            <label>Jogos</label>
+            <input id="qtdJogosJogador" name="qtdJogos" class="e-input" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+        </div>
 
-    <div class="row">
         <br>
-        <label>Critério</label>
-        <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
-            <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
-        </ejs-dropdownlist>
-        <label>Posição</label>
-        <ejs-dropdownlist id="posicao" dataSource="@ViewBag.Posicao" placeholder="Escolha a posição" index="0" popupHeight="120px">
-            <e-dropdownlist-fields text="posicao" value="Id"></e-dropdownlist-fields>
-        </ejs-dropdownlist>
-
-        <label>Categoria</label>
-        <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="12" popupHeight="120px">
-            <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
-        </ejs-dropdownlist>
-
-        <label>Categoria Avançada</label>
-        <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="4" popupHeight="120px">
-            <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
-        </ejs-dropdownlist>
+        <div class="form-group">
+            <ejs-button id="btnCalcularJogador" content="Calcular"></ejs-button>
+        </div>
     </div>
-
-    <br>
-    <div class="row">
-        <ejs-checkbox id="jogos" label="Mínimo de jogos" checked="false"></ejs-checkbox>
-
-        <label>Jogos</label>
-        <input id="qtdJogos" name="qtdJogos" class="e-input" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
-    </div>
-
-    <br>
-    <div class="form-group">
-        <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
-    </div>
-</form>
-
-
-<div id="content">
-    <ejs-grid id="Grid" dataSource=@ViewBag.datasource allowPaging="true">
-        <e-grid-columns>
-            <e-grid-column field="AnoTemporada" headerText="Ano" textAlign="Center" width="120"></e-grid-column>
-            <e-grid-column field="Nome" headerText="Nome" width="150"></e-grid-column>
-            <e-grid-column field="ParametroCalculo" headerText="Categoria" textAlign="Center" minWidth="8" width="100"></e-grid-column>
-            <e-grid-column field="ValorEstatistica" headerText="Valor estatistica" textAlign="Center" minWidth="8" width="120"></e-grid-column>
-            <e-grid-column field="IndiceCalulo" headerText="Indice" textAlign="Center" minWidth="8" width="100"></e-grid-column>
-        </e-grid-columns>
-    </ejs-grid>
 </div>
 
 @section scripts {
@@ -111,13 +156,43 @@
                         TipoCalculo: $("input[name='tipoCalculo']:checked").val(),
                         Criterio: document.getElementById('criterio').value,
                         Categoria: document.getElementById('categoria').value,
-                        Conferencia: document.getElementById('conferencia').value
+                        CategoriaAvancada: document.getElementById('categoriaAvancada').value,
+                        Posicao: document.getElementById('posicao').value,
+                        FiltrarJogadores: document.getElementById('jogos').checked,
+                        QuantidadeJogos: document.getElementById('qtdJogos').value
                     }
                 };
 
                 var ajax = new ej.base.Ajax();
                 ajax.data = JSON.stringify(data);
                 ajax.url = "/CalculoJogador/Calcular";
+                ajax.type = "POST";
+                ajax.contentType = "application/json; charset=utf-8";
+                ajax.successHandler = function (args) {
+                    var grid = document.getElementsByClassName('e-grid')[0].ej2_instances[0];
+                    grid.setProperties({ dataSource: JSON.parse(args) }, false);
+                }
+                ajax.send();
+            })
+
+            $("#btnCalcularJogador").click(function (e) {
+                e.preventDefault();
+
+                var data = {
+                    Value: {
+                        AnoBase: document.getElementById('anoBaseJogador').value == "" ? 0 : document.getElementById('anoBaseJogador').value,
+                        Criterio: document.getElementById('criterioJogador').value,
+                        Categoria: document.getElementById('categoriaJogador').value,
+                        CategoriaAvancada: document.getElementById('categoriaAvancadaJogador').value,
+                        NomeJogador: document.getElementById('jogadores').value,
+                        FiltrarJogadores: document.getElementById('jogosJogador').checked,
+                        QuantidadeJogos: document.getElementById('qtdJogosJogador').value
+                    }
+                };
+
+                var ajax = new ej.base.Ajax();
+                ajax.data = JSON.stringify(data);
+                ajax.url = "/CalculoJogador/CalcularJogador";
                 ajax.type = "POST";
                 ajax.contentType = "application/json; charset=utf-8";
                 ajax.successHandler = function (args) {

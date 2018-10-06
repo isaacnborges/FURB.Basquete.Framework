@@ -8,7 +8,6 @@ using FURB.Basquete.Framework.Domain.Response.Calculo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
@@ -23,10 +22,10 @@ namespace FURB.Basquete.Framework.Domain.Services
             _jogadorService = jogadorService;
         }
 
-        public CalculoJogadorEspecificoCommand CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria, 
+        public CalculoJogadorEspecificoResponse CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria, 
             TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int? qtdJogos)
         {
-            var jogadorResult = new CalculoJogadorEspecificoCommand();
+            var jogadorResult = new CalculoJogadorEspecificoResponse();
 
             var temporada = _temporadaJogadorService.GetAll().Where(x => x.Ano == anoBase).ToList();
 

@@ -1,11 +1,8 @@
 ﻿using FURB.Basquete.Framework.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FURB.Basquete.Framework.Domain.Commands
+namespace FURB.Basquete.Framework.Domain.Response.Calculo
 {
-    public class CalculoJogadorEspecificoCommand
+    public class CalculoJogadorEspecificoResponse
     {
         public int AnoTemporada { get; set; }
         public string Nome { get; set; }
