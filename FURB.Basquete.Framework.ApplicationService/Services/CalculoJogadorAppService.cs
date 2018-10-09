@@ -22,9 +22,9 @@ namespace FURB.Basquete.Framework.ApplicationService.Services
             return _calculoJogadorService.CalcularJogador(calculoJogador, filtrarJogadores, qtdJogos);
         }
 
-        public CalculoJogadorEspecificoResponse CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria, TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int? qtdJogos)
+        public CalculoJogadorEspecificoResponse CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCriterio tipoCriterio, bool filtrarJogadores, int? qtdJogos)
         {
-            return _calculoJogadorService.CalcularJogadorEspecifico(jogador, anoBase, categoria, categoriaAvancada, filtrarJogadores, qtdJogos);
+            return _calculoJogadorService.CalcularJogadorEspecifico(jogador, anoBase, tipoCriterio, filtrarJogadores, qtdJogos);
         }
     }
 }

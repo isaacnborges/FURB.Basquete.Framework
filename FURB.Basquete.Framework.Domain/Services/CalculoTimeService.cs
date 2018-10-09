@@ -5,10 +5,10 @@ using FURB.Basquete.Framework.Domain.Enum;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using FURB.Basquete.Framework.Domain.Models;
 using FURB.Basquete.Framework.Domain.Response;
+using FURB.Basquete.Framework.Domain.Response.Calculo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace FURB.Basquete.Framework.Domain.Services
 {
@@ -21,6 +21,24 @@ namespace FURB.Basquete.Framework.Domain.Services
         {
             _temporadaTimeService = temporadaTimeService;
             _timeService = timeService;
+        }
+
+        public IList<CalculoTimeAnoCategoria> CalcularTimeAnoCategoria(int anoInicio, int anoFim, TipoCategoria categoria)
+        {
+            var temporadaTimes = _temporadaTimeService.GetAll().Where(x => x.Ano >= anoInicio && x.Ano <= anoFim).ToList();
+            var calculoTemporadaTime = ObterEstatisticaTime(categoria, temporadaTimes);
+            var listaCalculoTime = new List<CalculoTimeAnoCategoria>();
+
+            foreach (var item in calculoTemporadaTime)
+            {
+                var calculoTime = new CalculoTimeAnoCategoria();
+                calculoTime.Ano = item.Ano;
+                calculoTime.EstatisticaMedia = item.ValorEstatistica;
+
+                listaCalculoTime.Add(calculoTime);
+            }
+            
+            return listaCalculoTime;
         }
 
         public IList<CalculoTimeResponse> CalcularTime(CalculoTimeCommand calculoTime)

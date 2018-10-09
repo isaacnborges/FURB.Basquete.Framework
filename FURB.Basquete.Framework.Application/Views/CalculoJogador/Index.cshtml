@@ -1,4 +1,5 @@
-﻿
+﻿@using Syncfusion.EJ2;
+@using Syncfusion.EJ2.DropDowns
 @{
     ViewData["Title"] = "Index";
 }
@@ -105,16 +106,6 @@
             <ejs-dropdownlist id="criterioJogador" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
                 <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
             </ejs-dropdownlist>
-
-            <label>Categoria</label>
-            <ejs-dropdownlist id="categoriaJogador" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="12" popupHeight="120px">
-                <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
-            </ejs-dropdownlist>
-
-            <label>Categoria Avançada</label>
-            <ejs-dropdownlist id="categoriaAvancadaJogador" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3" popupHeight="120px">
-                <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
-            </ejs-dropdownlist>
         </div>
 
         <br>
@@ -129,6 +120,32 @@
         <div class="form-group">
             <ejs-button id="btnCalcularJogador" content="Calcular"></ejs-button>
         </div>
+
+
+        <div id="container" align='center'>
+            <ejs-chart id="lineContainer" load="window.onChartLoad" title="Jogador X Contra jogadores da mesma posição">
+                <e-chart-tooltipsettings enable="true">
+                </e-chart-tooltipsettings>
+                <e-chart-primaryxaxis valueType="Category" interval=1></e-chart-primaryxaxis>
+                <e-chart-primaryyaxis maximum=150 interval=30></e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                    <e-chartarea-border width="0.00001"></e-chartarea-border>
+                </e-chart-chartarea>
+                <e-series-collection>
+                    <e-series dataSource="ViewBag.dataSource1" xName='x' yName='yValue' name='Jogador X' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                        <e-series-marker>
+                            <e-series-datalabel visible="true" position="Top"></e-series-datalabel>
+                        </e-series-marker>
+                    </e-series>
+                    <e-series dataSource="ViewBag.dataSource2" xName='x' yName='yValue1' name='Média Jogadores' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                        <e-series-marker>
+                            <e-series-datalabel visible="true" position="Top"></e-series-datalabel>
+                        </e-series-marker>
+                    </e-series>
+                </e-series-collection>
+            </ejs-chart>
+        </div>
+
     </div>
 </div>
 
@@ -182,8 +199,6 @@
                     Value: {
                         AnoBase: document.getElementById('anoBaseJogador').value == "" ? 0 : document.getElementById('anoBaseJogador').value,
                         Criterio: document.getElementById('criterioJogador').value,
-                        Categoria: document.getElementById('categoriaJogador').value,
-                        CategoriaAvancada: document.getElementById('categoriaAvancadaJogador').value,
                         NomeJogador: document.getElementById('jogadores').value,
                         FiltrarJogadores: document.getElementById('jogosJogador').checked,
                         QuantidadeJogos: document.getElementById('qtdJogosJogador').value

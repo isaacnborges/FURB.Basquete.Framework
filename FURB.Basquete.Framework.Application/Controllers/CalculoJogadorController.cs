@@ -76,20 +76,17 @@ namespace FURB.Basquete.Framework.Application.Controllers
             var anoBase = jogadorCommand.Value.AnoBase;
             var jogador = _jogadorAppService.GetAll().FirstOrDefault(x => x.Nome == jogadorCommand.Value.NomeJogador);
             var tipoCriterio = jogadorCommand.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaAvancada;
-            TipoCategoria categoria = EnumUtil.ParseEnum<TipoCategoria>(jogadorCommand.Value.Categoria.Replace(" ", "")); ;
-            TipoCategoriaAvancada categoriaAvancada = EnumUtil.ParseEnum<TipoCategoriaAvancada>(jogadorCommand.Value.CategoriaAvancada.Replace(" ", "")); ;
-
             bool filtrarJogadores = jogadorCommand.Value.FiltrarJogadores;
             var jogos = jogadorCommand.Value.QuantidadeJogos;
 
             var jogadores = new CalculoJogadorEspecificoResponse();
             if (tipoCriterio == TipoCriterio.EstatisticaPer36Minutes)
             {
-                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, categoria, null, filtrarJogadores, jogos);
+                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, TipoCriterio.EstatisticaPer36Minutes, filtrarJogadores, jogos);
             }
             else
             {
-                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, null, categoriaAvancada, filtrarJogadores, jogos);
+                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, TipoCriterio.EstatisticaAvancada, filtrarJogadores, jogos);
             }
                 
             var datasource = jogadores;
@@ -138,7 +135,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
             listaCategoria.Add("Porcentagem 2Pontos");
             listaCategoria.Add("Lances Livres");
             listaCategoria.Add("Lances Livres Tentados");
-            listaCategoria.Add("Lances Livres");
+            listaCategoria.Add("Porcentagem Lances Livres");
             listaCategoria.Add("Rebotes Ofensivos");
             listaCategoria.Add("Rebotes Defensivos");
             listaCategoria.Add("Total Rebotes");

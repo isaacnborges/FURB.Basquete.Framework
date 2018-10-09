@@ -22,8 +22,7 @@ namespace FURB.Basquete.Framework.Domain.Services
             _jogadorService = jogadorService;
         }
 
-        public CalculoJogadorEspecificoResponse CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCategoria? categoria, 
-            TipoCategoriaAvancada? categoriaAvancada, bool filtrarJogadores, int? qtdJogos)
+        public CalculoJogadorEspecificoResponse CalcularJogadorEspecifico(Jogador jogador, int anoBase, TipoCriterio tipoCriterio, bool filtrarJogadores, int? qtdJogos)
         {
             var jogadorResult = new CalculoJogadorEspecificoResponse();
 
@@ -51,7 +50,7 @@ namespace FURB.Basquete.Framework.Domain.Services
             jogadorResult.Posicao = jogador.Posicao;
 
             var estatistica = temporadaJogador.Jogadores.FirstOrDefault();
-            if (categoria != null)
+            if (tipoCriterio == TipoCriterio.EstatisticaPer36Minutes)
             {                
                 var estatisticaPer36Jogador = new EstatisticaPer36Jogador();
                 var estatisticaPer36Media = new EstatisticaPer36Jogador();
@@ -101,7 +100,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 jogadorResult.EstatisticaPer36Jogador = estatisticaPer36Jogador;
                 jogadorResult.EstatisticaPer36Media = estatisticaPer36Media;
             }
-            else if (categoriaAvancada != null)
+            else
             {
                 var estatisticaAvancadaJogador = new EstatisticaAvancada();
                 var estatisticaAvancadaMedia = new EstatisticaAvancada();
