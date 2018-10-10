@@ -23,21 +23,36 @@ namespace FURB.Basquete.Framework.Domain.Services
             _timeService = timeService;
         }
 
-        public IList<CalculoTimeAnoCategoria> CalcularTimeAnoCategoria(int anoInicio, int anoFim, TipoCategoria categoria)
+        public IList<CalculoTimeAnoCategoria> CalcularTimeAnoCategoria(int anoInicio, int anoFim, Time time, TipoCategoria categoria)
         {
             var temporadaTimes = _temporadaTimeService.GetAll().Where(x => x.Ano >= anoInicio && x.Ano <= anoFim).ToList();
-            var calculoTemporadaTime = ObterEstatisticaTime(categoria, temporadaTimes);
+            var temporadaTime = new List<TemporadaTime>();
+            temporadaTime = temporadaTimes.Select(x => new TemporadaTime
+            {
+                Ano = x.Ano,
+                Id = x.Id,
+                Times = x.Times.Where(y => y.Time_ID == time.Id).ToList()
+            }).ToList();
+
+            var calculoTime = ObterEstatisticaTime(categoria, temporadaTime);
+            var calculoTemporadaMediaTime = ObterEstatisticaTime(categoria, temporadaTimes);
+            
             var listaCalculoTime = new List<CalculoTimeAnoCategoria>();
 
-            foreach (var item in calculoTemporadaTime)
+            foreach (var item in calculoTemporadaMediaTime)
             {
-                var calculoTime = new CalculoTimeAnoCategoria();
-                calculoTime.Ano = item.Ano;
-                calculoTime.EstatisticaMedia = item.ValorEstatistica;
+                var calculoTemporada = new CalculoTimeAnoCategoria();
+                calculoTemporada.Ano = item.Ano;
+                calculoTemporada.EstatisticaMedia = item.ValorEstatistica;
 
-                listaCalculoTime.Add(calculoTime);
+                listaCalculoTime.Add(calculoTemporada);
             }
-            
+
+            foreach (var item in calculoTime)
+            {
+                listaCalculoTime.Find(x => x.Ano == item.Ano).EstatisticaTime = item.ValorEstatistica;
+            }
+
             return listaCalculoTime;
         }
 

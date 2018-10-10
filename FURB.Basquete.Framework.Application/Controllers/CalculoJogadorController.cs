@@ -1,4 +1,5 @@
 ﻿using FURB.Basquete.Framework.Application.Models;
+using FURB.Basquete.Framework.Application.Models.Graficos;
 using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Enum;
@@ -52,7 +53,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
                 jogadorCalculo.AnoInicio = jogadorCommand.Value.AnoBase - 1;
                 jogadorCalculo.AnoFim = jogadorCommand.Value.AnoBase + 1;
             }
-            
+
             jogadorCalculo.Criterio = jogadorCommand.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaAvancada;
 
             if (jogadorCalculo.Criterio == TipoCriterio.EstatisticaPer36Minutes)
@@ -63,7 +64,7 @@ namespace FURB.Basquete.Framework.Application.Controllers
             jogadorCalculo.Posicao = EnumUtil.ParseEnum<TipoPosicao>(jogadorCommand.Value.Posicao);
             bool filtrarJogadores = jogadorCommand.Value.FiltrarJogadores;
             var jogos = jogadorCommand.Value.QuantidadeJogos;
-            
+
             var jogadores = _calculoJogadorAppService.CalcularJogador(jogadorCalculo, filtrarJogadores, jogos).ToList();
             var datasource = jogadores;
             ViewBag.dataSource = jogadores;
@@ -75,24 +76,58 @@ namespace FURB.Basquete.Framework.Application.Controllers
         {
             var anoBase = jogadorCommand.Value.AnoBase;
             var jogador = _jogadorAppService.GetAll().FirstOrDefault(x => x.Nome == jogadorCommand.Value.NomeJogador);
-            var tipoCriterio = jogadorCommand.Value.Criterio.Replace(" ", "") == "Por36minutos" ? TipoCriterio.EstatisticaPer36Minutes : TipoCriterio.EstatisticaAvancada;
             bool filtrarJogadores = jogadorCommand.Value.FiltrarJogadores;
             var jogos = jogadorCommand.Value.QuantidadeJogos;
-
             var jogadores = new CalculoJogadorEspecificoResponse();
-            if (tipoCriterio == TipoCriterio.EstatisticaPer36Minutes)
-            {
-                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, TipoCriterio.EstatisticaPer36Minutes, filtrarJogadores, jogos);
-            }
-            else
-            {
-                jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, TipoCriterio.EstatisticaAvancada, filtrarJogadores, jogos);
-            }
-                
-            var datasource = jogadores;
-            ViewBag.dataSource = jogadores;
 
-            return Json(datasource);
+            jogadores = _calculoJogadorAppService.CalcularJogadorEspecifico(jogador, anoBase, TipoCriterio.EstatisticaAvancada, filtrarJogadores, jogos);
+
+            List<ChartData> dadosJogador = new List<ChartData>();
+            dadosJogador.Add(new ChartData { X = "EJ", Y = jogadores.EstatisticaAvancadaJogador.EficienciaJogador });
+            dadosJogador.Add(new ChartData { X = "AE %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemArremessosEficientes});
+            dadosJogador.Add(new ChartData { X = "TT3", Y = jogadores.EstatisticaAvancadaJogador.TaxaTentativas3Pontos });
+            dadosJogador.Add(new ChartData { X = "TTLL", Y = jogadores.EstatisticaAvancadaJogador.TaxaTentativasLancesLivres });
+            dadosJogador.Add(new ChartData { X = "RO %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemRebotesOfensivos });
+            dadosJogador.Add(new ChartData { X = "RD %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemRebotesDefensivos });
+            dadosJogador.Add(new ChartData { X = "TR %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemRebotesTotal });
+            dadosJogador.Add(new ChartData { X = "A %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemAssistencias });
+            dadosJogador.Add(new ChartData { X = "RB %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemRoubosBola });
+            dadosJogador.Add(new ChartData { X = "TCS %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemTocos });
+            dadosJogador.Add(new ChartData { X = "DB %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemDesperdiciosBola });
+            dadosJogador.Add(new ChartData { X = "US %", Y = jogadores.EstatisticaAvancadaJogador.PorcentagemUsoJogador });
+            dadosJogador.Add(new ChartData { X = "CVO", Y = jogadores.EstatisticaAvancadaJogador.ContribuicaoVitoriaOfensiva });
+            dadosJogador.Add(new ChartData { X = "CVD", Y = jogadores.EstatisticaAvancadaJogador.ContribuicaoVitoriaDefensiva });
+            dadosJogador.Add(new ChartData { X = "CV", Y = jogadores.EstatisticaAvancadaJogador.ContribuicaoVitoria });
+            dadosJogador.Add(new ChartData { X = "ECO", Y = jogadores.EstatisticaAvancadaJogador.EstimativaContribuicaoOfensiva });
+            dadosJogador.Add(new ChartData { X = "ECD", Y = jogadores.EstatisticaAvancadaJogador.EstimativaContribuicaoDefensiva });
+            dadosJogador.Add(new ChartData { X = "ECT", Y = jogadores.EstatisticaAvancadaJogador.EstimativaContribuicaoTotal });
+
+            List<Data> dadosMedia = new List<Data>();
+            dadosMedia.Add(new Data { X = "EJ", Y2 = jogadores.EstatisticaAvancadaMedia.EficienciaJogador });
+            dadosMedia.Add(new Data { X = "AE %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemArremessosEficientes });
+            dadosMedia.Add(new Data { X = "TT3", Y2 = jogadores.EstatisticaAvancadaMedia.TaxaTentativas3Pontos });
+            dadosMedia.Add(new Data { X = "TTLL", Y2 = jogadores.EstatisticaAvancadaMedia.TaxaTentativasLancesLivres });
+            dadosMedia.Add(new Data { X = "RO %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemRebotesOfensivos });
+            dadosMedia.Add(new Data { X = "RD %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemRebotesDefensivos });
+            dadosMedia.Add(new Data { X = "TR %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemRebotesTotal });
+            dadosMedia.Add(new Data { X = "A %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemAssistencias });
+            dadosMedia.Add(new Data { X = "RB %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemRoubosBola });
+            dadosMedia.Add(new Data { X = "TCS %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemTocos });
+            dadosMedia.Add(new Data { X = "DB %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemDesperdiciosBola });
+            dadosMedia.Add(new Data { X = "US %", Y2 = jogadores.EstatisticaAvancadaMedia.PorcentagemUsoJogador });
+            dadosMedia.Add(new Data { X = "CVO", Y2 = jogadores.EstatisticaAvancadaMedia.ContribuicaoVitoriaOfensiva });
+            dadosMedia.Add(new Data { X = "CVD", Y2 = jogadores.EstatisticaAvancadaMedia.ContribuicaoVitoriaDefensiva });
+            dadosMedia.Add(new Data { X = "CV", Y2 = jogadores.EstatisticaAvancadaMedia.ContribuicaoVitoria });
+            dadosMedia.Add(new Data { X = "ECO", Y2 = jogadores.EstatisticaAvancadaMedia.EstimativaContribuicaoOfensiva });
+            dadosMedia.Add(new Data { X = "ECD", Y2 = jogadores.EstatisticaAvancadaMedia.EstimativaContribuicaoDefensiva });
+            dadosMedia.Add(new Data { X = "ECT", Y2 = jogadores.EstatisticaAvancadaMedia.EstimativaContribuicaoTotal });
+
+            DataSource dataSource = new DataSource();
+
+            dataSource.Dados.Add(dadosJogador);
+            dataSource.Dados.Add(dadosMedia);
+
+            return Json(dataSource);
         }
 
         private IList<string> CarregarJogadores()

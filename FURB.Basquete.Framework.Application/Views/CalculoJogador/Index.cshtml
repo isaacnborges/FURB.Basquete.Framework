@@ -53,7 +53,7 @@
                 </ejs-dropdownlist>
 
                 <label>Categoria</label>
-                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="12" popupHeight="120px">
+                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11" popupHeight="120px">
                     <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
                 </ejs-dropdownlist>
 
@@ -100,14 +100,6 @@
             </ejs-autocomplete>
         </div>
 
-        <div class="row">
-            <br>
-            <label>Critério</label>
-            <ejs-dropdownlist id="criterioJogador" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
-                <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
-            </ejs-dropdownlist>
-        </div>
-
         <br>
         <div class="row">
             <ejs-checkbox id="jogosJogador" label="Mínimo de jogos" checked="false"></ejs-checkbox>
@@ -122,28 +114,29 @@
         </div>
 
 
-        <div id="container" align='center'>
-            <ejs-chart id="lineContainer" load="window.onChartLoad" title="Jogador X Contra jogadores da mesma posição">
+        <div align='center'>
+            <ejs-chart id="container" load="window.onChartLoad" title="">
                 <e-chart-tooltipsettings enable="true">
                 </e-chart-tooltipsettings>
                 <e-chart-primaryxaxis valueType="Category" interval=1></e-chart-primaryxaxis>
-                <e-chart-primaryyaxis maximum=150 interval=30></e-chart-primaryyaxis>
+                <e-chart-primaryyaxis minimum=-10 maximum=80 interval=10></e-chart-primaryyaxis>
                 <e-chart-chartarea>
                     <e-chartarea-border width="0.00001"></e-chartarea-border>
                 </e-chart-chartarea>
                 <e-series-collection>
-                    <e-series dataSource="ViewBag.dataSource1" xName='x' yName='yValue' name='Jogador X' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                    <e-series dataSource="ViewBag.dataSource" xName='X' yName='Y' name='' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
                         <e-series-marker>
                             <e-series-datalabel visible="true" position="Top"></e-series-datalabel>
                         </e-series-marker>
                     </e-series>
-                    <e-series dataSource="ViewBag.dataSource2" xName='x' yName='yValue1' name='Média Jogadores' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                    <e-series dataSource="ViewBag.dataSource" xName='X' yName='Y2' name='' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
                         <e-series-marker>
                             <e-series-datalabel visible="true" position="Top"></e-series-datalabel>
                         </e-series-marker>
                     </e-series>
                 </e-series-collection>
             </ejs-chart>
+
         </div>
 
     </div>
@@ -195,10 +188,11 @@
             $("#btnCalcularJogador").click(function (e) {
                 e.preventDefault();
 
+                var nomeJogador = document.getElementById('jogadores').value;
+
                 var data = {
                     Value: {
                         AnoBase: document.getElementById('anoBaseJogador').value == "" ? 0 : document.getElementById('anoBaseJogador').value,
-                        Criterio: document.getElementById('criterioJogador').value,
                         NomeJogador: document.getElementById('jogadores').value,
                         FiltrarJogadores: document.getElementById('jogosJogador').checked,
                         QuantidadeJogos: document.getElementById('qtdJogosJogador').value
@@ -211,8 +205,16 @@
                 ajax.type = "POST";
                 ajax.contentType = "application/json; charset=utf-8";
                 ajax.successHandler = function (args) {
-                    var grid = document.getElementsByClassName('e-grid')[0].ej2_instances[0];
-                    grid.setProperties({ dataSource: JSON.parse(args) }, false);
+                    var data = JSON.parse(args);
+                    var chart = document.getElementById('container').ej2_instances[0];
+                    chart.title = nomeJogador + " X Média jogadores da mesma posição"
+                    chart.series[0].dataSource = data.Dados[0];                    
+                    chart.series[1].dataSource = data.Dados[1];
+
+                    chart.series[0].name = nomeJogador;
+                    chart.series[1].name = "Media Jogadores";
+
+                    chart.refresh();
                 }
                 ajax.send();
             })

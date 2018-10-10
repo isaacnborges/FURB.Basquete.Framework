@@ -1,4 +1,5 @@
 ﻿using FURB.Basquete.Framework.Application.Models;
+using FURB.Basquete.Framework.Application.Models.Graficos;
 using FURB.Basquete.Framework.ApplicationService.Interfaces;
 using FURB.Basquete.Framework.Domain.Commands;
 using FURB.Basquete.Framework.Domain.Enum;
@@ -13,19 +14,27 @@ namespace FURB.Basquete.Framework.Application.Controllers
     public class CalculoTimeController : Controller
     {
         private readonly ICalculoTimeAppService _calculoTimeAppService;
+        private readonly ITimeAppService _timeAppService;
 
-        public CalculoTimeController(ICalculoTimeAppService calculoTimeAppService)
+        public CalculoTimeController(ICalculoTimeAppService calculoTimeAppService, ITimeAppService timeAppService)
         {
             _calculoTimeAppService = calculoTimeAppService;
+            _timeAppService = timeAppService;
         }
 
         public IActionResult Index()
         {
             ViewBag.Criterio = CarregarCriterios();
             ViewBag.Conferencia = CarregarConferencia();
-            ViewBag.Categoria = CarregarCategoria();            
+            ViewBag.Categoria = CarregarCategoria();
+            ViewBag.Times = CarregarTimes();
 
             return View();
+        }
+
+        private IList<string> CarregarTimes()
+        {
+            return _timeAppService.GetAll().OrderBy(x => x.Nome).Select(x => x.Nome).ToList();
         }
 
         public ActionResult Calcular([FromBody]ModelRequest<CalculoTimeModel> timeCommand)
@@ -60,21 +69,36 @@ namespace FURB.Basquete.Framework.Application.Controllers
         public ActionResult CalcularTime([FromBody]ModelRequest<CalculoTimeEspecificoModel> timeCommand)
         {
             var categoria = EnumUtil.ParseEnum<TipoCategoria>(timeCommand.Value.Categoria.Replace(" ", ""));
-            var dados = _calculoTimeAppService.CalcularTimeAnoCategoria(timeCommand.Value.AnoInicio, timeCommand.Value.AnoFim, categoria)
+            var time = _timeAppService.GetAll().FirstOrDefault(x => x.Nome == timeCommand.Value.NomeTime);
+            var dados = _calculoTimeAppService.CalcularTimeAnoCategoria(timeCommand.Value.AnoInicio, timeCommand.Value.AnoFim, time, categoria)
                 .OrderBy(x => x.Ano);
 
-            List<LineChartData> data = new List<LineChartData>();
-
+            List<LineChartData> dadosTime = new List<LineChartData>();
             foreach (var item in dados)
             {
-                data.Add(new LineChartData
+                dadosTime.Add(new LineChartData
                 {
-                    xValor = new DateTime(item.Ano, DateTime.Now.Month, DateTime.Now.Day),
-                    yTime = item.EstatisticaMedia
+                    X = new DateTime(item.Ano, DateTime.Now.Month, DateTime.Now.Day),
+                    Y = item.EstatisticaTime
                 });
             }
 
-            return Json(data);
+            List<LineChartData> dadosMedia = new List<LineChartData>();
+            foreach (var item in dados)
+            {
+                dadosMedia.Add(new LineChartData
+                {
+                    X = new DateTime(item.Ano, DateTime.Now.Month, DateTime.Now.Day),
+                    Y2 = item.EstatisticaMedia
+                });
+            }
+
+            DataSource dataSource = new DataSource();
+
+            dataSource.Dados.Add(dadosTime);
+            dataSource.Dados.Add(dadosMedia);
+
+            return Json(dataSource);
         }
 
         private IList<string> CarregarCriterios()
@@ -123,11 +147,5 @@ namespace FURB.Basquete.Framework.Application.Controllers
 
             return listaCategoria.OrderBy(x => x).ToList();
         }
-    }
-
-    public class LineChartData
-    {
-        public DateTime xValor;
-        public double yTime;
     }
 }

@@ -80,6 +80,11 @@
             <input id="anoInicioTime" name="anoInicioTime" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial" autocomplete="off">
             <label>Ano final</label>
             <input id="anoFimTime" name="anoFimTime" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final" autocomplete="off">
+
+            <label>Times</label>
+            <ejs-autocomplete id="times" dataSource="@ViewBag.Times" placeholder="Escolha um time" index="0" popupHeight="220px">
+                <e-autocomplete-fields value="times"></e-autocomplete-fields>
+            </ejs-autocomplete>
         </div>
 
         <div class="row">
@@ -96,7 +101,7 @@
         </div>
 
         <div class="control-section" align="center">
-            <ejs-chart id="container" load="window.onChartLoad" title="Comparação estatística X">
+            <ejs-chart id="container" load="window.onChartLoad" title="">
                 <e-chart-tooltipsettings enable="true">
                 </e-chart-tooltipsettings>
                 <e-chart-primaryxaxis valueType="DateTime"
@@ -112,7 +117,10 @@
                     <e-chartarea-border width="0.0001"></e-chartarea-border>
                 </e-chart-chartarea>
                 <e-series-collection>
-                    <e-series dataSource="ViewBag.dataSourceTime" name="Estatística" xName="xValor" width="2" opacity="1" yName="yTime" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
+                    <e-series dataSource="ViewBag.dataSource" name="" xName="X" width="2" opacity="1" yName="Y" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
+                        <e-series-marker visible="true" height="10" width="10"></e-series-marker>
+                    </e-series>
+                    <e-series dataSource="ViewBag.dataSource" name="" xName="X" width="2" opacity="1" yName="Y2" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
                         <e-series-marker visible="true" height="10" width="10"></e-series-marker>
                     </e-series>
                 </e-series-collection>
@@ -166,10 +174,13 @@
             $("#btnCalcularTime").click(function (e) {
                 e.preventDefault();
 
+                var nomeTime = document.getElementById('times').value;
+
                 var data = {
                     Value: {
                         AnoInicio: document.getElementById('anoInicioTime').value == "" ? 0 : document.getElementById('anoInicioTime').value,
                         AnoFim: document.getElementById('anoFimTime').value == "" ? 0 : document.getElementById('anoFimTime').value,
+                        NomeTime: document.getElementById('times').value,
                         Categoria: document.getElementById('categoriaTime').value,
                     }
                 };
@@ -180,10 +191,15 @@
                 ajax.type = "POST";
                 ajax.contentType = "application/json; charset=utf-8";
                 ajax.successHandler = function (args) {
+                    var data = JSON.parse(args);
                     var chart = document.getElementById('container').ej2_instances[0];
-                    chart.series[0].dataSource = JSON.parse(args);
-                    chart.title = "Comparação estatística - " + document.getElementById('categoriaTime').value;
-                    chart.name = document.getElementById('categoriaTime').value;
+                    chart.title = nomeTime + " X Média times"
+                    chart.series[0].dataSource = data.Dados[0];
+                    chart.series[1].dataSource = data.Dados[1];
+
+                    chart.series[0].name = nomeTime;
+                    chart.series[1].name = "Media Times";
+
                     chart.refresh();
                 }
                 ajax.send();
