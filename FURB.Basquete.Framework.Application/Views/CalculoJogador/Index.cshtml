@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h3>Pesquisa e cálculo dos jogadores</h3>
 
 
 @section styles {
@@ -12,9 +12,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 }
 
-
 <br />
-
 <ul class="nav nav-tabs">
     <li class="active"><a href="#tabCalculoMedia" data-toggle="tab">Calculo Média</a></li>
     <li><a href="#tabJogadorEspecifico" data-toggle="tab">Jogador Específico</a></li>
@@ -22,61 +20,72 @@
 
 <div class="tab-content">
     <div class="tab-pane fade in active" id="tabCalculoMedia">
-        <form id="formTime" method="post">
-            <div class="row">
+        <div class="row">
+            <div class="col-md-6">
                 <label>Tipo Cálculo</label>
-                <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media" checked>Média</label>
-                <label class="radio-inline"><input type="radio" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+                <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media" checked>Média</label>
+                <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media3anos">Média 3 anos</label>
             </div>
-
-            <div class="row">
-                <label>Ano inicial</label>
-                <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano inicial" autocomplete="off">
-                <label>Ano final</label>
-                <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano final" autocomplete="off">
-
-                <br>
-                <label>Ano base</label>
-                <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lAnoInicio">Ano inicial</label>
+                <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano inicial" autocomplete="off">
             </div>
-
-            <div class="row">
-                <br>
-                <label>Critério</label>
-                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
-                    <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
-                </ejs-dropdownlist>
-
+            <div class="col-md-6">
+                <label id="lAnoFim">Ano final</label>
+                <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano final" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <label id="lAnoBase" style="display: none">Ano base</label>
+                <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 50%; display: none" type="text" placeholder="Ano base" autocomplete="off">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <label>Posição</label>
                 <ejs-dropdownlist id="posicao" dataSource="@ViewBag.Posicao" placeholder="Escolha a posição" index="0" popupHeight="120px">
                     <e-dropdownlist-fields text="posicao" value="Id"></e-dropdownlist-fields>
                 </ejs-dropdownlist>
-
-                <label>Categoria</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Critério</label>
+                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
+                    <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lCategoria">Categoria</label>
                 <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11" popupHeight="120px">
                     <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
                 </ejs-dropdownlist>
-
-                <label>Categoria Avançada</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lCategoriaAvancada">Categoria Avançada</label>
                 <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3" popupHeight="120px">
                     <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
                 </ejs-dropdownlist>
             </div>
-
+        </div>
+        <div class="row">
             <br>
-            <div class="row">
-                <ejs-checkbox id="jogos" label="Mínimo de jogos" checked="false"></ejs-checkbox>
+            <div class="col-md-6">
+                <ejs-checkbox id="jogos" label="Mínimo de jogos" checked="true"></ejs-checkbox>
 
-                <label>Jogos</label>
-                <input id="qtdJogos" name="qtdJogos" class="e-input" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+                <label id="lJogos">Jogos</label>
+                <input id="qtdJogos" name="qtdJogos" class="e-input" value="20" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
             </div>
-
+        </div>
+        <div class="form-group">
             <br>
-            <div class="form-group">
-                <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
-            </div>
-        </form>
-
+            <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
+        </div>
         <div id="content">
             <ejs-grid id="Grid" dataSource=@ViewBag.datasource allowPaging="true">
                 <e-grid-columns>
@@ -91,29 +100,32 @@
     </div>
     <div class="tab-pane fade" id="tabJogadorEspecifico">
         <div class="row">
-            <label>Ano base</label>
-            <input id="anoBaseJogador" name="anoBase" class="date-own form-control" style="width: 300px;" type="text" placeholder="Ano base" autocomplete="off">
-
-            <label>Jogadores</label>
-            <ejs-autocomplete id="jogadores" dataSource="@ViewBag.Jogadores" placeholder="Escolha um jogador" index="-1" popupHeight="220px">
-                <e-autocomplete-fields value="jogadores"></e-autocomplete-fields>
-            </ejs-autocomplete>
+            <div class="col-md-6">
+                <label>Ano base</label>
+                <input id="anoBaseJogador" name="anoBase" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano base" autocomplete="off">
+            </div>
         </div>
-
-        <br>
         <div class="row">
-            <ejs-checkbox id="jogosJogador" label="Mínimo de jogos" checked="false"></ejs-checkbox>
-
-            <label>Jogos</label>
-            <input id="qtdJogosJogador" name="qtdJogos" class="e-input" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+            <div class="col-md-6">
+                <label>Jogadores</label>
+                <ejs-autocomplete id="jogadores" dataSource="@ViewBag.Jogadores" placeholder="Escolha um jogador" index="-1" popupHeight="220px">
+                    <e-autocomplete-fields value="jogadores"></e-autocomplete-fields>
+                </ejs-autocomplete>
+            </div>
         </div>
+        <div class="row">
+            <br>
+            <div class="col-md-6">
+                <ejs-checkbox id="jogosJogador" label="Mínimo de jogos" checked="true"></ejs-checkbox>
 
-        <br>
+                <label id="lJogosJogador">Jogos</label>
+                <input id="qtdJogosJogador" name="qtdJogos" class="e-input" value="20" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+            </div>
+        </div>
         <div class="form-group">
+            <br>
             <ejs-button id="btnCalcularJogador" content="Calcular"></ejs-button>
         </div>
-
-
         <div align='center'>
             <ejs-chart id="container" load="window.onChartLoad" title="">
                 <e-chart-tooltipsettings enable="true">
@@ -154,25 +166,77 @@
         });
 
         $(document).ready(function (e) {
+            $('input[name="tipoCalculo"]').on("change", function () {
+                if ($(this).val() == "media") {
+                    $("#anoInicio").show();
+                    $("#anoFim").show();
+                    $("#anoBase").hide();
+
+                    $("#lAnoInicio").show();
+                    $("#lAnoFim").show();
+                    $("#lAnoBase").hide();
+                } else {
+                    $("#anoInicio").hide();
+                    $("#anoFim").hide();
+                    $("#anoBase").show();
+
+                    $("#lAnoInicio").hide();
+                    $("#lAnoFim").hide();
+                    $("#lAnoBase").show();
+                }
+            });
+
+            $("#jogos").on("change", function () {
+                if ($("#jogos")[0].checked) {
+                    $("#lJogos").show();
+                    $("#qtdJogos").show();
+                } else {
+                    $("#lJogos").hide();
+                    $("#qtdJogos").hide();
+                }
+            });
+
+            $("#jogosJogador").on("change", function () {
+                if ($("#jogosJogador")[0].checked) {
+                    $("#lJogosJogador").show();
+                    $("#qtdJogosJogador").show();
+                } else {
+                    $("#lJogosJogador").hide();
+                    $("#qtdJogosJogador").hide();
+                }
+            });
+
+            $("criterio").change(function () {
+                if ($(this).val() == 'Por 36 minutos') {
+                    $("#lCategoria").show();
+                    $("#categoria").show();
+                    $("#lCategoriaAvancada").hide();
+                    $("#categoriaAvancada").hide();
+                } else {
+                    $("#lCategoria").hide();
+                    $("#categoria").hide();
+                    $("#lCategoriaAvancada").show();
+                    $("#categoriaAvancada").show();
+                }
+            });
+
 
             $("#btnCalcular").click(function (e) {
                 e.preventDefault();
-
                 var data = {
                     Value: {
-                        AnoInicio: document.getElementById('anoInicio').value == "" ? 0 : document.getElementById('anoInicio').value,
-                        AnoFim: document.getElementById('anoFim').value == "" ? 0 : document.getElementById('anoFim').value,
-                        AnoBase: document.getElementById('anoBase').value == "" ? 0 : document.getElementById('anoBase').value,
+                        AnoInicio: $("#anoInicio").val() == "" ? 0 : $("#anoInicio").val(),
+                        AnoFim: $("#anoFim").val() == "" ? 0 : $("#anoFim").val(),
+                        AnoBase: $("#anoBase").val() == "" ? 0 : $("#anoBase").val(),
                         TipoCalculo: $("input[name='tipoCalculo']:checked").val(),
-                        Criterio: document.getElementById('criterio').value,
-                        Categoria: document.getElementById('categoria').value,
-                        CategoriaAvancada: document.getElementById('categoriaAvancada').value,
-                        Posicao: document.getElementById('posicao').value,
+                        Criterio: $("#criterio").val(),
+                        Categoria: $("#categoria").val(),
+                        CategoriaAvancada: $("#categoriaAvancada").val(),
+                        Posicao: $("#posicao").val(),
                         FiltrarJogadores: document.getElementById('jogos').checked,
-                        QuantidadeJogos: document.getElementById('qtdJogos').value
+                        QuantidadeJogos: $("#qtdJogos").val()
                     }
                 };
-
                 var ajax = new ej.base.Ajax();
                 ajax.data = JSON.stringify(data);
                 ajax.url = "/CalculoJogador/Calcular";
@@ -187,15 +251,13 @@
 
             $("#btnCalcularJogador").click(function (e) {
                 e.preventDefault();
-
                 var nomeJogador = document.getElementById('jogadores').value;
-
                 var data = {
                     Value: {
-                        AnoBase: document.getElementById('anoBaseJogador').value == "" ? 0 : document.getElementById('anoBaseJogador').value,
-                        NomeJogador: document.getElementById('jogadores').value,
+                        AnoBase: $("#anoBaseJogador").val() == "" ? 0 : $("#anoBaseJogador").val(),
+                        NomeJogador: $("#jogadores").val(),
                         FiltrarJogadores: document.getElementById('jogosJogador').checked,
-                        QuantidadeJogos: document.getElementById('qtdJogosJogador').value
+                        QuantidadeJogos: $("#qtdJogosJogador").val()
                     }
                 };
 
@@ -208,7 +270,7 @@
                     var data = JSON.parse(args);
                     var chart = document.getElementById('container').ej2_instances[0];
                     chart.title = nomeJogador + " X Média jogadores da mesma posição"
-                    chart.series[0].dataSource = data.Dados[0];                    
+                    chart.series[0].dataSource = data.Dados[0];
                     chart.series[1].dataSource = data.Dados[1];
 
                     chart.series[0].name = nomeJogador;

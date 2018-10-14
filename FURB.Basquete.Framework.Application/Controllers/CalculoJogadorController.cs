@@ -61,7 +61,8 @@ namespace FURB.Basquete.Framework.Application.Controllers
             else
                 jogadorCalculo.CategoriaAvancada = EnumUtil.ParseEnum<TipoCategoriaAvancada>(jogadorCommand.Value.CategoriaAvancada.Replace(" ", ""));
 
-            jogadorCalculo.Posicao = EnumUtil.ParseEnum<TipoPosicao>(jogadorCommand.Value.Posicao);
+            var posicao = ValidarPosicao(jogadorCommand.Value.Posicao);
+            jogadorCalculo.Posicao = posicao;
             bool filtrarJogadores = jogadorCommand.Value.FiltrarJogadores;
             var jogos = jogadorCommand.Value.QuantidadeJogos;
 
@@ -70,6 +71,37 @@ namespace FURB.Basquete.Framework.Application.Controllers
             ViewBag.dataSource = jogadores;
 
             return Json(datasource);
+        }
+
+        private TipoPosicao ValidarPosicao(string posicaoCommand)
+        {
+            var posicao = posicaoCommand.ToLower().Trim();
+
+            switch (posicao)
+            {
+                case "armador":
+                    {
+                        return TipoPosicao.PG;
+                    }
+                case "ala armador":
+                    {
+                        return TipoPosicao.SG;
+                    }
+                case "ala":
+                    {
+                        return TipoPosicao.SF;
+                    }
+                case "ala pivô":
+                    {
+                        return TipoPosicao.PF;
+                    }
+                case "pivô":
+                    {
+                        return TipoPosicao.C;
+                    }
+                default:
+                    return TipoPosicao.PG;
+            }
         }
 
         public ActionResult CalcularJogador([FromBody]ModelRequest<CalculoJogadorEspecificoModel> jogadorCommand)
@@ -147,11 +179,11 @@ namespace FURB.Basquete.Framework.Application.Controllers
         private IList<string> CarregarPosicao()
         {
             var listaPosicao = new List<string>();
-            listaPosicao.Add("PG");
-            listaPosicao.Add("SG");
-            listaPosicao.Add("SF");
-            listaPosicao.Add("PF");
-            listaPosicao.Add("C");
+            listaPosicao.Add("Armador");
+            listaPosicao.Add("Ala armador");
+            listaPosicao.Add("Ala");
+            listaPosicao.Add("Ala pivô");
+            listaPosicao.Add("Pivô");
 
             return listaPosicao;
         }

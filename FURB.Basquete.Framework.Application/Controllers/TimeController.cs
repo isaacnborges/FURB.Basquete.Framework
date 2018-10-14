@@ -7,7 +7,6 @@ using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace FURB.Basquete.Framework.Application.Controllers
 {
