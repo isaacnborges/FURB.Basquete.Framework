@@ -1,6 +1,4 @@
-﻿@using Syncfusion.EJ2;
-@using Syncfusion.EJ2.DropDowns
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -11,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 }
+
 
 <br />
 <ul class="nav nav-tabs">
@@ -49,10 +48,12 @@
                 </ejs-dropdownlist>
             </div>
         </div>
+
+
         <div class="row">
             <div class="col-md-6">
                 <label>Critério</label>
-                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
+                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" change="onchange" placeholder="Escolha o critério" index="0" >
                     <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
                 </ejs-dropdownlist>
             </div>
@@ -60,19 +61,19 @@
         <div class="row">
             <div class="col-md-6">
                 <label id="lCategoria">Categoria</label>
-                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11" popupHeight="120px">
-                    <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
+                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11">
                 </ejs-dropdownlist>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <label id="lCategoriaAvancada">Categoria Avançada</label>
-                <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3" popupHeight="120px">
-                    <e-dropdownlist-fields text="categoriaAvancada" value="Id"></e-dropdownlist-fields>
+                <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3" >
                 </ejs-dropdownlist>
             </div>
         </div>
+
+
         <div class="row">
             <br>
             <div class="col-md-6">
@@ -154,6 +155,30 @@
     </div>
 </div>
 
+<script>
+    function oncreate(args) {
+        this.inputWrapper.container.style.display = "none";
+    }
+    function onchange(args) {
+        var categoria = document.getElementById("categoria").ej2_instances[0];
+        var catAvancada = document.getElementById("categoriaAvancada").ej2_instances[0];
+        var lCategoria = document.getElementById("lCategoria");
+        var lCategoriaAvancada = document.getElementById("lCategoriaAvancada");
+
+        if (args.value == "Estatísticas Avançadas") {
+            categoria.inputWrapper.container.style.display = "none";
+            catAvancada.inputWrapper.container.style.display = "";
+            lCategoria.style.display = "none";
+            lCategoriaAvancada.style.display = "";
+        } else {
+            categoria.inputWrapper.container.style.display = "";
+            catAvancada.inputWrapper.container.style.display = "none";
+            lCategoria.style.display = "";
+            lCategoriaAvancada.style.display = "none";
+        }
+    }
+</script>
+
 @section scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
@@ -165,7 +190,7 @@
             format: 'yyyy'
         });
 
-        $(document).ready(function (e) {
+        $(document).ready(function () {
             $('input[name="tipoCalculo"]').on("change", function () {
                 if ($(this).val() == "media") {
                     $("#anoInicio").show();
@@ -205,21 +230,6 @@
                     $("#qtdJogosJogador").hide();
                 }
             });
-
-            $("criterio").change(function () {
-                if ($(this).val() == 'Por 36 minutos') {
-                    $("#lCategoria").show();
-                    $("#categoria").show();
-                    $("#lCategoriaAvancada").hide();
-                    $("#categoriaAvancada").hide();
-                } else {
-                    $("#lCategoria").hide();
-                    $("#categoria").hide();
-                    $("#lCategoriaAvancada").show();
-                    $("#categoriaAvancada").show();
-                }
-            });
-
 
             $("#btnCalcular").click(function (e) {
                 e.preventDefault();
