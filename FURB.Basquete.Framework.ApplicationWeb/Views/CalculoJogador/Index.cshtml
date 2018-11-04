@@ -1,0 +1,295 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Pesquisa e cálculo dos jogadores</h3>
+
+
+@section styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+}
+
+
+<br />
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#tabCalculoMedia" data-toggle="tab">Calculo Média</a></li>
+    <li><a href="#tabJogadorEspecifico" data-toggle="tab">Jogador Específico</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tabCalculoMedia">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Tipo Cálculo</label>
+                <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media" checked>Média</label>
+                <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lAnoInicio">Ano inicial</label>
+                <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano inicial" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <label id="lAnoFim">Ano final</label>
+                <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano final" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <label id="lAnoBase" style="display: none">Ano base</label>
+                <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 50%; display: none" type="text" placeholder="Ano base" autocomplete="off">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Posição</label>
+                <ejs-dropdownlist id="posicao" dataSource="@ViewBag.Posicao" placeholder="Escolha a posição" index="0" popupHeight="120px">
+                    <e-dropdownlist-fields text="posicao" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Critério</label>
+                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" change="onchange" placeholder="Escolha o critério" index="0">
+                    <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lCategoria">Categoria</label>
+                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11">
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lCategoriaAvancada">Categoria Avançada</label>
+                <ejs-dropdownlist id="categoriaAvancada" dataSource="@ViewBag.CategoriaAvancada" placeholder="Escolha a categoria" index="3">
+                </ejs-dropdownlist>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <br>
+            <div class="col-md-6">
+                <ejs-checkbox id="jogos" label="Mínimo de jogos" checked="true"></ejs-checkbox>
+
+                <label id="lJogos">Jogos</label>
+                <input id="qtdJogos" name="qtdJogos" class="e-input" value="20" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+            </div>
+        </div>
+        <div class="form-group">
+            <br>
+            <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
+        </div>
+        <div id="content">
+            <ejs-grid id="Grid" dataSource=@ViewBag.datasource allowPaging="true">
+                <e-grid-columns>
+                    <e-grid-column field="AnoTemporada" headerText="Ano" textAlign="Center" width="120"></e-grid-column>
+                    <e-grid-column field="Nome" headerText="Nome" width="150"></e-grid-column>
+                    <e-grid-column field="ParametroCalculo" headerText="Categoria" textAlign="Center" minWidth="8" width="100"></e-grid-column>
+                    <e-grid-column field="ValorEstatistica" headerText="Valor estatistica" textAlign="Center" minWidth="8" width="120"></e-grid-column>
+                    <e-grid-column field="IndiceCalulo" headerText="Indice" textAlign="Center" minWidth="8" width="100"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="tabJogadorEspecifico">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Ano base</label>
+                <input id="anoBaseJogador" name="anoBase" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano base" autocomplete="off">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Jogadores</label>
+                <ejs-autocomplete id="jogadores" dataSource="@ViewBag.Jogadores" placeholder="Escolha um jogador" index="-1" popupHeight="220px">
+                    <e-autocomplete-fields value="jogadores"></e-autocomplete-fields>
+                </ejs-autocomplete>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+            <div class="col-md-6">
+                <ejs-checkbox id="jogosJogador" label="Mínimo de jogos" checked="true"></ejs-checkbox>
+
+                <label id="lJogosJogador">Jogos</label>
+                <input id="qtdJogosJogador" name="qtdJogos" class="e-input" value="20" min="0" max="25" style="width: 300px;" type="number" placeholder="Jogos" autocomplete="off">
+            </div>
+        </div>
+        <div class="form-group">
+            <br>
+            <ejs-button id="btnCalcularJogador" content="Calcular"></ejs-button>
+        </div>
+        <div align='center'>
+            <ejs-chart id="container" load="window.onChartLoad" title="">
+                <e-chart-tooltipsettings enable="true">
+                </e-chart-tooltipsettings>
+                <e-chart-primaryxaxis valueType="Category" interval=1></e-chart-primaryxaxis>
+                <e-chart-primaryyaxis minimum=-10 maximum=80 interval=10></e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                    <e-chartarea-border width="0.00001"></e-chartarea-border>
+                </e-chart-chartarea>
+                <e-series-collection>
+                    <e-series dataSource="ViewBag.dataSource" xName='X' yName='Y' name='' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                        <e-series-marker>
+                            <e-series-datalabel visible="true" position="Top"></e-series-datalabel>
+                        </e-series-marker>
+                    </e-series>
+                    <e-series dataSource="ViewBag.dataSource" xName='X' yName='Y2' name='' width=2 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                        <e-series-marker>
+                            <e-series-datalabel visible="true" position="Top"></e-series-datalabel>
+                        </e-series-marker>
+                    </e-series>
+                </e-series-collection>
+            </ejs-chart>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function oncreate(args) {
+        this.inputWrapper.container.style.display = "none";
+    }
+    function onchange(args) {
+        var categoria = document.getElementById("categoria").ej2_instances[0];
+        var catAvancada = document.getElementById("categoriaAvancada").ej2_instances[0];
+        var lCategoria = document.getElementById("lCategoria");
+        var lCategoriaAvancada = document.getElementById("lCategoriaAvancada");
+
+        if (args.value == "Estatísticas Avançadas") {
+            categoria.inputWrapper.container.style.display = "none";
+            catAvancada.inputWrapper.container.style.display = "";
+            lCategoria.style.display = "none";
+            lCategoriaAvancada.style.display = "";
+        } else {
+            categoria.inputWrapper.container.style.display = "";
+            catAvancada.inputWrapper.container.style.display = "none";
+            lCategoria.style.display = "";
+            lCategoriaAvancada.style.display = "none";
+        }
+    }
+</script>
+
+@section scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $('.date-own').datepicker({
+            minViewMode: 2,
+            format: 'yyyy'
+        });
+
+        $(document).ready(function () {
+            $('input[name="tipoCalculo"]').on("change", function () {
+                if ($(this).val() == "media") {
+                    $("#anoInicio").show();
+                    $("#anoFim").show();
+                    $("#anoBase").hide();
+
+                    $("#lAnoInicio").show();
+                    $("#lAnoFim").show();
+                    $("#lAnoBase").hide();
+                } else {
+                    $("#anoInicio").hide();
+                    $("#anoFim").hide();
+                    $("#anoBase").show();
+
+                    $("#lAnoInicio").hide();
+                    $("#lAnoFim").hide();
+                    $("#lAnoBase").show();
+                }
+            });
+
+            $("#jogos").on("change", function () {
+                if ($("#jogos")[0].checked) {
+                    $("#lJogos").show();
+                    $("#qtdJogos").show();
+                } else {
+                    $("#lJogos").hide();
+                    $("#qtdJogos").hide();
+                }
+            });
+
+            $("#jogosJogador").on("change", function () {
+                if ($("#jogosJogador")[0].checked) {
+                    $("#lJogosJogador").show();
+                    $("#qtdJogosJogador").show();
+                } else {
+                    $("#lJogosJogador").hide();
+                    $("#qtdJogosJogador").hide();
+                }
+            });
+
+            $("#btnCalcular").click(function (e) {
+                e.preventDefault();
+                var data = {
+                    Value: {
+                        AnoInicio: $("#anoInicio").val() == "" ? 0 : $("#anoInicio").val(),
+                        AnoFim: $("#anoFim").val() == "" ? 0 : $("#anoFim").val(),
+                        AnoBase: $("#anoBase").val() == "" ? 0 : $("#anoBase").val(),
+                        TipoCalculo: $("input[name='tipoCalculo']:checked").val(),
+                        Criterio: $("#criterio").val(),
+                        Categoria: $("#categoria").val(),
+                        CategoriaAvancada: $("#categoriaAvancada").val(),
+                        Posicao: $("#posicao").val(),
+                        FiltrarJogadores: document.getElementById('jogos').checked,
+                        QuantidadeJogos: $("#qtdJogos").val()
+                    }
+                };
+                var ajax = new ej.base.Ajax();
+                ajax.data = JSON.stringify(data);
+                ajax.url = "/CalculoJogador/Calcular";
+                ajax.type = "POST";
+                ajax.contentType = "application/json; charset=utf-8";
+                ajax.successHandler = function (args) {
+                    var grid = document.getElementsByClassName('e-grid')[0].ej2_instances[0];
+                    grid.setProperties({ dataSource: JSON.parse(args) }, false);
+                }
+                ajax.send();
+            })
+
+            $("#btnCalcularJogador").click(function (e) {
+                e.preventDefault();
+                var nomeJogador = document.getElementById('jogadores').value;
+                var data = {
+                    Value: {
+                        AnoBase: $("#anoBaseJogador").val() == "" ? 0 : $("#anoBaseJogador").val(),
+                        NomeJogador: $("#jogadores").val(),
+                        FiltrarJogadores: document.getElementById('jogosJogador').checked,
+                        QuantidadeJogos: $("#qtdJogosJogador").val()
+                    }
+                };
+
+                var ajax = new ej.base.Ajax();
+                ajax.data = JSON.stringify(data);
+                ajax.url = "/CalculoJogador/CalcularJogador";
+                ajax.type = "POST";
+                ajax.contentType = "application/json; charset=utf-8";
+                ajax.successHandler = function (args) {
+                    var data = JSON.parse(args);
+                    var chart = document.getElementById('container').ej2_instances[0];
+                    chart.title = nomeJogador + " X Média jogadores da mesma posição"
+                    chart.series[0].dataSource = data.Dados[0];
+                    chart.series[1].dataSource = data.Dados[1];
+
+                    chart.series[0].name = nomeJogador;
+                    chart.series[1].name = "Media Jogadores";
+
+                    chart.refresh();
+                }
+                ajax.send();
+            })
+        })
+    </script>
+}

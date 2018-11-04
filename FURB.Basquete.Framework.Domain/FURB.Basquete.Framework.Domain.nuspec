@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Furb.Domain</id>
+    <version>1.0.2</version>
+    <title>Dominio</title>
+    <authors>isaacnborges</authors>
+    <owners>isaacnborges</owners>
+    <licenseUrl>https://github.com/isaacnborges/FURB.Basquete.Framework</licenseUrl>
+    <projectUrl>https://github.com/isaacnborges/FURB.Basquete.Framework</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Dominio</description>
+    <releaseNotes>Dominio</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags></tags>
+  </metadata>
+</package>

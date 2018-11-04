@@ -1,7 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>isaacnborges</Authors>
+    <RepositoryUrl>https://github.com/isaacnborges/FURB.Basquete.Framework</RepositoryUrl>
+    <Company>FURB.Basquete.Framework</Company>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.1</Version>
+    <PackageProjectUrl>https://github.com/isaacnborges/FURB.Basquete.Framework</PackageProjectUrl>
+    <Description>Pacote de funcionalidades relacionadas aos calculos e buscas</Description>
   </PropertyGroup>
 
   <ItemGroup>

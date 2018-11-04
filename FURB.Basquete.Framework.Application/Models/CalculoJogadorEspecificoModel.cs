@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FURB.Basquete.Framework.Application.Models
+﻿namespace FURB.Basquete.Framework.Application.Models
 {
     public class CalculoJogadorEspecificoModel
     {

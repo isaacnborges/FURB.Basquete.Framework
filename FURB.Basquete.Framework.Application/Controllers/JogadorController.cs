@@ -1,8 +1,5 @@
 ﻿using FURB.Basquete.Framework.Application.ViewModels;
 using FURB.Basquete.Framework.ApplicationService.Interfaces;
-using FURB.Basquete.Framework.Domain.Commands;
-using FURB.Basquete.Framework.Domain.Enum;
-using FURB.Basquete.Framework.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -14,14 +11,11 @@ namespace FURB.Basquete.Framework.Application.Controllers
     {
         private readonly IJogadorAppService _jogadorAppService;
         private readonly ITemporadaJogadorAppService _temporadaJogadorAppService;
-        private readonly ICalculoJogadorService _calculoJogadorService;
 
-        public JogadorController(IJogadorAppService jogadorAppService, ITemporadaJogadorAppService temporadaJogadorAppService,
-                                 ICalculoJogadorService calculoJogadorService)
+        public JogadorController(IJogadorAppService jogadorAppService, ITemporadaJogadorAppService temporadaJogadorAppService)
         {
             _jogadorAppService = jogadorAppService;
             _temporadaJogadorAppService = temporadaJogadorAppService;
-            _calculoJogadorService = calculoJogadorService;
         }
 
         public IActionResult Index()

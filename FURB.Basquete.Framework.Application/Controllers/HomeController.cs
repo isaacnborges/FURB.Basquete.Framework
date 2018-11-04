@@ -5,13 +5,9 @@
 // licensing@syncfusion.com. Any infringement will be prosecuted under
 // applicable laws. 
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using FURB.Basquete.Framework.Application.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace FURB.Basquete.Framework.Application.Controllers
 {

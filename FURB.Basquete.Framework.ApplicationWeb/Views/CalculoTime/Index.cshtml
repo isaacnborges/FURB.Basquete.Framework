@@ -1,0 +1,240 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Pesquisas e cálculo dos times</h3>
+
+
+@section styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+}
+
+<br />
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#tabCalculoMedia" data-toggle="tab">Calculo Média</a></li>
+    <li><a href="#tabTimeAno" data-toggle="tab">Categoria Ano</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tabCalculoMedia">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Tipo Cálculo</label>
+                <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media" checked>Média</label>
+                <label class="radio-inline"><input type="radio" id="tipoCalculo" name="tipoCalculo" value="media3anos">Média 3 anos</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label id="lAnoInicio">Ano inicial</label>
+                <input id="anoInicio" name="anoInicio" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano inicial" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <label id="lAnoFim">Ano final</label>
+                <input id="anoFim" name="anoFim" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano final" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <label id="lAnoBase" style="display: none">Ano base</label>
+                <input id="anoBase" name="anoBase" class="date-own form-control" style="width: 50%; display: none" type="text" placeholder="Ano base" autocomplete="off">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Conferência</label>
+                <ejs-dropdownlist id="conferencia" dataSource="@ViewBag.Conferencia" placeholder="Escolha a conferência" index="0" popupHeight="120px">
+                    <e-dropdownlist-fields text="conferencia" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Critério</label>
+                <ejs-dropdownlist id="criterio" dataSource="@ViewBag.Criterio" placeholder="Escolha o critério" index="0" popupHeight="120px">
+                    <e-dropdownlist-fields text="criterio" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Categoria</label>
+                <ejs-dropdownlist id="categoria" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11" popupHeight="120px">
+                    <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="form-group">
+            <br>
+            <ejs-button id="btnCalcular" content="Calcular"></ejs-button>
+        </div>
+        <div id="content">
+            <ejs-grid id="Grid" dataSource=@ViewBag.datasource allowPaging="true">
+                <e-grid-columns>
+                    <e-grid-column field="AnoTemporada" headerText="Ano" textAlign="Center" width="120"></e-grid-column>
+                    <e-grid-column field="Nome" headerText="Nome" width="150"></e-grid-column>
+                    <e-grid-column field="ParametroCalculo" headerText="Categoria" textAlign="Center" minWidth="8" width="100"></e-grid-column>
+                    <e-grid-column field="ValorEstatistica" headerText="Valor estatistica" textAlign="Center" minWidth="8" width="120"></e-grid-column>
+                    <e-grid-column field="IndiceCalulo" headerText="Indice" textAlign="Center" minWidth="8" width="100"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="tabTimeAno">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Ano inicial</label>
+                <input id="anoInicioTime" name="anoInicioTime" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano inicial" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <label>Ano final</label>
+                <input id="anoFimTime" name="anoFimTime" class="date-own form-control" style="width: 50%;" type="text" placeholder="Ano final" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Categoria</label>
+                <ejs-dropdownlist id="categoriaTime" dataSource="@ViewBag.Categoria" placeholder="Escolha a categoria" index="11" popupHeight="120px">
+                    <e-dropdownlist-fields text="categoria" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Times</label>
+                <ejs-autocomplete id="times" dataSource="@ViewBag.Times" placeholder="Escolha um time" index="0" popupHeight="220px">
+                    <e-autocomplete-fields value="times"></e-autocomplete-fields>
+                </ejs-autocomplete>
+            </div>
+        </div>
+        <div class="form-group">
+            <br>
+            <ejs-button id="btnCalcularTime" content="Calcular"></ejs-button>
+        </div>
+        <div class="control-section" align="center">
+            <ejs-chart id="container" load="window.onChartLoad" title="">
+                <e-chart-tooltipsettings enable="true">
+                </e-chart-tooltipsettings>
+                <e-chart-primaryxaxis valueType="DateTime"
+                                      labelFormat="y"
+                                      intervalType="Years"
+                                      edgeLabelPlacement="Shift"></e-chart-primaryxaxis>
+                <e-chart-primaryyaxis labelFormat="{value}"
+                                      rangePadding="None"
+                                      minimum=0
+                                      maximum=120
+                                      interval=10></e-chart-primaryyaxis>
+                <e-chart-chartarea>
+                    <e-chartarea-border width="0.0001"></e-chartarea-border>
+                </e-chart-chartarea>
+                <e-series-collection>
+                    <e-series dataSource="ViewBag.dataSource" name="" xName="X" width="2" opacity="1" yName="Y" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
+                        <e-series-marker visible="true" height="10" width="10"></e-series-marker>
+                    </e-series>
+                    <e-series dataSource="ViewBag.dataSource" name="" xName="X" width="2" opacity="1" yName="Y2" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
+                        <e-series-marker visible="true" height="10" width="10"></e-series-marker>
+                    </e-series>
+                </e-series-collection>
+            </ejs-chart>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $('.date-own').datepicker({
+            minViewMode: 2,
+            format: 'yyyy'
+        });
+
+        $(document).ready(function (e) {
+            $('input[name="tipoCalculo"]').on("change", function () {
+                if ($(this).val() == "media") {
+                    $("#anoInicio").show();
+                    $("#anoFim").show();
+                    $("#anoBase").hide();
+
+                    $("#lAnoInicio").show();
+                    $("#lAnoFim").show();
+                    $("#lAnoBase").hide();
+                } else {
+                    $("#anoInicio").hide();
+                    $("#anoFim").hide();
+                    $("#anoBase").show();
+
+                    $("#lAnoInicio").hide();
+                    $("#lAnoFim").hide();
+                    $("#lAnoBase").show();
+                }
+            });
+
+            $("#btnCalcular").click(function (e) {
+                e.preventDefault();
+
+                var data = {
+                    Value: {
+                        AnoInicio: $("#anoInicio").val() == "" ? 0 : $("#anoInicio").val(),
+                        AnoFim: $("#anoFim").val() == "" ? 0 : $("#anoFim").val(),
+                        AnoBase: $("#anoBase").val() == "" ? 0 : $("#anoBase").val(),
+                        TipoCalculo: $("input[name='tipoCalculo']:checked").val(),
+                        Criterio: $("#criterio").val(),
+                        Categoria: $("#categoria").val(),
+                        Conferencia: $("#conferencia").val()
+                    }
+                };
+
+                var ajax = new ej.base.Ajax();
+                ajax.data = JSON.stringify(data);
+                ajax.url = "/CalculoTime/Calcular";
+                ajax.type = "POST";
+                ajax.contentType = "application/json; charset=utf-8";
+                ajax.successHandler = function (args) {
+                    var grid = document.getElementsByClassName('e-grid')[0].ej2_instances[0];
+                    grid.setProperties({ dataSource: JSON.parse(args) }, false);
+                }
+                ajax.send();
+            })
+
+            $("#btnCalcularTime").click(function (e) {
+                e.preventDefault();
+
+                var nomeTime = document.getElementById('times').value;
+
+                var data = {
+                    Value: {
+                        AnoInicio: $("#anoInicioTime").val() == "" ? 0 : $("#anoInicioTime").val(),
+                        AnoFim: $("#anoFimTime").val() == "" ? 0 : $("#anoFimTime").val(),
+                        NomeTime: $("#times").val(),
+                        Categoria: $("#categoriaTime").val()
+                    }
+                };
+
+                var ajax = new ej.base.Ajax();
+                ajax.data = JSON.stringify(data);
+                ajax.url = "/CalculoTime/CalcularTime";
+                ajax.type = "POST";
+                ajax.contentType = "application/json; charset=utf-8";
+                ajax.successHandler = function (args) {
+                    var data = JSON.parse(args);
+                    var chart = document.getElementById('container').ej2_instances[0];
+                    chart.title = nomeTime + " X Média times"
+                    chart.series[0].dataSource = data.Dados[0];
+                    chart.series[1].dataSource = data.Dados[1];
+
+                    chart.series[0].name = nomeTime;
+                    chart.series[1].name = "Media Times";
+
+                    chart.refresh();
+                }
+                ajax.send();
+            })
+        })
+    </script>
+}

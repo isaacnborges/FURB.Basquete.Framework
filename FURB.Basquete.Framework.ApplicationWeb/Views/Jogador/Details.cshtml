@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@ViewBag.jogador.Nome</h2>
+<h4>Posição: @ViewBag.jogador.Posicao</h4>
+<br>
+<h4>Estatisticas Por 36 minutos</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ano</th>
+            <th>Idade</th>
+            <th>Time</th>
+            <th>Jogos</th>
+            <th>Jogos I</th>
+            <th>AC</th>
+            <th>AT</th>
+            <th>AC%</th>
+            <th>3A</th>
+            <th>3AT</th>
+            <th>3A%</th>
+            <th>2A</th>
+            <th>2AT</th>
+            <th>2A%</th>
+            <th>LL</th>
+            <th>LLT</th>
+            <th>LL%</th>
+            <th>RO</th>
+            <th>RD</th>
+            <th>TR</th>
+            <th>A</th>
+            <th>RB</th>
+            <th>TCS</th>
+            <th>DB</th>
+            <th>FTS</th>
+            <th>PTS</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jogador in ViewBag.EstatisticaPer36)
+        {
+        <tr>
+            <td>@jogador.Ano</td>
+            <td>@jogador.Idade</td>
+            <td>@jogador.SiglaTime</td>
+            <td>@jogador.Jogos</td>
+            <td>@jogador.JogosIniciados</td>
+            <td>@jogador.ArremessosConvertidos</td>
+            <td>@jogador.ArremessosTentados</td>
+            <td>@jogador.PorcentagemArremessos</td>
+            <td>@jogador.Arremessos3Pontos</td>
+            <td>@jogador.Arremessos3PontosTentados</td>
+            <td>@jogador.Porcentagem3Pontos</td>
+            <td>@jogador.Arremessos2Pontos</td>
+            <td>@jogador.Arremessos2PontosTentados</td>
+            <td>@jogador.Porcentagem2Pontos</td>
+            <td>@jogador.LancesLivres</td>
+            <td>@jogador.LancesLivresTentados</td>
+            <td>@jogador.PorcentagemLancesLivres</td>
+            <td>@jogador.RebotesOfensivos</td>
+            <td>@jogador.RebotesDefensivos</td>
+            <td>@jogador.TotalRebotes</td>
+            <td>@jogador.Assistencias</td>
+            <td>@jogador.RoubosBola</td>
+            <td>@jogador.Tocos</td>
+            <td>@jogador.DesperdiciosBola</td>
+            <td>@jogador.Faltas</td>
+            <td>@jogador.Pontos</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Estatisticas avançadas</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ano</th>
+            <th>Idade</th>
+            <th>Time</th>
+            <th>Jogos</th>
+            <th>EJ</th>
+            <th>AE%</th>
+            <th>TT3</th>
+            <th>TTLL</th>
+            <th>RO%</th>
+            <th>RD%</th>
+            <th>TR%</th>
+            <th>A%</th>
+            <th>RB%</th>
+            <th>TCS%</th>
+            <th>DB%</th>
+            <th>US%</th>
+            <th>CVO</th>
+            <th>CVD</th>
+            <th>CV</th>
+            <th>ECO</th>
+            <th>ECD</th>
+            <th>ECT</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jogador in ViewBag.EstatisticaAvancada)
+        {
+        <tr>
+            <td>@jogador.Ano</td>
+            <td>@jogador.Idade</td>
+            <td>@jogador.SiglaTime</td>
+            <td>@jogador.Jogos</td>
+            <td>@jogador.EficienciaJogador</td>
+            <td>@jogador.PorcentagemArremessosEficientes</td>
+            <td>@jogador.TaxaTentativas3Pontos</td>
+            <td>@jogador.TaxaTentativasLancesLivres</td>
+            <td>@jogador.PorcentagemRebotesOfensivos</td>
+            <td>@jogador.PorcentagemRebotesDefensivos</td>
+            <td>@jogador.PorcentagemRebotesTotal</td>
+            <td>@jogador.PorcentagemAssistencias</td>
+            <td>@jogador.PorcentagemRoubosBola</td>
+            <td>@jogador.PorcentagemTocos</td>
+            <td>@jogador.PorcentagemDesperdiciosBola</td>
+            <td>@jogador.PorcentagemUsoJogador</td>
+            <td>@jogador.ContribuicaoVitoriaOfensiva</td>
+            <td>@jogador.ContribuicaoVitoriaDefensiva</td>
+            <td>@jogador.ContribuicaoVitoria</td>
+            <td>@jogador.EstimativaContribuicaoOfensiva</td>
+            <td>@jogador.EstimativaContribuicaoDefensiva</td>
+            <td>@jogador.EstimativaContribuicaoTotal</td>
+        </tr>
+        }
+    </tbody>
+</table>

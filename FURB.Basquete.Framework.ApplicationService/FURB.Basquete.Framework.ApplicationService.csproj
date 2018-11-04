@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RepositoryUrl>https://github.com/isaacnborges/FURB.Basquete.Framework</RepositoryUrl>
+    <Authors>isaacnborges</Authors>
+    <Company>FURB.Basquete.Framework</Company>
+    <Version>1.0.1</Version>
+    <Description>Pacote de funcionalidades que realiza a comunicação entre a aplicação e o domínio</Description>
+    <PackageProjectUrl>https://github.com/isaacnborges/FURB.Basquete.Framework</PackageProjectUrl>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.10</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
