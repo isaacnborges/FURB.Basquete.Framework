@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FURB.Basquete.Framework.ApplicationService" Version="1.0.1" />
-    <PackageReference Include="FURB.Basquete.Framework.Domain" Version="1.0.2" />
+    <PackageReference Include="FURB.Basquete.Framework.Domain" Version="1.0.4" />
     <PackageReference Include="FURB.Basquete.Framework.Infrastructure" Version="1.0.1" />
     <PackageReference Include="FURB.Basquete.Framework.Infrastructure.IoC" Version="1.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" />

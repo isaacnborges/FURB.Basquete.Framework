@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Response.Calculo
 {
-    public class CalculoBaseResponse
+    public class CalculoBaseResponse : ResponseBase
     {
         public int AnoTemporada { get; set; }
         public string Nome { get; set; }

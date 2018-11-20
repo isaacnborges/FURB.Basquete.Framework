@@ -1,11 +1,8 @@
 ﻿using FURB.Basquete.Framework.Domain.Enum;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FURB.Basquete.Framework.Domain.Commands
 {
-    public class CalculoBaseCommand
+    public class CalculoBaseCommand : CommandBase
     {
         public int AnoInicio { get; set; }
         public int AnoFim { get; set; }

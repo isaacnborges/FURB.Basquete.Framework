@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace FURB.Basquete.Framework.Domain.Interfaces.Services
 {
-    public interface ICalculoTimeService
+    public interface ICalculoTimeService : ICalculoBaseService<CalculoTimeCommand, CalculoTimeResponse>
     {
         IList<CalculoTimeResponse> CalcularTime(CalculoTimeCommand calculoTime);
         IList<CalculoTimeAnoCategoria> CalcularTimeAnoCategoria(int anoInicio, int anoFim, Time time, TipoCategoria categoria);
