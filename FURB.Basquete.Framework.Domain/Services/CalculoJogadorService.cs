@@ -215,7 +215,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 {
                     valorEstatistica = ObterEstatisticaJogador3Anos(calculoJogador, temporadaJogador);
                 }
-                else if (calculoJogador.Criterio == TipoCriterio.EstatisticaPer36Oponente)
+                else if (calculoJogador.Criterio == TipoCriterio.EstatisticaAvancada)
                 {
                     valorEstatistica = ObterEstatisticaAvancadaJogador3Anos(calculoJogador, temporadaJogador);
                 }
