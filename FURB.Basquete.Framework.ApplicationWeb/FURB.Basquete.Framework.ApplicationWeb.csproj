@@ -3,6 +3,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
     <PackageReference Include="FURB.Basquete.Framework.ApplicationService" Version="1.0.1" />
     <PackageReference Include="FURB.Basquete.Framework.Domain" Version="1.0.4" />
     <PackageReference Include="FURB.Basquete.Framework.Infrastructure" Version="1.0.1" />

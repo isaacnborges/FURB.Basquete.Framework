@@ -1,13 +1,10 @@
 ﻿using FURB.Basquete.Framework.Domain.Interfaces;
 using FURB.Basquete.Framework.Domain.Interfaces.Repositories;
 using FURB.Basquete.Framework.Domain.Interfaces.Services;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FURB.Basquete.Framework.Domain.Services

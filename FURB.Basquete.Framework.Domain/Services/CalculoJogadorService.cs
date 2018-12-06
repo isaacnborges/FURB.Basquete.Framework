@@ -33,7 +33,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 temporada = temporada.Select(x => new TemporadaJogador
                 {
                     Ano = x.Ano,
-                    Jogadores = x.Jogadores.Where(y => y.EstatsticaPer36.Jogos >= qtdJogos).ToList()
+                    Jogadores = x.Jogadores.Where(y => y.EstatisticaPer36.Jogos >= qtdJogos).ToList()
                 }).ToList();
             }
 
@@ -121,50 +121,50 @@ namespace FURB.Basquete.Framework.Domain.Services
 
         private static void MontarEstatisticaMedia(List<TemporadaJogador> temporada, EstatisticaPer36Jogador estatisticaPer36Media)
         {
-            estatisticaPer36Media.Arremessos2Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos2Pontos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Arremessos2PontosTentados = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos2PontosTentados).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Arremessos3Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos3Pontos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Arremessos3PontosTentados = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos3PontosTentados).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.ArremessosConvertidos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.ArremessosConvertidos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.ArremessosTentados = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.ArremessosTentados).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Assistencias = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Assistencias).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.DesperdiciosBola = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.DesperdiciosBola).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Faltas = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Faltas).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.LancesLivres = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.LancesLivres).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Pontos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Porcentagem2Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Porcentagem2Pontos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Porcentagem3Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Porcentagem3Pontos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.PorcentagemArremessos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.PorcentagemArremessos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.PorcentagemLancesLivres = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.PorcentagemLancesLivres).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.RebotesDefensivos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.RebotesDefensivos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.RebotesOfensivos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.RebotesOfensivos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.RoubosBola = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.RoubosBola).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.Tocos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.Tocos).Average()).FirstOrDefault(), 2);
-            estatisticaPer36Media.TotalRebotes = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatsticaPer36.TotalRebotes).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Arremessos2Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos2Pontos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Arremessos2PontosTentados = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos2PontosTentados).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Arremessos3Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos3Pontos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Arremessos3PontosTentados = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos3PontosTentados).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.ArremessosConvertidos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.ArremessosConvertidos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.ArremessosTentados = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.ArremessosTentados).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Assistencias = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Assistencias).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.DesperdiciosBola = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.DesperdiciosBola).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Faltas = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Faltas).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.LancesLivres = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.LancesLivres).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Pontos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Porcentagem2Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Porcentagem2Pontos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Porcentagem3Pontos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Porcentagem3Pontos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.PorcentagemArremessos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.PorcentagemArremessos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.PorcentagemLancesLivres = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.PorcentagemLancesLivres).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.RebotesDefensivos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.RebotesDefensivos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.RebotesOfensivos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.RebotesOfensivos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.RoubosBola = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.RoubosBola).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.Tocos = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.Tocos).Average()).FirstOrDefault(), 2);
+            estatisticaPer36Media.TotalRebotes = Math.Round(temporada.Select(x => x.Jogadores.Select(y => y.EstatisticaPer36.TotalRebotes).Average()).FirstOrDefault(), 2);
         }
 
         private static void MontarEstatisticaJogador(JogadorEstatistica estatistica, EstatisticaPer36Jogador estatisticaPer36Jogador)
         {
-            estatisticaPer36Jogador.Arremessos2Pontos = estatistica.EstatsticaPer36.Arremessos2Pontos;
-            estatisticaPer36Jogador.Arremessos2PontosTentados = estatistica.EstatsticaPer36.Arremessos2PontosTentados;
-            estatisticaPer36Jogador.Arremessos3Pontos = estatistica.EstatsticaPer36.Arremessos3Pontos;
-            estatisticaPer36Jogador.Arremessos3PontosTentados = estatistica.EstatsticaPer36.Arremessos3PontosTentados;
-            estatisticaPer36Jogador.ArremessosConvertidos = estatistica.EstatsticaPer36.ArremessosConvertidos;
-            estatisticaPer36Jogador.ArremessosTentados = estatistica.EstatsticaPer36.ArremessosTentados;
-            estatisticaPer36Jogador.Assistencias = estatistica.EstatsticaPer36.Assistencias;
-            estatisticaPer36Jogador.DesperdiciosBola = estatistica.EstatsticaPer36.DesperdiciosBola;
-            estatisticaPer36Jogador.Faltas = estatistica.EstatsticaPer36.Faltas;
-            estatisticaPer36Jogador.LancesLivres = estatistica.EstatsticaPer36.LancesLivres;
-            estatisticaPer36Jogador.Pontos = estatistica.EstatsticaPer36.Pontos;
-            estatisticaPer36Jogador.Porcentagem2Pontos = estatistica.EstatsticaPer36.Porcentagem2Pontos;
-            estatisticaPer36Jogador.Porcentagem3Pontos = estatistica.EstatsticaPer36.Porcentagem3Pontos;
-            estatisticaPer36Jogador.PorcentagemArremessos = estatistica.EstatsticaPer36.PorcentagemArremessos;
-            estatisticaPer36Jogador.PorcentagemLancesLivres = estatistica.EstatsticaPer36.PorcentagemLancesLivres;
-            estatisticaPer36Jogador.RebotesDefensivos = estatistica.EstatsticaPer36.RebotesDefensivos;
-            estatisticaPer36Jogador.RebotesOfensivos = estatistica.EstatsticaPer36.RebotesOfensivos;
-            estatisticaPer36Jogador.RoubosBola = estatistica.EstatsticaPer36.RoubosBola;
-            estatisticaPer36Jogador.Tocos = estatistica.EstatsticaPer36.Tocos;
-            estatisticaPer36Jogador.TotalRebotes = estatistica.EstatsticaPer36.TotalRebotes;
+            estatisticaPer36Jogador.Arremessos2Pontos = estatistica.EstatisticaPer36.Arremessos2Pontos;
+            estatisticaPer36Jogador.Arremessos2PontosTentados = estatistica.EstatisticaPer36.Arremessos2PontosTentados;
+            estatisticaPer36Jogador.Arremessos3Pontos = estatistica.EstatisticaPer36.Arremessos3Pontos;
+            estatisticaPer36Jogador.Arremessos3PontosTentados = estatistica.EstatisticaPer36.Arremessos3PontosTentados;
+            estatisticaPer36Jogador.ArremessosConvertidos = estatistica.EstatisticaPer36.ArremessosConvertidos;
+            estatisticaPer36Jogador.ArremessosTentados = estatistica.EstatisticaPer36.ArremessosTentados;
+            estatisticaPer36Jogador.Assistencias = estatistica.EstatisticaPer36.Assistencias;
+            estatisticaPer36Jogador.DesperdiciosBola = estatistica.EstatisticaPer36.DesperdiciosBola;
+            estatisticaPer36Jogador.Faltas = estatistica.EstatisticaPer36.Faltas;
+            estatisticaPer36Jogador.LancesLivres = estatistica.EstatisticaPer36.LancesLivres;
+            estatisticaPer36Jogador.Pontos = estatistica.EstatisticaPer36.Pontos;
+            estatisticaPer36Jogador.Porcentagem2Pontos = estatistica.EstatisticaPer36.Porcentagem2Pontos;
+            estatisticaPer36Jogador.Porcentagem3Pontos = estatistica.EstatisticaPer36.Porcentagem3Pontos;
+            estatisticaPer36Jogador.PorcentagemArremessos = estatistica.EstatisticaPer36.PorcentagemArremessos;
+            estatisticaPer36Jogador.PorcentagemLancesLivres = estatistica.EstatisticaPer36.PorcentagemLancesLivres;
+            estatisticaPer36Jogador.RebotesDefensivos = estatistica.EstatisticaPer36.RebotesDefensivos;
+            estatisticaPer36Jogador.RebotesOfensivos = estatistica.EstatisticaPer36.RebotesOfensivos;
+            estatisticaPer36Jogador.RoubosBola = estatistica.EstatisticaPer36.RoubosBola;
+            estatisticaPer36Jogador.Tocos = estatistica.EstatisticaPer36.Tocos;
+            estatisticaPer36Jogador.TotalRebotes = estatistica.EstatisticaPer36.TotalRebotes;
         }
 
         public IList<CalculoJogadorResponse> CalcularJogador(CalculoJogadorCommand calculoJogador, bool filtrarJogadores, int? qtdJogos)
@@ -177,7 +177,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 temporadaJogador = temporadaJogador.Select(x => new TemporadaJogador
                 {
                     Ano = x.Ano,
-                    Jogadores = x.Jogadores.Where(y => y.EstatsticaPer36.Jogos >= qtdJogos).ToList()
+                    Jogadores = x.Jogadores.Where(y => y.EstatisticaPer36.Jogos >= qtdJogos).ToList()
                 }).ToList();
             }
 
@@ -241,7 +241,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     tt.Posicao = (TipoPosicao)System.Enum.Parse(typeof(TipoPosicao), jogadorTemp.Posicao);
                     tt.ParametroCalculo = valorEstatistica == null ? temporadaCalculo.FirstOrDefault(x => x.Ano == temporadas.Ano).ValorEstatistica : valorEstatistica.Value;
                     if (calculoJogador.Criterio == TipoCriterio.EstatisticaPer36Minutes)
-                        tt.ValorEstatistica = ObterValorEstatistica(calculoJogador.Categoria.Value, item.EstatsticaPer36);
+                        tt.ValorEstatistica = ObterValorEstatistica(calculoJogador.Categoria.Value, item.EstatisticaPer36);
                     else
                         tt.ValorEstatistica = ObterValorEstatisticaAvancada(calculoJogador.CategoriaAvancada.Value, item.EstatisticaAvancada);
 
@@ -421,7 +421,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos2Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -429,7 +429,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos2PontosTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos2PontosTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -437,7 +437,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos3Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -445,7 +445,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos3PontosTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos3PontosTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -453,7 +453,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.ArremessosConvertidos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.ArremessosConvertidos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -461,7 +461,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.ArremessosTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.ArremessosTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -469,7 +469,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Assistencias).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Assistencias).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -477,7 +477,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.DesperdiciosBola).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.DesperdiciosBola).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -485,7 +485,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Faltas).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Faltas).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -493,7 +493,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.LancesLivres).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.LancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -501,7 +501,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.LancesLivresTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.LancesLivresTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -509,7 +509,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Pontos).Average(), 2)
                         }).ToList();
 
                         break;
@@ -518,7 +518,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Porcentagem2Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Porcentagem2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -526,7 +526,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Porcentagem3Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Porcentagem3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -534,7 +534,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.PorcentagemArremessos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.PorcentagemArremessos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -542,7 +542,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.PorcentagemLancesLivres).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.PorcentagemLancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -550,7 +550,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.RebotesDefensivos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.RebotesDefensivos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -558,7 +558,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.RebotesOfensivos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.RebotesOfensivos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -566,7 +566,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.RoubosBola).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.RoubosBola).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -574,7 +574,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Tocos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Tocos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -582,7 +582,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                     {
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.TotalRebotes).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.TotalRebotes).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -955,7 +955,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos2Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -964,7 +964,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos2PontosTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos2PontosTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -973,7 +973,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos3Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -982,7 +982,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Arremessos3PontosTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Arremessos3PontosTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -991,7 +991,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.ArremessosConvertidos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.ArremessosConvertidos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1000,7 +1000,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.ArremessosTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.ArremessosTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1009,7 +1009,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Assistencias).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Assistencias).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1018,7 +1018,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.DesperdiciosBola).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.DesperdiciosBola).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1027,7 +1027,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Faltas).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Faltas).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1036,7 +1036,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.LancesLivres).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.LancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1045,7 +1045,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.LancesLivresTentados).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.LancesLivresTentados).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1054,7 +1054,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1063,7 +1063,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Porcentagem2Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Porcentagem2Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1072,7 +1072,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Porcentagem3Pontos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Porcentagem3Pontos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1081,7 +1081,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.PorcentagemArremessos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.PorcentagemArremessos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1090,7 +1090,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.PorcentagemLancesLivres).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.PorcentagemLancesLivres).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1099,7 +1099,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.RebotesDefensivos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.RebotesDefensivos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1108,7 +1108,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.RebotesOfensivos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.RebotesOfensivos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1117,7 +1117,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.RoubosBola).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.RoubosBola).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1126,7 +1126,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.Tocos).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.Tocos).Average(), 2)
                         }).ToList();
                         break;
                     }
@@ -1135,7 +1135,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                         temporadaJogadorCalculo = temporadaJogador.Select(x => new TemporadaBaseCalculo
                         {
                             Ano = x.Ano,
-                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatsticaPer36.TotalRebotes).Average(), 2)
+                            ValorEstatistica = Math.Round(x.Jogadores.Select(y => y.EstatisticaPer36.TotalRebotes).Average(), 2)
                         }).ToList();
                         break;
                     }

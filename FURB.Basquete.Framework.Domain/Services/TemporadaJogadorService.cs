@@ -46,7 +46,7 @@ namespace FURB.Basquete.Framework.Domain.Services
 
                 jogadorEstatistica.Jogador_ID = jogadorAdicionado.Id;
                 jogadorEstatistica.Jogador_Posicao = jogadorAdicionado.Posicao;
-                jogadorEstatistica.EstatsticaPer36 = j.EstatisticaPer36;
+                jogadorEstatistica.EstatisticaPer36 = j.EstatisticaPer36;
                 jogadorEstatistica.EstatisticaAvancada = j.EstatsticaAvancada;
 
                 temporadaJogador.Ano = j.Ano;
@@ -70,7 +70,7 @@ namespace FURB.Basquete.Framework.Domain.Services
                 var jogadorEstatistica = new EstatisticaJogadorResponse
                 {
                     EstatisticaPer36 = temporada.Jogadores.Where(x => x.Jogador_ID == idJogador)
-                                                     .Select(x => x.EstatsticaPer36)
+                                                     .Select(x => x.EstatisticaPer36)
                                                      .Select(x => x.ToJogadorResponse(temporada.Ano, x))
                                                      .FirstOrDefault(),
                     EstatisticaAvancada = temporada.Jogadores.Where(x => x.Jogador_ID == idJogador)
